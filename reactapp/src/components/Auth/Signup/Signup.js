@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Select, InputLabel, MenuItem, FormControl } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
+import { Link , useNavigate} from 'react-router-dom';
 
 const defaultTheme = createTheme();
 
@@ -34,7 +34,7 @@ export default function SignUp() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
-
+  const navigate = useNavigate()
   const handleInputChange = (event) => {
     const fieldName = event.target.name;
     switch (fieldName) {
@@ -96,6 +96,7 @@ export default function SignUp() {
     }
 
     console.log(signUpData);
+    navigate(`/`);
   };
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -215,7 +216,7 @@ export default function SignUp() {
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <span>Already a user ? </span>
-                <Link to="/" variant="body2">
+                <Link to="/Login" variant="body2">
                   Sign in
                 </Link>
               </Grid>

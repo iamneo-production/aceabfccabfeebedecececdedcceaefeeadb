@@ -45,8 +45,9 @@ const Login = () => {
    
     console.log('Submitted:', email, password);
     //Write logic for response 
-    const userId = 1 // get this from backend response
-    navigate(`/HomePage/${userId}`);
+    const userId = 2 // get this from backend response
+    navigate(`/HomePage/UniversityList/${userId}`);
+   
   };
 
   const handleEmailChange = (e) => {
@@ -64,7 +65,7 @@ const Login = () => {
     
     <ThemeProvider theme={defaultTheme}>
       
-    <Container style={{ borderRadius: '2px', marginLeft: '800px', backgroundColor: 'white' }} component="main" maxWidth="xs">
+    <Container  component="main" maxWidth="xs">
 
   
         <CssBaseline />

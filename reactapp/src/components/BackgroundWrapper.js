@@ -11,7 +11,7 @@ const BackgroundWrapper = ({ children }) => {
           top: 0,
           left: 0,
           zIndex: -1, // Place the background behind other content
-          backgroundColor : "#D0BFFF"
+          backgroundColor : "white"
         }}
       >
         {children}
