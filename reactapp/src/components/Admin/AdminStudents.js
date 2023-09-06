@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+
+
 import {
   Button,
   Dialog,
@@ -17,6 +19,8 @@ import {
 } from '@mui/material';
 import AdminAppBar from '../AdminAppBar'
 import {useParams} from 'react-router-dom'
+import { DataGrid } from '@mui/x-data-grid'; // Import the DataGrid component
+
 
 const initialStudents = [
   {
@@ -255,6 +259,7 @@ const AdminStudents = () => {
     courseName: '',
     universityName: '',
   });
+  const [searchQuery, setSearchQuery] = useState('');
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
   const [editStudentId, setEditStudentId] = useState(null);
@@ -353,9 +358,18 @@ const AdminStudents = () => {
       >
         Add Student
       </Button>
+      <TextField
+  label="Search"
+  fullWidth
+  id="search"
+  margin="normal"
+  variant="outlined"
+  value={searchQuery}
+  onChange={(e) => setSearchQuery(e.target.value)}
+/>
 
       {/* Student Table */}
-      <TableContainer component={Paper}>
+      {/* <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
@@ -391,7 +405,46 @@ const AdminStudents = () => {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer> */}
+      <DataGrid
+        rows={students.filter((student) => {
+    // You can adjust this logic to search in specific columns if needed
+    const rowValues = Object.values(student).join('').toLowerCase();
+    return rowValues.includes(searchQuery.toLowerCase());
+  })}
+
+  columns={[
+    { field: 'id', headerName: 'ID', flex: 1 },
+    { field: 'firstName', headerName: 'First Name', flex: 1 },
+    { field: 'lastName', headerName: 'Last Name', flex: 1 },
+    { field: 'courseName', headerName: 'Enrolled Course', flex: 1 },
+    { field: 'universityName', headerName: 'University', flex: 1 },
+    { field: 'phoneNumber1', headerName: 'Mobile Number', flex: 1 },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      sortable: false,
+      flex: 1,
+      renderCell: (params) => (
+        <>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => handleEditClick(params.row.id)}
+          >
+            Edit
+          </Button>
+          <Button variant="outlined" color="secondary">
+            Delete
+          </Button>
+        </>
+      ),
+    },
+  ]}
+  autoHeight
+  pageSize={10}
+/>
+
 
       {/* Add Student Dialog */}
       <Dialog open={isDialogOpen} onClose={() => setDialogOpen(false)}>
