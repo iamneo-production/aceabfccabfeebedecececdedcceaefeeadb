@@ -46,8 +46,9 @@ const Login = () => {
     console.log('Submitted:', email, password);
     //Write logic for response 
     const userId = 1 // get this from backend response
-    navigate(`/HomePage/${userId}`);
-    if(email==="admin@gmail.com" && password ==="admin") navigate(`/AdminHomePage/${userId}`)
+    navigate(`/HomePage/UniversityList/${userId}`);
+   
+    if(email==="admin@gmail.com" && password ==="admin") navigate(`/AdminHomePage/UniversityList/${userId}`)
 
    
   };
@@ -87,7 +88,7 @@ const Login = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign in to AdmitEasy
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, p : 3 }}>
             <TextField

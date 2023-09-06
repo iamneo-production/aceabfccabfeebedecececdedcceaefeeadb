@@ -418,11 +418,16 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
   };
 
   const handleSearch = () => {
-    const filtered = courseList.filter((course) =>
-      course.courseName.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filtered = courseList.filter((course) => {
+      const nameMatch = course.courseName.toLowerCase().includes(searchQuery.toLowerCase());
+      const durationMatch = course.duration.toLowerCase().includes(searchQuery.toLowerCase());
+      const timingsMatch = course.timings.toLowerCase().includes(searchQuery.toLowerCase());
+      const descriptionMatch = course.description.toLowerCase().includes(searchQuery.toLowerCase())
+      return nameMatch || durationMatch || timingsMatch || descriptionMatch;
+    });
     setFilteredCourses(filtered);
   };
+  
 
   const handleEditClick = (course) => {
     setSelectedCourse(course);
@@ -513,53 +518,89 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
         Search
       </Button>
 
-      <Grid container spacing={2}>
-        {filteredCourses.map((course) => (
-          <Grid
-            key={course.courseId}
-            id={`courseGrid${course.courseId}`}
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            lg={3}
+ 
+      {/* <Grid container spacing={2}>
+  {filteredCourses.map((course) => (
+    <Grid key={course.courseId} item xs={12}>
+      <Card>
+        <CardContent>
+          <Typography variant="h6" component="div">
+            Course Name: {course.courseName}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Duration: {course.duration}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Description: {course.description}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Students: {course.studentsCount}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Timings: {course.timings}
+          </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleEditClick(course)}
           >
-            <Card>
-              <CardContent>
-                <Typography variant="h6" component="div">
-                  Course Name: {course.courseName}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Duration: {course.duration}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Description: {course.description}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Students: {course.studentsCount}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Timings: {course.timings}
-                </Typography>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => handleEditClick(course)}
-                >
-                  Edit
-                </Button>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => handleDeleteClick(course.courseId)}
-                >
-                  Delete
-                </Button>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+            Edit
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => handleDeleteClick(course.courseId)}
+          >
+            Delete
+          </Button>
+        </CardContent>
+      </Card>
+    </Grid>
+  ))}
+</Grid> */}
+
+<Grid container spacing={2}>
+  {filteredCourses.map((course) => (
+    <Grid key={course.courseId} item xs={12}>
+      <Card>
+        <CardContent style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+          <Typography variant="h6" component="div">
+            Course Name: {course.courseName}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Duration: {course.duration}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Description: {course.description}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Students: {course.studentsCount}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Timings: {course.timings}
+          </Typography>
+          <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between' }}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => handleEditClick(course)}
+            >
+              Edit
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => handleDeleteClick(course.courseId)}
+            >
+              Delete
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </Grid>
+  ))}
+</Grid>
+
 
       <Dialog open={editFormOpen} onClose={handleCloseEditForm}>
         <DialogContent>

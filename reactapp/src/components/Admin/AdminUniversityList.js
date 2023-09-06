@@ -38,12 +38,27 @@ const AdminUniversityList = () => {
     setSearchQuery(e.target.value);
   };
 
+  // const handleSearch = () => {
+  //   const filtered = cardDetails.filter((card) =>
+  //     card.title.toLowerCase().includes(searchQuery.toLowerCase())
+  //   );
+  //   setFilteredCards(filtered);
+  // };
   const handleSearch = () => {
-    const filtered = cardDetails.filter((card) =>
-      card.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filtered = cardDetails.filter((card) => {
+      const lowerCaseQuery = searchQuery.toLowerCase();
+      // Check if the query matches any of the properties (title, place, or ID)
+      return (
+        card.title.toLowerCase().includes(lowerCaseQuery) ||
+        card.place.toLowerCase().includes(lowerCaseQuery) ||
+        card.collegeId.toString().includes(lowerCaseQuery)
+      );
+    });
     setFilteredCards(filtered);
   };
+  
+  
+
 
   const handleCardClick = (card) => {
     setSelectedCard(card);

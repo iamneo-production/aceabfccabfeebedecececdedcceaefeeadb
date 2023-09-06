@@ -179,47 +179,44 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
       <Button variant="contained" color="primary" onClick={handleSearch}>
         Search
       </Button>
+      
 
-      <Grid container spacing={2}>
-        {filteredCourses.map((course) => (
-          <Grid
-            key={course.courseId}
-            id={`courseGrid${course.courseId}`}
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            lg={3}
+<Grid container spacing={2}>
+  {filteredCourses.map((course) => (
+    <Grid key={course.courseId} item xs={12}>
+      <Card>
+        <CardContent style={{ textAlign: "left" }}>
+          <Typography variant="h6" component="div">
+            Course Name: {course.courseName}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Duration: {course.duration}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Description: {course.description}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Students: {course.studentsCount}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Timings: {course.timings}
+          </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleEnrollClick(course)}
           >
-            <Card>
-              <CardContent>
-                <Typography variant="h6" component="div">
-                  Course Name: {course.courseName}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Duration: {course.duration}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Description: {course.description}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Students: {course.studentsCount}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Timings: {course.timings}
-                </Typography>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => handleEnrollClick(course)}
-                >
-                  Enroll Now
-                </Button>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+            Enroll Now
+          </Button>
+        </CardContent>
+      </Card>
+    </Grid>
+  ))}
+</Grid>
+
+
+
+      
 
       <Dialog open={enrollFormOpen} onClose={handleCloseEnrollForm}>
         <DialogContent>
