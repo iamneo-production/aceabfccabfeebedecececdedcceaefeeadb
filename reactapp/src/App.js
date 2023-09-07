@@ -1,8 +1,7 @@
 import './App.css';
 import RoutePaths from './components/RoutePaths'
 
-
-const  App = ()  =>{
+function App() {
   return (
     <div className="App">
       <RoutePaths/>

@@ -13,7 +13,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link , useNavigate} from 'react-router-dom';
 import BackgroundWrapper from '../../BackgroundWrapper'; 
-
+import Footer from '../../Footer'
 const defaultTheme = createTheme();
 
 
@@ -43,7 +43,12 @@ const Login = () => {
     }
 
    
-    console.log('Submitted:', email, password);
+    const formData = {
+      email: email,
+      password: password,
+    };
+  
+    console.log('Form Data:', formData);
     //Write logic for response 
     const userId = 1 // get this from backend response
     navigate(`/HomePage/UniversityList/${userId}`);
@@ -143,7 +148,7 @@ const Login = () => {
           </Box>
         </Box>
       </Container>
-   
+   <Footer/>
     </ThemeProvider>
     </BackgroundWrapper>
    

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Footer from '../Footer'
 
 import {
   Button,
@@ -22,220 +22,281 @@ import {useParams} from 'react-router-dom'
 import { DataGrid } from '@mui/x-data-grid'; // Import the DataGrid component
 
 
-const initialStudents = [
-  {
-    id: 1,
-    firstName: "John",
-    lastName: "Doe",
-    gender: "Male",
-    fatherName: "John Sr.",
-    phoneNumber1: "1234567890",
-    phoneNumber2: "9876543210",
-    motherName: "Jane Doe",
-    houseNo: "123",
-    streetName: "Main St",
-    areaName: "Downtown",
-    pinCode: "12345",
-    state: "CA",
-    nationality: "US",
-    email: "john.doe@example.com",
-    age: "25",
-    sslcMarks: "95",
-    courseName: "Course A",
-    universityName: "University X",
-  },
-  {
-    id: 2,
-    firstName: "Alice",
-    lastName: "Smith",
-    gender: "Female",
-    fatherName: "Robert Smith",
-    phoneNumber1: "5551234567",
-    phoneNumber2: "5559876543",
-    motherName: "Mary Smith",
-    houseNo: "456",
-    streetName: "Oak St",
-    areaName: "Uptown",
-    pinCode: "54321",
-    state: "NY",
-    nationality: "US",
-    email: "alice.smith@example.com",
-    age: "22",
-    sslcMarks: "92",
-    courseName: "Course B",
-    universityName: "University Y",
-  },
-  {
-    id: 3,
-    firstName: "David",
-    lastName: "Wilson",
-    gender: "Male",
-    fatherName: "Michael Wilson",
-    phoneNumber1: "7778889999",
-    phoneNumber2: "8887779999",
-    motherName: "Sarah Wilson",
-    houseNo: "789",
-    streetName: "Cedar St",
-    areaName: "Midtown",
-    pinCode: "78901",
-    state: "TX",
-    nationality: "US",
-    email: "david.wilson@example.com",
-    age: "23",
-    sslcMarks: "88",
-    courseName: "Course C",
-    universityName: "University Z",
-  },
-  {
-    id: 4,
-    firstName: "Emma",
-    lastName: "Davis",
-    gender: "Female",
-    fatherName: "Daniel Davis",
-    phoneNumber1: "9995554444",
-    phoneNumber2: "4445559999",
-    motherName: "Linda Davis",
-    houseNo: "567",
-    streetName: "Pine St",
-    areaName: "Westend",
-    pinCode: "67890",
-    state: "FL",
-    nationality: "US",
-    email: "emma.davis@example.com",
-    age: "24",
-    sslcMarks: "91",
-    courseName: "Course A",
-    universityName: "University X",
-  },
-  {
-    id: 5,
-    firstName: "Liam",
-    lastName: "Anderson",
-    gender: "Male",
-    fatherName: "William Anderson",
-    phoneNumber1: "7771234567",
-    phoneNumber2: "8889876543",
-    motherName: "Olivia Anderson",
-    houseNo: "101",
-    streetName: "Cypress St",
-    areaName: "Eastside",
-    pinCode: "54321",
-    state: "IL",
-    nationality: "US",
-    email: "liam.anderson@example.com",
-    age: "21",
-    sslcMarks: "90",
-    courseName: "Course B",
-    universityName: "University Y",
-  },
-  {
-    id: 6,
-    firstName: "Olivia",
-    lastName: "Harris",
-    gender: "Female",
-    fatherName: "James Harris",
-    phoneNumber1: "5557771234",
-    phoneNumber2: "5558884321",
-    motherName: "Sophia Harris",
-    houseNo: "222",
-    streetName: "Chestnut St",
-    areaName: "Downtown",
-    pinCode: "34567",
-    state: "CA",
-    nationality: "US",
-    email: "olivia.harris@example.com",
-    age: "20",
-    sslcMarks: "89",
-    courseName: "Course C",
-    universityName: "University Z",
-  },
-  {
-    id: 7,
-    firstName: "Noah",
-    lastName: "Clark",
-    gender: "Male",
-    fatherName: "Thomas Clark",
-    phoneNumber1: "7779991234",
-    phoneNumber2: "8889994321",
-    motherName: "Emily Clark",
-    houseNo: "333",
-    streetName: "Maple St",
-    areaName: "Midtown",
-    pinCode: "23456",
-    state: "NY",
-    nationality: "US",
-    email: "noah.clark@example.com",
-    age: "22",
-    sslcMarks: "87",
-    courseName: "Course A",
-    universityName: "University X",
-  },
-  {
-    id: 8,
-    firstName: "Sophia",
-    lastName: "Allen",
-    gender: "Female",
-    fatherName: "Richard Allen",
-    phoneNumber1: "5557779999",
-    phoneNumber2: "5558887777",
-    motherName: "Maria Allen",
-    houseNo: "444",
-    streetName: "Elm St",
-    areaName: "Westend",
-    pinCode: "45678",
-    state: "TX",
-    nationality: "US",
-    email: "sophia.allen@example.com",
-    age: "23",
-    sslcMarks: "86",
-    courseName: "Course B",
-    universityName: "University Y",
-  },
-  {
-    id: 9,
-    firstName: "Ella",
-    lastName: "Brown",
-    gender: "Female",
-    fatherName: "Joseph Brown",
-    phoneNumber1: "5557778888",
-    phoneNumber2: "5558887777",
-    motherName: "Ava Brown",
-    houseNo: "555",
-    streetName: "Palm St",
-    areaName: "Eastside",
-    pinCode: "56789",
-    state: "FL",
-    nationality: "US",
-    email: "ella.brown@example.com",
-    age: "24",
-    sslcMarks: "85",
-    courseName: "Course C",
-    universityName: "University Z",
-  },
-  {
-    id: 10,
-    firstName: "Bob",
-    lastName: "Taylor",
-    gender: "Male",
-    fatherName: "George Taylor",
-    phoneNumber1: "5559997777",
-    phoneNumber2: "5557779999",
-    motherName: "Grace Taylor",
-    houseNo: "666",
-    streetName: "Cedar St",
-    areaName: "Uptown",
-    pinCode: "67890",
-    state: "IL",
-    nationality: "US",
-    email: "bob.taylor@example.com",
-    age: "25",
-    sslcMarks: "84",
-    courseName: "Course A",
-    universityName: "University X",
-  },
-];
+// const initialStudents = [
+//   {
+//     id: 1,
+//     firstName: "John",
+//     lastName: "Doe",
+//     gender: "Male",
+//     fatherName: "John Sr.",
+//     phoneNumber1: "1234567890",
+//     phoneNumber2: "9876543210",
+//     motherName: "Jane Doe",
+//     houseNo: "123",
+//     streetName: "Main St",
+//     areaName: "Downtown",
+//     pinCode: "12345",
+//     state: "CA",
+//     nationality: "US",
+//     email: "john.doe@example.com",
+//     age: "25",
+//     sslcMarks: "95",
+//     courseName: "Course A",
+//     universityName: "University X",
+//   },
+//   {
+//     id: 2,
+//     firstName: "Alice",
+//     lastName: "Smith",
+//     gender: "Female",
+//     fatherName: "Robert Smith",
+//     phoneNumber1: "5551234567",
+//     phoneNumber2: "5559876543",
+//     motherName: "Mary Smith",
+//     houseNo: "456",
+//     streetName: "Oak St",
+//     areaName: "Uptown",
+//     pinCode: "54321",
+//     state: "NY",
+//     nationality: "US",
+//     email: "alice.smith@example.com",
+//     age: "22",
+//     sslcMarks: "92",
+//     courseName: "Course B",
+//     universityName: "University Y",
+//   },
+//   {
+//     id: 3,
+//     firstName: "David",
+//     lastName: "Wilson",
+//     gender: "Male",
+//     fatherName: "Michael Wilson",
+//     phoneNumber1: "7778889999",
+//     phoneNumber2: "8887779999",
+//     motherName: "Sarah Wilson",
+//     houseNo: "789",
+//     streetName: "Cedar St",
+//     areaName: "Midtown",
+//     pinCode: "78901",
+//     state: "TX",
+//     nationality: "US",
+//     email: "david.wilson@example.com",
+//     age: "23",
+//     sslcMarks: "88",
+//     courseName: "Course C",
+//     universityName: "University Z",
+//   },
+//   {
+//     id: 4,
+//     firstName: "Emma",
+//     lastName: "Davis",
+//     gender: "Female",
+//     fatherName: "Daniel Davis",
+//     phoneNumber1: "9995554444",
+//     phoneNumber2: "4445559999",
+//     motherName: "Linda Davis",
+//     houseNo: "567",
+//     streetName: "Pine St",
+//     areaName: "Westend",
+//     pinCode: "67890",
+//     state: "FL",
+//     nationality: "US",
+//     email: "emma.davis@example.com",
+//     age: "24",
+//     sslcMarks: "91",
+//     courseName: "Course A",
+//     universityName: "University X",
+//   },
+//   {
+//     id: 5,
+//     firstName: "Liam",
+//     lastName: "Anderson",
+//     gender: "Male",
+//     fatherName: "William Anderson",
+//     phoneNumber1: "7771234567",
+//     phoneNumber2: "8889876543",
+//     motherName: "Olivia Anderson",
+//     houseNo: "101",
+//     streetName: "Cypress St",
+//     areaName: "Eastside",
+//     pinCode: "54321",
+//     state: "IL",
+//     nationality: "US",
+//     email: "liam.anderson@example.com",
+//     age: "21",
+//     sslcMarks: "90",
+//     courseName: "Course B",
+//     universityName: "University Y",
+//   },
+//   {
+//     id: 6,
+//     firstName: "Olivia",
+//     lastName: "Harris",
+//     gender: "Female",
+//     fatherName: "James Harris",
+//     phoneNumber1: "5557771234",
+//     phoneNumber2: "5558884321",
+//     motherName: "Sophia Harris",
+//     houseNo: "222",
+//     streetName: "Chestnut St",
+//     areaName: "Downtown",
+//     pinCode: "34567",
+//     state: "CA",
+//     nationality: "US",
+//     email: "olivia.harris@example.com",
+//     age: "20",
+//     sslcMarks: "89",
+//     courseName: "Course C",
+//     universityName: "University Z",
+//   },
+//   {
+//     id: 7,
+//     firstName: "Noah",
+//     lastName: "Clark",
+//     gender: "Male",
+//     fatherName: "Thomas Clark",
+//     phoneNumber1: "7779991234",
+//     phoneNumber2: "8889994321",
+//     motherName: "Emily Clark",
+//     houseNo: "333",
+//     streetName: "Maple St",
+//     areaName: "Midtown",
+//     pinCode: "23456",
+//     state: "NY",
+//     nationality: "US",
+//     email: "noah.clark@example.com",
+//     age: "22",
+//     sslcMarks: "87",
+//     courseName: "Course A",
+//     universityName: "University X",
+//   },
+//   {
+//     id: 8,
+//     firstName: "Sophia",
+//     lastName: "Allen",
+//     gender: "Female",
+//     fatherName: "Richard Allen",
+//     phoneNumber1: "5557779999",
+//     phoneNumber2: "5558887777",
+//     motherName: "Maria Allen",
+//     houseNo: "444",
+//     streetName: "Elm St",
+//     areaName: "Westend",
+//     pinCode: "45678",
+//     state: "TX",
+//     nationality: "US",
+//     email: "sophia.allen@example.com",
+//     age: "23",
+//     sslcMarks: "86",
+//     courseName: "Course B",
+//     universityName: "University Y",
+//   },
+//   {
+//     id: 9,
+//     firstName: "Ella",
+//     lastName: "Brown",
+//     gender: "Female",
+//     fatherName: "Joseph Brown",
+//     phoneNumber1: "5557778888",
+//     phoneNumber2: "5558887777",
+//     motherName: "Ava Brown",
+//     houseNo: "555",
+//     streetName: "Palm St",
+//     areaName: "Eastside",
+//     pinCode: "56789",
+//     state: "FL",
+//     nationality: "US",
+//     email: "ella.brown@example.com",
+//     age: "24",
+//     sslcMarks: "85",
+//     courseName: "Course C",
+//     universityName: "University Z",
+//   },
+//   {
+//     id: 10,
+//     firstName: "Bob",
+//     lastName: "Taylor",
+//     gender: "Male",
+//     fatherName: "George Taylor",
+//     phoneNumber1: "5559997777",
+//     phoneNumber2: "5557779999",
+//     motherName: "Grace Taylor",
+//     houseNo: "666",
+//     streetName: "Cedar St",
+//     areaName: "Uptown",
+//     pinCode: "67890",
+//     state: "IL",
+//     nationality: "US",
+//     email: "bob.taylor@example.com",
+//     age: "25",
+//     sslcMarks: "84",
+//     courseName: "Course A",
+//     universityName: "University X",
+//   },
+// ];
+// Function to generate a random string
 
 const AdminStudents = () => {
+  function randomString(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+    }
+    return result;
+  }
+  
+  // Function to generate random student data
+  function generateRandomStudent(id) {
+    const firstName = randomString(5);
+    const lastName = randomString(5);
+    const gender = Math.random() < 0.5 ? 'Male' : 'Female';
+    const fatherName = randomString(8);
+    const phoneNumber1 = Math.floor(Math.random() * 10000000000).toString();
+    const phoneNumber2 = Math.floor(Math.random() * 10000000000).toString();
+    const motherName = randomString(8);
+    const houseNo = Math.floor(Math.random() * 1000).toString();
+    const streetName = randomString(8);
+    const areaName = randomString(8);
+    const pinCode = Math.floor(Math.random() * 100000).toString();
+    const state = randomString(2);
+    const nationality = 'US';
+    const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}@example.com`;
+    const age = Math.floor(Math.random() * 10) + 20;
+    const sslcMarks = Math.floor(Math.random() * 101);
+    const courseName = `Course ${Math.floor(Math.random() * 3) + 1}`;
+    const universityName = `University ${randomString(1)}`;
+  
+    return {
+      id,
+      firstName,
+      lastName,
+      gender,
+      fatherName,
+      phoneNumber1,
+      phoneNumber2,
+      motherName,
+      houseNo,
+      streetName,
+      areaName,
+      pinCode,
+      state,
+      nationality,
+      email,
+      age: age.toString(),
+      sslcMarks: sslcMarks.toString(),
+      courseName,
+      universityName,
+    };
+  }
+  
+  // Generate an array of 50 random students
+  const initialStudents = [];
+  for (let i = 1; i <= 100; i++) {
+    initialStudents.push(generateRandomStudent(i));
+  }
+  
   const params = useParams()
   const [students, setStudents] = useState(initialStudents);
   const [formData, setFormData] = useState({
@@ -309,7 +370,11 @@ const AdminStudents = () => {
     // Close the dialog
     setDialogOpen(false);
     setEditDialogOpen(false);
+  
+    // Log the form data
+    console.log(formData);
   };
+  
 
   const handleEditClick = (studentId) => {
     // Find the student to edit based on studentId
@@ -328,87 +393,53 @@ const AdminStudents = () => {
       <Typography variant="h4" gutterBottom>
         Students
       </Typography>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => {
-          setFormData({
-            id: '',
-            firstName: '',
-            lastName: '',
-            gender: '',
-            fatherName: '',
-            phoneNumber1: '',
-            phoneNumber2: '',
-            motherName: '',
-            houseNo: '',
-            streetName: '',
-            areaName: '',
-            pinCode: '',
-            state: '',
-            nationality: '',
-            email: '',
-            age: '',
-            sslcMarks: '',
-            courseName: '',
-            universityName: '',
-          });
-          setDialogOpen(true);
-        }}
-      >
-        Add Student
-      </Button>
-      <TextField
-  label="Search"
-  fullWidth
-  id="search"
-  margin="normal"
-  variant="outlined"
-  value={searchQuery}
-  onChange={(e) => setSearchQuery(e.target.value)}
-/>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+  <TextField
+    label="Search"
+    fullWidth
+    id="search"
+    margin="normal"
+    variant="outlined"
+    value={searchQuery}
+    onChange={(e) => setSearchQuery(e.target.value)}
+    style={{ width: '50%', margin: '0 auto' , marginBttom : '20px' }}
+  />
+  <Button
+    variant="contained"
+    color="primary"
+    onClick={() => {
+      setFormData({
+        id: '',
+        firstName: '',
+        lastName: '',
+        gender: '',
+        fatherName: '',
+        phoneNumber1: '',
+        phoneNumber2: '',
+        motherName: '',
+        houseNo: '',
+        streetName: '',
+        areaName: '',
+        pinCode: '',
+        state: '',
+        nationality: '',
+        email: '',
+        age: '',
+        sslcMarks: '',
+        courseName: '',
+        universityName: '',
+      });
+      setDialogOpen(true);
+    }}
+  >
+    Add Student
+  </Button>
+</div>
 
-      {/* Student Table */}
-      {/* <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Enrolled Course</TableCell>
-              <TableCell>University</TableCell>
-              <TableCell>Mobile Number</TableCell>
-              <TableCell>Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {students.map((student) => (
-              <TableRow key={student.id}>
-                <TableCell>{student.id}</TableCell>
-                <TableCell>{`${student.firstName} ${student.lastName}`}</TableCell>
-                <TableCell>{student.courseName}</TableCell>
-                <TableCell>{student.universityName}</TableCell>
-                <TableCell>{student.phoneNumber1}</TableCell>
-                <TableCell>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    onClick={() => handleEditClick(student.id)}
-                  >
-                    Edit
-                  </Button>
-                  <Button variant="outlined" color="secondary">
-                    Delete
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer> */}
+
       <DataGrid
         rows={students.filter((student) => {
-    // You can adjust this logic to search in specific columns if needed
+
     const rowValues = Object.values(student).join('').toLowerCase();
     return rowValues.includes(searchQuery.toLowerCase());
   })}
@@ -869,6 +900,7 @@ const AdminStudents = () => {
           </form>
         </DialogContent>
       </Dialog>
+      <Footer/>
     </div>
   );
 };

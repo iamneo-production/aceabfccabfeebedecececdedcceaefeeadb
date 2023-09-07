@@ -7,6 +7,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
+import Footer from "../../Footer"
 
 const ApplyForm = ({ collegeId, title, onClose }) => {
   console.log(collegeId)
@@ -120,6 +121,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
 
   const handleEnrollClick = (course) => {
     setSelectedCourse(course);
+    setFormData({}); 
     setEnrollFormOpen(true);
   };
 
@@ -168,20 +170,29 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
         </Grid>
       </Grid>
 
-      <TextField
-        label="Search by Course Title"
-        variant="outlined"
-        value={searchQuery}
-        onChange={handleSearchChange}
-        fullWidth
-        style={{ margin: "10px 0" }}
-      />
-      <Button variant="contained" color="primary" onClick={handleSearch}>
-        Search
-      </Button>
+      <div style={{ display: "flex", alignItems: "center", margin: "10px 0" }}>
+  <TextField
+    label="Search by Course Title"
+    variant="outlined"
+    value={searchQuery}
+    onChange={handleSearchChange}
+    fullWidth
+    style={{ flex: 1, marginRight: "10px" }}
+  />
+  <Button
+    variant="contained"
+    color="primary"
+    onClick={handleSearch}
+    style={{ minWidth: "auto" }}
+  >
+    Search
+  </Button>
+</div>
+
+
       
 
-<Grid container spacing={2}>
+{/* <Grid container spacing={2}>
   {filteredCourses.map((course) => (
     <Grid key={course.courseId} item xs={12}>
       <Card>
@@ -212,7 +223,43 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
       </Card>
     </Grid>
   ))}
+</Grid> */}
+<Grid container spacing={2}>
+  {filteredCourses.map((course) => (
+    <Grid key={course.courseId} item xs={12}>
+      <Card style={{ width: '100%' }}>
+        <CardContent style={{ textAlign: "left" }}>
+          <Typography variant="h6" component="div">
+            Course Name: {course.courseName}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Duration: {course.duration}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Description: {course.description}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Students: {course.studentsCount}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Timings: {course.timings}
+          </Typography>
+        </CardContent>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '8px' }}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleEnrollClick(course)}
+          >
+            Enroll Now
+          </Button>
+        </div>
+      </Card>
+    </Grid>
+  ))}
 </Grid>
+
+
 
 
 
@@ -412,6 +459,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
           </form>
         </DialogContent>
       </Dialog>
+      <Footer/>
     </div>
   );
 };

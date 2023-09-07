@@ -1,31 +1,31 @@
-
-import React, { useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useParams } from 'react-router-dom';
-import AdminCourses from './AdminCourses'
-import Rating from '@mui/material/Rating';
-import StarIcon from '@mui/icons-material/Star';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import TextField from '@mui/material/TextField';
-import AdminAppBar from '../AdminAppBar';
+import React, { useState, useEffect } from "react";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import CssBaseline from "@mui/material/CssBaseline";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useParams } from "react-router-dom";
+import AdminCourses from "./AdminCourses";
+import Rating from "@mui/material/Rating";
+import StarIcon from "@mui/icons-material/Star";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import TextField from "@mui/material/TextField";
+import AdminAppBar from "../AdminAppBar";
+import Footer from "../Footer"
 
 const defaultTheme = createTheme();
 
 const AdminUniversityList = () => {
   const params = useParams();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [filteredCards, setFilteredCards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCard, setSelectedCard] = useState(null);
@@ -38,12 +38,6 @@ const AdminUniversityList = () => {
     setSearchQuery(e.target.value);
   };
 
-  // const handleSearch = () => {
-  //   const filtered = cardDetails.filter((card) =>
-  //     card.title.toLowerCase().includes(searchQuery.toLowerCase())
-  //   );
-  //   setFilteredCards(filtered);
-  // };
   const handleSearch = () => {
     const filtered = cardDetails.filter((card) => {
       const lowerCaseQuery = searchQuery.toLowerCase();
@@ -56,9 +50,6 @@ const AdminUniversityList = () => {
     });
     setFilteredCards(filtered);
   };
-  
-  
-
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
@@ -101,50 +92,50 @@ const AdminUniversityList = () => {
     () => [
       {
         collegeId: 1,
-        title: 'Huston University',
-        description: 'Description for Card 1',
-        imageURL: 'https://source.unsplash.com/random/800x600?sig=1',
-        place: 'Houston, TX',
+        title: "Huston University",
+        description: "Description for Card 1",
+        imageURL: "https://source.unsplash.com/random/800x600?sig=1",
+        place: "Houston, TX",
         starRating: 4.5,
       },
       {
         collegeId: 2,
-        title: 'University of Houston',
-        description: 'Description for Card 2',
-        imageURL: 'https://source.unsplash.com/random/800x600?sig=2',
-        place: 'Houston, TX',
+        title: "University of Houston",
+        description: "Description for Card 2",
+        imageURL: "https://source.unsplash.com/random/800x600?sig=2",
+        place: "Houston, TX",
         starRating: 4.0,
       },
       {
         collegeId: 3,
-        title: 'MIT',
-        description: 'Description for Card 3',
-        imageURL: 'https://source.unsplash.com/random/800x600?sig=3',
-        place: 'Cambridge, MA',
+        title: "MIT",
+        description: "Description for Card 3",
+        imageURL: "https://source.unsplash.com/random/800x600?sig=3",
+        place: "Cambridge, MA",
         starRating: 4.8,
       },
       {
         collegeId: 4,
-        title: 'VIT',
-        description: 'Description for Card 4',
-        imageURL: 'https://source.unsplash.com/random/800x600?sig=4',
-        place: 'Vellore, India',
+        title: "VIT",
+        description: "Description for Card 4",
+        imageURL: "https://source.unsplash.com/random/800x600?sig=4",
+        place: "Vellore, India",
         starRating: 4.2,
       },
       {
         collegeId: 5,
-        title: 'SRM',
-        description: 'Description for Card 5',
-        imageURL: 'https://source.unsplash.com/random/800x600?sig=5',
-        place: 'Chennai, India',
+        title: "SRM",
+        description: "Description for Card 5",
+        imageURL: "https://source.unsplash.com/random/800x600?sig=5",
+        place: "Chennai, India",
         starRating: 4.6,
       },
       {
         collegeId: 6,
-        title: 'DPS',
-        description: 'Description for Card 6',
-        imageURL: 'https://source.unsplash.com/random/800x600?sig=6',
-        place: 'New Delhi, India',
+        title: "DPS",
+        description: "Description for Card 6",
+        imageURL: "https://source.unsplash.com/random/800x600?sig=6",
+        place: "New Delhi, India",
         starRating: 4.0,
       },
     ],
@@ -161,18 +152,21 @@ const AdminUniversityList = () => {
       <CssBaseline />
 
       <AdminAppBar id={params.userId} />
+     
 
       <main>
-        <Box sx={{ bgcolor: 'background.paper', pb: 6 }}></Box>
+     
+        <Box sx={{ bgcolor: "background.paper", pb: 6 }}></Box>
         <Container sx={{ py: 8 }} maxWidth="md">
+        <h3>Welcome Back Admin</h3>
           <Box
             sx={{
-              bgcolor: 'background.paper',
+              bgcolor: "background.paper",
               pt: 2,
               pb: 2,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             {!selectedCard && ( // Conditionally render the search bar and "Add Institute" button
@@ -182,13 +176,13 @@ const AdminUniversityList = () => {
                   placeholder="Search by title"
                   value={searchQuery}
                   onChange={handleSearchChange}
-                  style={{ width: '70%', padding: '10px' }}
+                  style={{ width: "70%", padding: "10px" }}
                 />
                 <Button
                   variant="contained"
                   color="primary"
                   onClick={handleSearch}
-                  style={{ marginLeft: '10px' }}
+                  style={{ marginLeft: "10px" }}
                 >
                   Search
                 </Button>
@@ -216,17 +210,17 @@ const AdminUniversityList = () => {
                 >
                   <Card
                     sx={{
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      cursor: 'pointer',
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      cursor: "pointer",
                     }}
                     onClick={() => handleCardClick(card)}
                   >
                     <CardMedia
                       component="div"
                       sx={{
-                        pt: '56.25%',
+                        pt: "56.25%",
                       }}
                       image={card.imageURL}
                     />
@@ -244,11 +238,21 @@ const AdminUniversityList = () => {
                           name="star-rating"
                           value={card.starRating}
                           precision={0.5}
-                          emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+                          emptyIcon={
+                            <StarIcon
+                              style={{ opacity: 0.55 }}
+                              fontSize="inherit"
+                            />
+                          }
                           readOnly
                         />
                       </Typography>
-                      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
                         <Button
                           variant="outlined"
                           onClick={(e) => handleEditClick(card, e)}
@@ -274,14 +278,18 @@ const AdminUniversityList = () => {
       {!selectedCard && ( // Conditionally render the "Add Institute" button
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
             pt: 2,
             pb: 2,
           }}
         >
-          <Button variant="contained" color="primary" onClick={handleAddInstituteClick}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleAddInstituteClick}
+          >
             Add Institute
           </Button>
         </Box>
@@ -295,38 +303,47 @@ const AdminUniversityList = () => {
             fullWidth
             margin="normal"
             label="Title"
-            value={editFormData.title || ''}
-            onChange={(e) => setEditFormData({ ...editFormData, title: e.target.value })}
+            value={editFormData.title || ""}
+            onChange={(e) =>
+              setEditFormData({ ...editFormData, title: e.target.value })
+            }
           />
           <TextField
             fullWidth
             margin="normal"
             label="Description"
-            value={editFormData.description || ''}
-            onChange={(e) => setEditFormData({ ...editFormData, description: e.target.value })}
+            value={editFormData.description || ""}
+            onChange={(e) =>
+              setEditFormData({ ...editFormData, description: e.target.value })
+            }
           />
           <TextField
             fullWidth
             margin="normal"
             label="Place"
-            value={editFormData.place || ''}
-            onChange={(e) => setEditFormData({ ...editFormData, place: e.target.value })}
+            value={editFormData.place || ""}
+            onChange={(e) =>
+              setEditFormData({ ...editFormData, place: e.target.value })
+            }
           />
           <TextField
             fullWidth
             margin="normal"
             label="Star Rating"
-            value={editFormData.starRating || ''}
-            onChange={(e) => setEditFormData({ ...editFormData, starRating: e.target.value })}
+            value={editFormData.starRating || ""}
+            onChange={(e) =>
+              setEditFormData({ ...editFormData, starRating: e.target.value })
+            }
           />
-           <TextField
+          <TextField
             fullWidth
             margin="normal"
             label="Image URL"
-            value={editFormData.imageURL || ''}
-            onChange={(e) => setEditFormData({ ...editFormData, imageURL: e.target.value })}
+            value={editFormData.imageURL || ""}
+            onChange={(e) =>
+              setEditFormData({ ...editFormData, imageURL: e.target.value })
+            }
           />
-
         </DialogContent>
         <DialogActions>
           <Button onClick={handleEditDialogClose}>Cancel</Button>
@@ -344,38 +361,47 @@ const AdminUniversityList = () => {
             fullWidth
             margin="normal"
             label="Title"
-            value={addFormData.title || ''}
-            onChange={(e) => setAddFormData({ ...addFormData, title: e.target.value })}
+            value={addFormData.title || ""}
+            onChange={(e) =>
+              setAddFormData({ ...addFormData, title: e.target.value })
+            }
           />
           <TextField
             fullWidth
             margin="normal"
             label="Description"
-            value={addFormData.description || ''}
-            onChange={(e) => setAddFormData({ ...addFormData, description: e.target.value })}
+            value={addFormData.description || ""}
+            onChange={(e) =>
+              setAddFormData({ ...addFormData, description: e.target.value })
+            }
           />
           <TextField
             fullWidth
             margin="normal"
             label="Place"
-            value={addFormData.place || ''}
-            onChange={(e) => setAddFormData({ ...addFormData, place: e.target.value })}
+            value={addFormData.place || ""}
+            onChange={(e) =>
+              setAddFormData({ ...addFormData, place: e.target.value })
+            }
           />
           <TextField
             fullWidth
             margin="normal"
             label="Star Rating"
-            value={addFormData.starRating || ''}
-            onChange={(e) => setAddFormData({ ...addFormData, starRating: e.target.value })}
+            value={addFormData.starRating || ""}
+            onChange={(e) =>
+              setAddFormData({ ...addFormData, starRating: e.target.value })
+            }
           />
-           <TextField
+          <TextField
             fullWidth
             margin="normal"
-            label="Star Rating"
-            value={addFormData.imageURL || ''}
-            onChange={(e) => setAddFormData({ ...addFormData, imageURL: e.target.value })}
+            label="Image URL"
+            value={addFormData.imageURL || ""}
+            onChange={(e) =>
+              setAddFormData({ ...addFormData, imageURL: e.target.value })
+            }
           />
-
         </DialogContent>
         <DialogActions>
           <Button onClick={handleAddDialogClose}>Cancel</Button>
@@ -384,23 +410,10 @@ const AdminUniversityList = () => {
           </Button>
         </DialogActions>
       </Dialog>
-       <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
-          Something here to give the footer a purpose!
-        </Typography>
-      </Box>
+   
+    <Footer/>
     </ThemeProvider>
   );
 };
 
 export default AdminUniversityList;
-
-

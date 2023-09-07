@@ -11,11 +11,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useParams } from 'react-router-dom';
-import CourseList from '../ApplyForm/ApplyForm'; // Import the CourseList component
+import ApplyForm from '../ApplyForm/ApplyForm'; // Import the CourseList component
 import { useState, useEffect } from 'react';
 import UserAppBar from '../../UserAppBar';
 import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
+import Footer from '../../Footer'
 
 const defaultTheme = createTheme();
 
@@ -30,14 +31,10 @@ const UniversityList = () => {
     setSearchQuery(e.target.value);
   };
 
-  // const handleSearch = () => {
-  //   const filtered = cardDetails.filter((card) =>
-  //     card.title.toLowerCase().includes(searchQuery.toLowerCase())
-  //   );
     const handleSearch = () => {
       const filtered = cardDetails.filter((card) => {
         const lowerCaseQuery = searchQuery.toLowerCase();
-        // Check if the query matches any of the properties (title, place, or ID)
+       
         return (
           card.title.toLowerCase().includes(lowerCaseQuery) ||
           card.place.toLowerCase().includes(lowerCaseQuery) ||
@@ -170,7 +167,7 @@ const UniversityList = () => {
             <Typography>Loading...</Typography>
           ) : selectedCard ? (
             // Display selected card details and courses
-            <CourseList
+            <ApplyForm
               collegeId={selectedCard.collegeId}
               title={selectedCard.title}
               onClose={handleCloseCardDetails}
@@ -232,21 +229,7 @@ const UniversityList = () => {
           )}
         </Container>
       </main>
-      {/* Footer */}
-      <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
-          Something here to give the footer a purpose!
-        </Typography>
-      </Box>
-      {/* End footer */}
+                      <Footer/>
     </ThemeProvider>
   );
 };
