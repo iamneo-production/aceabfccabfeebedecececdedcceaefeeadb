@@ -1,5 +1,8 @@
 package com.examly.springapp.model;
-import javax.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+
+
 
 @Entity
 public class AdminModel extends UserModel {
