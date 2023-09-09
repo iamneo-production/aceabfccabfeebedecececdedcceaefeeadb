@@ -133,13 +133,13 @@ export default function SignUp() {
     }
 
     // Make an Axios API call based on the selected role
-    const apiEndpoint = signUpData.role === 'admin' ? '/auth/admin/signup' : '/auth/user/signup';
+    const apiEndpoint = signUpData.role === 'admin' ? '/admin/signup' : '/user/signup';
 
     axios
       .post(apiEndpoint, signUpData)
       .then((response) => {
         console.log(response.data); // Handle success
-        navigate(`/`);
+        navigate(`/login`);
       })
       .catch((error) => {
         console.error(error); // Handle error
