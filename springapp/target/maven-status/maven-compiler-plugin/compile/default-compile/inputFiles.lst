@@ -1,1 +1,7 @@
+/home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/controller/AuthController.java
+/home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/model/UserModel.java
+/home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/model/LoginModel.java
+/home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/model/AdminModel.java
 /home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/SpringappApplication.java
+/home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/service/UserService.java
+/home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/repository/UserRepository.java

@@ -1,3 +1,4 @@
+package com.examly.springapp.model;
 import javax.persistence.*;
 
 

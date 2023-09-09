@@ -1,4 +1,6 @@
+package com.examly.springapp.model;
 import javax.persistence.*;
+
 
 @Entity
 public class LoginModel extends UserModel {
