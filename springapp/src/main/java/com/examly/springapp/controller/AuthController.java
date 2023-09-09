@@ -1,7 +1,14 @@
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RestController;
+import com.examly.springapp.service.AdminService;
+import com.examly.springapp.repository.UserRepository;
 
+
+
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
