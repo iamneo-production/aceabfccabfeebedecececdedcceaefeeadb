@@ -1,5 +1,7 @@
 import javax.persistence.*;
 
+
+
 @Entity
 @Table(name = "user")
 @Inheritance(strategy = InheritanceType.JOINED)
