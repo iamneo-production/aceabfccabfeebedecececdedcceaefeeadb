@@ -16,17 +16,21 @@ public class UserModel {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "user_role")
+    private String userRole;
+
     // Constructors
     public UserModel() {
         // Default constructor
     }
 
-    public UserModel(String email, String password) {
+    public UserModel(String email, String password, String userRole) {
         this.email = email;
         this.password = password;
+        this.userRole = userRole;
     }
 
-    // Getters and setters for common attributes
+    // Getters and setters for all attributes
     public Long getUserId() {
         return userId;
     }
@@ -49,5 +53,13 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 }

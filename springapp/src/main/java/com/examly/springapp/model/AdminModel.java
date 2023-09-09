@@ -11,8 +11,8 @@ public class AdminModel extends UserModel {
         // Default constructor
     }
 
-    public AdminModel(String email, String password, String mobileNumber) {
-        super(email, password);
+    public AdminModel(String email, String password, String userRole, String mobileNumber) {
+        super(email, password, userRole);
         this.mobileNumber = mobileNumber;
     }
 
