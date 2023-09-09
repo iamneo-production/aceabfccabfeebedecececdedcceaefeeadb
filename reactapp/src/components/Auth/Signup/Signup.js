@@ -61,6 +61,43 @@ export default function SignUp() {
     }
   };
 
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   const signUpData = {};
+
+  //   if (!data.get('role')) {
+  //     setRoleError(true);
+  //     return;
+  //   }
+
+  //   if (!validateEmail(data.get('email'))) {
+  //     setEmailError(true);
+  //     return;
+  //   }
+
+  //   if (!data.get('username')) {
+  //     setUserNameError(true);
+  //     return;
+  //   }
+
+  //   if (!validateMobile(data.get('mobileNumber'))) {
+  //     setMobileNumberError(true);
+  //     return;
+  //   }
+
+  //   if (!validatePasswords(data.get('password'), data.get('confirmPassword'))) {
+  //     setPasswordError(true);
+  //     return;
+  //   }
+
+  //   for (const [key, value] of data.entries()) {
+  //     signUpData[key] = value;
+  //   }
+
+  //   console.log(signUpData);
+  //   navigate(`/`);
+  // };
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -95,9 +132,20 @@ export default function SignUp() {
       signUpData[key] = value;
     }
 
-    console.log(signUpData);
-    navigate(`/`);
+    // Make an Axios API call based on the selected role
+    const apiEndpoint = signUpData.role === 'admin' ? '/auth/admin/signup' : '/auth/user/signup';
+
+    axios
+      .post(apiEndpoint, signUpData)
+      .then((response) => {
+        console.log(response.data); // Handle success
+        navigate(`/`);
+      })
+      .catch((error) => {
+        console.error(error); // Handle error
+      });
   };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
