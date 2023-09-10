@@ -48,9 +48,9 @@ const Login = () => {
       password: password,
     };
   
-    console.log('Form Data:', formData);
-    //Write logic for response 
-    const userId = 1 // get this from backend response
+    
+
+    
     navigate(`/HomePage/UniversityList/${userId}`);
    
     if(email==="admin@gmail.com" && password ==="admin") navigate(`/AdminHomePage/UniversityList/${userId}`)
