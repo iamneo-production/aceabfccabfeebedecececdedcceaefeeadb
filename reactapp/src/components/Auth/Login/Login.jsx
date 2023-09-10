@@ -41,15 +41,25 @@ const Login = () => {
       setPasswordError(true);
       return;
     }
-
-    if(userType=="admin") ;
-    
+    const apiEndpoint = userType === 'admin' ? 'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/login' : 'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/user/login';        
+  
    
     const formData = {
       email: email,
       password: password,
    
     };
+    axios
+    .post(apiEndpoint, formData)
+    .then((response) => {
+      console.log(response.data); 
+    
+    })
+    .catch((error) => {
+      console.error(error); // Handle error
+    });
+
+
   
     
 
