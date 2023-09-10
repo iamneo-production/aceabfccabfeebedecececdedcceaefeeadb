@@ -23,7 +23,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-
+  const [userType, setUserType] = useState('user');
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -42,10 +42,13 @@ const Login = () => {
       return;
     }
 
+    if(userType=="admin") ;
+    
    
     const formData = {
       email: email,
       password: password,
+   
     };
   
     
@@ -96,6 +99,16 @@ const Login = () => {
             Sign in to AdmitEasy
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, p : 3 }}>
+          <Select
+                required
+                label="User Type"
+                id="userType"
+                value={userType}
+                onChange={handleUserTypeChange}
+              >
+                <MenuItem value="user">User</MenuItem>
+                <MenuItem value="admin">Admin</MenuItem>
+              </Select>
             <TextField
               margin="normal"
               required
@@ -124,6 +137,13 @@ const Login = () => {
               error={passwordError}
               helperText={passwordError ? 'Password cannot be empty' : ''}
             />
+
+
+
+
+
+
+
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
