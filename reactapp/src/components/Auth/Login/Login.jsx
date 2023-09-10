@@ -74,10 +74,10 @@ const Login = () => {
       axios
         .post(apiEndpoint, formData)
         .then((response) => {
-          console.log(response.data);
+          console.log(response.data.userId);
           // Set the userId based on the response
           
-          navigate(`/HomePage/UniversityList/${response}`);
+          navigate(`/HomePage/UniversityList/${response.data.userId}`);
         })
         .catch((error) => {
           console.error(error); // Handle error
