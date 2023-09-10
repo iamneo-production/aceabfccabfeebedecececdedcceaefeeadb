@@ -39,7 +39,7 @@ export default function SignUp() {
   const handleInputChange = (event) => {
     const fieldName = event.target.name;
     switch (fieldName) {
-      case 'role':
+      case 'userRole':
         setRoleError(false);
         break;
       case 'email':
@@ -67,7 +67,7 @@ export default function SignUp() {
     const data = new FormData(event.currentTarget);
     const signUpData = {};
 
-    if (!data.get('role')) {
+    if (!data.get('userRole')) {
       setRoleError(true);
       return;
     }
@@ -142,7 +142,7 @@ export default function SignUp() {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     label="Select Admin or User"
-                    name="role"
+                    name="userRole"
                     error={roleError}
                     helperText={roleError ? 'Please select a role' : ''}
                     onChange={handleInputChange} // Reset error on change
