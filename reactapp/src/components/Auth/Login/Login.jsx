@@ -13,7 +13,10 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link , useNavigate} from 'react-router-dom';
 import BackgroundWrapper from '../../BackgroundWrapper'; 
-import Footer from '../../Footer'
+import Footer from '../../Footer';
+import MenuItem from '@mui/material/MenuItem'; // Import MenuItem
+import Select from '@mui/material/Select'; // Import Select
+import axios from 'axios'; // Import axios for making API requests
 const defaultTheme = createTheme();
 
 
@@ -41,32 +44,53 @@ const Login = () => {
       setPasswordError(true);
       return;
     }
-    const apiEndpoint = userType === 'admin' ? 'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/login' : 'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/user/login';        
-  
-   
+       
     const formData = {
       email: email,
       password: password,
    
     };
-    axios
-    .post(apiEndpoint, formData)
-    .then((response) => {
-      console.log(response.data); 
     
-    })
-    .catch((error) => {
-      console.error(error); // Handle error
-    });
+    if(userType==="admin"){
+      const apiEndpoint ='https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/login' 
+      
+            
+      axios
+      .post(apiEndpoint, formData)
+      .then((response) => {
+        console.log(response.data); 
+        navigate(`/AdminHomePage/UniversityList/${userId}`)
+      
+      })
+      .catch((error) => {
+        console.error(error); // Handle error
+      });
+
+    }
+    if(userType === "user"){
+      const apiEndpoint =  'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/user/login'; 
+      axios
+      .post(apiEndpoint, formData)
+      .then((response) => {
+        console.log(response.data); 
+        navigate(`/HomePage/UniversityList/${userId}`);
+      
+      })
+      .catch((error) => {
+        console.error(error); // Handle error
+      });
+    }
+
+   
 
 
   
     
 
     
-    navigate(`/HomePage/UniversityList/${userId}`);
+ 
    
-    if(email==="admin@gmail.com" && password ==="admin") navigate(`/AdminHomePage/UniversityList/${userId}`)
+   
 
    
   };
