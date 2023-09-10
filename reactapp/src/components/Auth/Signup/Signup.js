@@ -11,6 +11,7 @@ import Container from '@mui/material/Container';
 import { Select, InputLabel, MenuItem, FormControl } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link , useNavigate} from 'react-router-dom';
+import axios from 'axios';
 
 const defaultTheme = createTheme();
 
@@ -97,7 +98,7 @@ export default function SignUp() {
 
         // Make an Axios API call based on the selected role
         // const apiEndpoint = signUpData.role === 'admin' ? '/auth/admin/signup' : '/auth/user/signup';
-        apiEndpoint = 'https://8080-aceabfccabfeebedecececeaeaadbdbabf.premiumproject.examly.io/user/add'
+        const apiEndpoint = 'https://8080-aceabfccabfeebedecececeaeaadbdbabf.premiumproject.examly.io/user/add'
         axios
           .post(apiEndpoint, signUpData)
           .then((response) => {
