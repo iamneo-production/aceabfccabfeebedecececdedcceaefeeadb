@@ -95,9 +95,22 @@ export default function SignUp() {
       signUpData[key] = value;
     }
 
-    console.log(signUpData);
-    navigate(`/`);
-  };
+        // Make an Axios API call based on the selected role
+        // const apiEndpoint = signUpData.role === 'admin' ? '/auth/admin/signup' : '/auth/user/signup';
+        apiEndpoint = 'https://8080-aceabfccabfeebedecececeaeaadbdbabf.premiumproject.examly.io/user/add'
+        axios
+          .post(apiEndpoint, signUpData)
+          .then((response) => {
+            console.log(response.data); // Handle success
+            navigate(`/`);
+          })
+          .catch((error) => {
+            console.error(error); // Handle error
+          });
+      };
+
+ 
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
