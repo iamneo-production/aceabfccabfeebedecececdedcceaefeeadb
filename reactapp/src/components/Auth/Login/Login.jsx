@@ -60,6 +60,7 @@ const Login = () => {
           console.log(response.data);
           // Set the userId based on the response
           const userId = response.data.userId;
+          
           navigate(`/AdminHomePage/UniversityList/${userId}`);
         })
         .catch((error) => {
@@ -74,7 +75,7 @@ const Login = () => {
         .then((response) => {
           console.log(response.data);
           // Set the userId based on the response
-          const userId = response.data.userId;
+          const userId = response.data
           navigate(`/HomePage/UniversityList/${userId}`);
         })
         .catch((error) => {
