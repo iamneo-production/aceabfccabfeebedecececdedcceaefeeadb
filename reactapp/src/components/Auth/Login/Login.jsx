@@ -57,9 +57,9 @@ const Login = () => {
       axios
         .post(apiEndpoint, formData)
         .then((response) => {
-          console.log(response.data);
+          console.log(response.data.userId);
           // Set the userId based on the response
-          const userId = response.data
+          const userId = response.data.userId
 
           
           navigate(`/AdminHomePage/UniversityList/${userId}`);
