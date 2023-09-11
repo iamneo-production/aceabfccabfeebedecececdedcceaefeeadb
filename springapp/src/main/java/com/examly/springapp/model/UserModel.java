@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class User {
+public class UserModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,7 @@ public class User {
     private String mobileNumber;
     private String userRole;
 
-    public User(){
+    public UserModel(){
         // TODO document why this constructor is empty
     }
 
