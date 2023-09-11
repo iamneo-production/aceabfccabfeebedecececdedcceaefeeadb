@@ -43,24 +43,20 @@ if (user.isPresent()) {
 }
 }
 
-   
 
-    // @PostMapping("/admin/login")
-    // public Long adminLogin(@RequestBody User adminLoginUser) {
-    //     Optional<User> adminUser = userService.getAdminByEmailAndPassword(adminLoginUser.getEmail(), adminLoginUser.getPassword());
-    //     return adminUser.map(User::getUserId).orElse(null);
-    // }
-    @PostMapping("/admin/login")
+@PostMapping("/admin/login")
 public ResponseEntity<Map<String, Long>> adminLogin(@RequestBody User adminLoginUser) {
     Optional<User> adminUser = userService.getAdminByEmailAndPassword(adminLoginUser.getEmail(), adminLoginUser.getPassword());
 
     Map<String, Long> response = new HashMap<>();
-    if (adminUser.isPresent()) {
+        if(user.isPresent()){
         response.put("userId", adminUser.get().getUserId());
         return ResponseEntity.ok(response);
-    } else {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-    }
+        }
+        else{
+            response.put("userId","Not FOUND");
+            return ResponseEntity.ok(response);
+        }
 }
 
 
