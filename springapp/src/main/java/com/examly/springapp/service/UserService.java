@@ -1,14 +1,14 @@
 package com.examly.springapp.service;
 
-import com.examly.springapp.model.User;
+import com.examly.springapp.model.UserModel;
 
 import java.util.Optional;
 import java.util.*;
 
 public interface UserService {
-    User saveUser(User user);
-    public List<User> getAllUsers();
-    Optional<User> getUserByEmailAndPassword(String email, String password);
-    Optional<User> getAdminByEmailAndPassword(String email, String password);
-    Optional<User> getUserByEmail(String email);
+    User saveUser(UserModel user);
+    public List<UserModel> getAllUsers();
+    Optional<UserModel> getUserByEmailAndPassword(String email, String password);
+    Optional<UserModel> getAdminByEmailAndPassword(String email, String password);
+    Optional<UserModel> getUserByEmail(String email);
 }

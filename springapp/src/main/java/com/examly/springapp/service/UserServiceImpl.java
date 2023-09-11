@@ -24,7 +24,7 @@
 // }
 package com.examly.springapp.service;
 
-import com.examly.springapp.model.User;
+import com.examly.springapp.model.UserModel;
 import com.examly.springapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,16 +44,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> getUserByEmailAndPassword(String email, String password) {
+    public Optional<UserModel> getUserByEmailAndPassword(String email, String password) {
         return userRepository.findByEmailAndPassword(email, password);
     }
 
     @Override
-    public Optional<User> getAdminByEmailAndPassword(String email, String password) {
+    public Optional<UserModel> getAdminByEmailAndPassword(String email, String password) {
         return userRepository.findByEmailAndPasswordAndUserRole(email, password, "admin");
     }
     @Override
-    public Optional<User> getUserByEmail(String email) {
+    public Optional<UserModel> getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
     
