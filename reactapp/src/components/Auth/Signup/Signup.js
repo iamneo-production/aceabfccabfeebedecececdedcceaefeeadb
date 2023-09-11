@@ -104,7 +104,11 @@ const apiEndpoint = signUpData.userRole === 'admin' ? 'https://8080-aceabfccabfe
           .post(apiEndpoint, signUpData)
           .then((response) => {
             console.log(response.data); // Handle success
-            navigate(`/`);
+
+            if(response.data === "Email already exists"){
+              alert("Please Login , you have already signed up!")
+            }
+            else navigate(`/login`);
           })
           .catch((error) => {
             console.error(error); // Handle error
