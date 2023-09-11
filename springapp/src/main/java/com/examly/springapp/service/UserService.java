@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.*;
 
 public interface UserService {
-    User saveUser(UserModel user);
+    UserModel saveUser(UserModel user);
     public List<UserModel> getAllUsers();
     Optional<UserModel> getUserByEmailAndPassword(String email, String password);
     Optional<UserModel> getAdminByEmailAndPassword(String email, String password);
