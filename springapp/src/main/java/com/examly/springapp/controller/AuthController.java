@@ -48,9 +48,9 @@ if (user.isPresent()) {
 public ResponseEntity<Map<String, Long>> adminLogin(@RequestBody User adminLoginUser) {
     Optional<User> adminUser = userService.getAdminByEmailAndPassword(adminLoginUser.getEmail(), adminLoginUser.getPassword());
 
-    Map<String, Long> response = new HashMap<>();
+    Map<String, String> response = new HashMap<>();
         if(user.isPresent()){
-        response.put("userId", adminUser.get().getUserId());
+        response.put("userId", adminUser.get().getUserId().toString());
         return ResponseEntity.ok(response);
         }
         else{
