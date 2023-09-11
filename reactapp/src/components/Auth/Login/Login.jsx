@@ -59,15 +59,15 @@ const Login = () => {
         .then((response) => {
           console.log(response.data.userId);
           // Set the userId based on the response
-          let userId =""
-          if(userId)  
-          { 
+          let userId =response.data.userId
+          if(userId=="Not Found")  alert("User not Found")
+          else { 
             
             userId = response.data.userId;
             navigate(`/AdminHomePage/UniversityList/${userId}`);
 
           }
-          else alert("User not Found")
+          
           
 
           

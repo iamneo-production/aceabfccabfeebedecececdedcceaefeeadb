@@ -39,25 +39,14 @@ if (user.isPresent()) {
     response.put("userId", user.get().getUserId());
     return ResponseEntity.ok(response);
 } else {
-    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+     response.put("userId", "Not Found");
+    return ResponseEntity.ok(response);
 }
 }
 
 
-// @PostMapping("/admin/login")
-// public ResponseEntity<Map<String, String>> adminLogin(@RequestBody User adminLoginUser) {
-//     Optional<User> adminUser = userService.getAdminByEmailAndPassword(adminLoginUser.getEmail(), adminLoginUser.getPassword());
 
-//     Map<String, String> response = new HashMap<>();
-//         if(user.isPresent()){
-//         response.put("userId", adminUser.get().getUserId().toString());
-//         return ResponseEntity.ok(response);
-//         }
-//         else{
-//             response.put("userId","Not FOUND");
-//             return ResponseEntity.ok(response);
-//         }
-// }
+
 @PostMapping("/admin/login")
 public ResponseEntity<Map<String, String>> adminLogin(@RequestBody User adminLoginUser) {
     Optional<User> adminUser = userService.getAdminByEmailAndPassword(adminLoginUser.getEmail(), adminLoginUser.getPassword());
