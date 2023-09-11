@@ -1,7 +1,7 @@
 
 package com.examly.springapp.controller;
 
-import com.examly.springapp.model.User;
+import com.examly.springapp.model.UserModel;
 import com.examly.springapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ public class AuthController {
 
    
     @PostMapping("/user/signup")
-public ResponseEntity<String> signup(@RequestBody User user) {
+public ResponseEntity<String> signup(@RequestBody UserModel user) {
     // Check if the email already exists in the user table
     if (userService.getUserByEmail(user.getEmail()).isPresent()) {
         return ResponseEntity.ok("Email already exists");
@@ -34,7 +34,7 @@ public ResponseEntity<String> signup(@RequestBody User user) {
 
 
     @PostMapping("/admin/signup")
-public ResponseEntity<String> adminSignup(@RequestBody User adminUser) {
+public ResponseEntity<String> adminSignup(@RequestBody UserModel adminUser) {
     // Check if the email already exists in the user table
     if (userService.getUserByEmail(adminUser.getEmail()).isPresent()) {
         return ResponseEntity.ok("Email already exists");
@@ -47,8 +47,8 @@ public ResponseEntity<String> adminSignup(@RequestBody User adminUser) {
 
 
     @PostMapping("/user/login")
-    public ResponseEntity<Map<String, String>> userLogin(@RequestBody User loginUser) {
-        Optional<User> user = userService.getUserByEmailAndPassword(loginUser.getEmail(), loginUser.getPassword());
+    public ResponseEntity<Map<String, String>> userLogin(@RequestBody UserModel loginUser) {
+        Optional<UserModel> user = userService.getUserByEmailAndPassword(loginUser.getEmail(), loginUser.getPassword());
     
         Map<String, String> response = new HashMap<>();
         if (user.isPresent()) {
@@ -65,8 +65,8 @@ public ResponseEntity<String> adminSignup(@RequestBody User adminUser) {
 
 
 @PostMapping("/admin/login")
-public ResponseEntity<Map<String, String>> adminLogin(@RequestBody User adminLoginUser) {
-    Optional<User> adminUser = userService.getAdminByEmailAndPassword(adminLoginUser.getEmail(), adminLoginUser.getPassword());
+public ResponseEntity<Map<String, String>> adminLogin(@RequestBody UserModel adminLoginUser) {
+    Optional<UserModel> adminUser = userService.getAdminByEmailAndPassword(adminLoginUser.getEmail(), adminLoginUser.getPassword());
 
     Map<String, String> response = new HashMap<>();
     if (adminUser.isPresent()) {
@@ -81,7 +81,7 @@ public ResponseEntity<Map<String, String>> adminLogin(@RequestBody User adminLog
 
 
     @GetMapping("/user/getAll")
-    public List<User> getAllUsers() {
+    public List<UserModel> getAllUsers() {
         return userService.getAllUsers();
     }
 }

@@ -1,27 +1,4 @@
-// package com.examly.springapp.service;
 
-// import com.examly.springapp.model.User;
-// import com.examly.springapp.repository.UserRepository;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.stereotype.Service;
-
-
-// import java.util.List;
-// @Service
-// public class UserServiceImpl implements UserService{
-
-//     @Autowired
-//     private UserRepository userRepository;
-//     @Override
-//     public User saveUser(User user) {
-//         return userRepository.save(user);
-//     }
-
-//     @Override
-//     public List<User> getAllUsers() {
-//         return userRepository.findAll();
-//     }
-// }
 package com.examly.springapp.service;
 
 import com.examly.springapp.model.UserModel;
@@ -39,7 +16,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public User saveUser(User user) {
+    public User saveUser(UserModel user) {
         return userRepository.save(user);
     }
 
@@ -59,7 +36,7 @@ public class UserServiceImpl implements UserService {
     
 
     @Override
-    public List<User> getAllUsers() {
+    public List<UserModel> getAllUsers() {
         return userRepository.findAll();
     }
 }
