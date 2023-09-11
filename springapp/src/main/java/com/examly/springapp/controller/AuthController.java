@@ -29,11 +29,7 @@ public class AuthController {
         userService.saveUser(adminUser);
         return "New Admin User has been added";
     }
-    // @PostMapping("/user/login")
-    // public Long userLogin(@RequestBody User loginUser) {
-    //     Optional<User> user = userService.getUserByEmailAndPassword(loginUser.getEmail(), loginUser.getPassword());
-    //     return user.map(User::getUserId).orElse(null);
-    // }
+
     @PostMapping("/user/login")
 public ResponseEntity<Map<String, Long>> userLogin(@RequestBody User loginUser) {
 Optional<User> user = userService.getUserByEmailAndPassword(loginUser.getEmail(), loginUser.getPassword());
