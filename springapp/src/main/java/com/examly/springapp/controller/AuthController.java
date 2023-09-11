@@ -32,12 +32,19 @@ public ResponseEntity<String> signup(@RequestBody User user) {
     }
 }
 
+
     @PostMapping("/admin/signup")
-    public String adminSignup(@RequestBody User adminUser) {
-        // Implement admin signup logic here
-        userService.saveUser(adminUser);
-        return "New Admin User has been added";
+public ResponseEntity<String> adminSignup(@RequestBody User adminUser) {
+    // Check if the email already exists in the user table
+    if (userService.getUserByEmail(adminUser.getEmail()).isPresent()) {
+        return ResponseEntity.ok("Email already exists");
     }
+
+    // If the email doesn't exist, proceed with admin user registration
+    userService.saveUser(adminUser);
+    return ResponseEntity.ok("New Admin User has been added");
+}
+
 
     @PostMapping("/user/login")
     public ResponseEntity<Map<String, String>> userLogin(@RequestBody User loginUser) {
