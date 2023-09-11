@@ -52,10 +52,7 @@ public class UserServiceImpl implements UserService {
     public Optional<User> getAdminByEmailAndPassword(String email, String password) {
         return userRepository.findByEmailAndPasswordAndUserRole(email, password, "admin");
     }
-    @Override
-    public Optional<User> getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }    
+    
 
     @Override
     public List<User> getAllUsers() {
