@@ -84,9 +84,14 @@ const Login = () => {
         .post(apiEndpoint, formData)
         .then((response) => {
           console.log(response.data.userId);
+          if(response.data.userId=="Not Found")  alert("User not Found")
+          else{
+            navigate(`/HomePage/UniversityList/${response.data.userId}`);
+
+          }
           // Set the userId based o`n the response
           
-          navigate(`/HomePage/UniversityList/${response.data.userId}`);
+          
         })
         .catch((error) => {
           console.error(error); // Handle error

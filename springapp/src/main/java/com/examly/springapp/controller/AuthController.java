@@ -31,18 +31,19 @@ public class AuthController {
     }
 
     @PostMapping("/user/login")
-public ResponseEntity<Map<String, Long>> userLogin(@RequestBody User loginUser) {
-Optional<User> user = userService.getUserByEmailAndPassword(loginUser.getEmail(), loginUser.getPassword());
-
-Map<String, Long> response = new HashMap<>();
-if (user.isPresent()) {
-    response.put("userId", user.get().getUserId());
-    return ResponseEntity.ok(response);
-} else {
-     response.put("userId", "Not Found");
-    return ResponseEntity.ok(response);
-}
-}
+    public ResponseEntity<Map<String, String>> userLogin(@RequestBody User loginUser) {
+        Optional<User> user = userService.getUserByEmailAndPassword(loginUser.getEmail(), loginUser.getPassword());
+    
+        Map<String, String> response = new HashMap<>();
+        if (user.isPresent()) {
+            response.put("userId", user.get().getUserId().toString());
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("userId", "Not Found");
+            return ResponseEntity.ok(response);
+        }
+    }
+    
 
 
 
