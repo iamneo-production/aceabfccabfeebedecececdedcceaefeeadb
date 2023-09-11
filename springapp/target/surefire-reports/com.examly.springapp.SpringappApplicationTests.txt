@@ -1,40 +1,40 @@
 -------------------------------------------------------------------------------
 Test set: com.examly.springapp.SpringappApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 10, Failures: 9, Errors: 0, Skipped: 0, Time elapsed: 4.068 s <<< FAILURE! - in com.examly.springapp.SpringappApplicationTests
-testGetCoursesById  Time elapsed: 0.137 s  <<< FAILURE!
+Tests run: 10, Failures: 9, Errors: 0, Skipped: 0, Time elapsed: 6.134 s <<< FAILURE! - in com.examly.springapp.SpringappApplicationTests
+testGetCoursesById  Time elapsed: 0.196 s  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at com.examly.springapp.SpringappApplicationTests.testGetCoursesById(SpringappApplicationTests.java:44)
 
-testGetInstituteAll  Time elapsed: 0.005 s  <<< FAILURE!
+testGetInstituteAll  Time elapsed: 0.007 s  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at com.examly.springapp.SpringappApplicationTests.testGetInstituteAll(SpringappApplicationTests.java:100)
 
-testGetCoursesAll  Time elapsed: 0.018 s  <<< FAILURE!
+testGetCoursesAll  Time elapsed: 0.028 s  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at com.examly.springapp.SpringappApplicationTests.testGetCoursesAll(SpringappApplicationTests.java:32)
 
-testGetInstituteById  Time elapsed: 0.004 s  <<< FAILURE!
+testGetInstituteById  Time elapsed: 0.007 s  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at com.examly.springapp.SpringappApplicationTests.testGetInstituteById(SpringappApplicationTests.java:79)
 
-testGetStudentById  Time elapsed: 0.004 s  <<< FAILURE!
+testGetStudentById  Time elapsed: 0.009 s  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at com.examly.springapp.SpringappApplicationTests.testGetStudentById(SpringappApplicationTests.java:67)
 
-testGetStudentAll  Time elapsed: 0.004 s  <<< FAILURE!
+testGetStudentAll  Time elapsed: 0.006 s  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at com.examly.springapp.SpringappApplicationTests.testGetStudentAll(SpringappApplicationTests.java:55)
 
-testGetAdmissionById  Time elapsed: 0.004 s  <<< FAILURE!
+testGetAdmissionById  Time elapsed: 0.007 s  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at com.examly.springapp.SpringappApplicationTests.testGetAdmissionById(SpringappApplicationTests.java:113)
 
-testGetAdmissionAll  Time elapsed: 0.003 s  <<< FAILURE!
+testGetAdmissionAll  Time elapsed: 0.009 s  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at com.examly.springapp.SpringappApplicationTests.testGetAdmissionAll(SpringappApplicationTests.java:90)
 
-test_case2  Time elapsed: 0.002 s  <<< FAILURE!
+test_case2  Time elapsed: 0.003 s  <<< FAILURE!
 java.lang.AssertionError
 	at com.examly.springapp.SpringappApplicationTests.test_case2(SpringappApplicationTests.java:132)
 
