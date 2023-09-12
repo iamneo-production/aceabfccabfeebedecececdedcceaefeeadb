@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/admissions")
+@RequestMapping("/")
 public class AdmissionController {
     private final AdmissionService admissionService;
 
@@ -17,14 +17,14 @@ public class AdmissionController {
     }
 
     // Add an admission
-    @PostMapping("/add")
+    @PostMapping("/admin/addAdmission")
     public ResponseEntity<AdmissionModel> addAdmission(@RequestBody AdmissionModel admission) {
         AdmissionModel createdAdmission = admissionService.createAdmission(admission);
         return ResponseEntity.ok(createdAdmission);
     }
 
     // Edit an admission by ID
-    @PutMapping("/edit/{admissionId}")
+    @PutMapping("/admin/editAdmission/{admissionId}")
     public ResponseEntity<AdmissionModel> editAdmission(
             @PathVariable int admissionId, @RequestBody AdmissionModel updatedAdmission) {
         AdmissionModel admission = admissionService.updateAdmission(admissionId, updatedAdmission);
@@ -36,21 +36,17 @@ public class AdmissionController {
     }
 
     // View an admission by ID
-    @GetMapping("/view/{admissionId}")
-    public ResponseEntity<AdmissionModel> viewAdmission(@PathVariable int admissionId) {
-        Optional<AdmissionModel> admission = admissionService.getAdmissionById(admissionId);
-        return admission.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
+  
 
     // Delete an admission by ID
-    @DeleteMapping("/delete/{admissionId}")
+    @DeleteMapping("/admin/deleteAdmission/{admissionId}")
     public ResponseEntity<Void> deleteAdmission(@PathVariable int admissionId) {
         admissionService.deleteAdmission(admissionId);
         return ResponseEntity.noContent().build();
     }
 
     // View status of an admission by ID
-    @GetMapping("/status/{admissionId}")
+    @GetMapping("/admin/viewStatus/{admissionId}")
     public ResponseEntity<String> viewStatus(@PathVariable int admissionId) {
         Optional<AdmissionModel> admission = admissionService.getAdmissionById(admissionId);
         if (admission.isPresent()) {
@@ -61,7 +57,7 @@ public class AdmissionController {
     }
 
     // View all admissions
-    @GetMapping("/all")
+    @GetMapping("/admin/admission")
     public ResponseEntity<List<AdmissionModel>> viewAllAdmission() {
         List<AdmissionModel> admissions = admissionService.getAllAdmissions();
         return ResponseEntity.ok(admissions);
