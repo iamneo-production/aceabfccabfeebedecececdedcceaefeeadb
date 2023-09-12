@@ -106,7 +106,7 @@ public class AdminController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/viewAllCourses")
+    @GetMapping("/courses")
     public ResponseEntity<List<CourseModel>> viewAllCourses() {
         List<CourseModel> courses = courseService.getAllCourses();
         return ResponseEntity.ok(courses);
@@ -142,7 +142,7 @@ public class AdminController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/viewAllInstitutes")
+    @GetMapping("/institute")
     public ResponseEntity<List<InstituteModel>> viewAllInstitutes() {
         List<InstituteModel> institutes = instituteService.getAllInstitutes();
         return ResponseEntity.ok(institutes);

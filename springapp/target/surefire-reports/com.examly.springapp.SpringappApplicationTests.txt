@@ -1,20 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.examly.springapp.SpringappApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 10, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 5.2 s <<< FAILURE! - in com.examly.springapp.SpringappApplicationTests
-testGetCoursesById  Time elapsed: 0.151 s  <<< FAILURE!
-java.lang.AssertionError: Status expected:<200> but was:<404>
-	at com.examly.springapp.SpringappApplicationTests.testGetCoursesById(SpringappApplicationTests.java:44)
-
-testGetInstituteAll  Time elapsed: 0.006 s  <<< FAILURE!
-java.lang.AssertionError: Status expected:<200> but was:<404>
-	at com.examly.springapp.SpringappApplicationTests.testGetInstituteAll(SpringappApplicationTests.java:100)
-
-testGetCoursesAll  Time elapsed: 0.005 s  <<< FAILURE!
-java.lang.AssertionError: Status expected:<200> but was:<404>
-	at com.examly.springapp.SpringappApplicationTests.testGetCoursesAll(SpringappApplicationTests.java:32)
-
-testGetInstituteById  Time elapsed: 0.005 s  <<< FAILURE!
-java.lang.AssertionError: Status expected:<200> but was:<404>
-	at com.examly.springapp.SpringappApplicationTests.testGetInstituteById(SpringappApplicationTests.java:79)
-
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.054 s - in com.examly.springapp.SpringappApplicationTests
