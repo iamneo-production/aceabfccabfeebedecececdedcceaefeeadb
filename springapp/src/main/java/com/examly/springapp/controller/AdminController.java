@@ -24,6 +24,7 @@ import org.springframework.http.HttpStatus;
 
 
 @RestController
+@CrossOrigin
 @RequestMapping("/admin")
 public class AdminController {
     private final StudentService studentService;

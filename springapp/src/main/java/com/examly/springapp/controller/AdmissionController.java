@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 
 
 @RestController
+@CrossOrigin
 @RequestMapping("/")
 public class AdmissionController {
     private final AdmissionService admissionService;
