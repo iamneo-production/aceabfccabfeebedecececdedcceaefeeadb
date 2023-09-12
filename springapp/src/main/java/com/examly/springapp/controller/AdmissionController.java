@@ -35,7 +35,14 @@ public class AdmissionController {
         }
     }
 
+    
     // View an admission by ID
+@GetMapping("/admin/viewAdmission/{admissionId}")
+public ResponseEntity<AdmissionModel> viewAdmission(@PathVariable int admissionId) {
+    Optional<AdmissionModel> admission = admissionService.getAdmissionById(admissionId);
+    return admission.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+}
+
   
 
     // Delete an admission by ID
