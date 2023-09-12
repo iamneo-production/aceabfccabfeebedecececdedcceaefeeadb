@@ -1,5 +1,6 @@
 /home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/repository/AdmissionRepository.java
 /home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/repository/CourseRepository.java
+/home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/controller/AdminController.java
 /home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/repository/StudentRepository.java
 /home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/controller/AdmissionController.java
 /home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/repository/InstituteRepository.java

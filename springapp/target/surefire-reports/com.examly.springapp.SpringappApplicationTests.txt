@@ -1,12 +1,12 @@
 -------------------------------------------------------------------------------
 Test set: com.examly.springapp.SpringappApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 10, Failures: 6, Errors: 0, Skipped: 0, Time elapsed: 4.851 s <<< FAILURE! - in com.examly.springapp.SpringappApplicationTests
-testGetCoursesById  Time elapsed: 0.153 s  <<< FAILURE!
+Tests run: 10, Failures: 6, Errors: 0, Skipped: 0, Time elapsed: 5.354 s <<< FAILURE! - in com.examly.springapp.SpringappApplicationTests
+testGetCoursesById  Time elapsed: 0.125 s  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at com.examly.springapp.SpringappApplicationTests.testGetCoursesById(SpringappApplicationTests.java:44)
 
-testGetInstituteAll  Time elapsed: 0.006 s  <<< FAILURE!
+testGetInstituteAll  Time elapsed: 0.005 s  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at com.examly.springapp.SpringappApplicationTests.testGetInstituteAll(SpringappApplicationTests.java:100)
 
@@ -14,15 +14,15 @@ testGetCoursesAll  Time elapsed: 0.005 s  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at com.examly.springapp.SpringappApplicationTests.testGetCoursesAll(SpringappApplicationTests.java:32)
 
-testGetInstituteById  Time elapsed: 0.004 s  <<< FAILURE!
+testGetInstituteById  Time elapsed: 0.005 s  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at com.examly.springapp.SpringappApplicationTests.testGetInstituteById(SpringappApplicationTests.java:79)
 
-testGetStudentById  Time elapsed: 0.006 s  <<< FAILURE!
+testGetStudentById  Time elapsed: 0.005 s  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at com.examly.springapp.SpringappApplicationTests.testGetStudentById(SpringappApplicationTests.java:67)
 
-testGetStudentAll  Time elapsed: 0.004 s  <<< FAILURE!
+testGetStudentAll  Time elapsed: 0.031 s  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at com.examly.springapp.SpringappApplicationTests.testGetStudentAll(SpringappApplicationTests.java:55)
 
