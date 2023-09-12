@@ -1,5 +1,9 @@
-import java.util.List;
+package com.examly.springapp.service;
+
+import com.examly.springapp.model.AdmissionModel;
+
 import java.util.Optional;
+import java.util.*;
 
 public interface AdmissionService {
     AdmissionModel createAdmission(AdmissionModel admission);
