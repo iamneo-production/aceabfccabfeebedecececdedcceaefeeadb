@@ -2,7 +2,7 @@
 package com.examly.springapp.controller;
 
 import com.examly.springapp.model.UserModel;
-import com.examly.springapp.service.UserService;
+import com.examly.springapp.service.AdmissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
