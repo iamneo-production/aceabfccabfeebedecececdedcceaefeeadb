@@ -47,7 +47,7 @@ public class AdminController {
         return ResponseEntity.ok(createdStudent);
     }
 
-    @GetMapping("/viewStudent/{studentId}")
+    @GetMapping("/student/{studentId}")
     public ResponseEntity<StudentModel> viewStudent(@PathVariable int studentId) {
         Optional<StudentModel> student = studentService.getStudentById(studentId);
         return student.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
