@@ -70,7 +70,7 @@ public class AdminController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/viewAllStudents")
+    @GetMapping("/student")
     public ResponseEntity<List<StudentModel>> viewAllStudents() {
         List<StudentModel> students = studentService.getAllStudents();
         return ResponseEntity.ok(students);
