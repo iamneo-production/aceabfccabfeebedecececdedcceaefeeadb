@@ -16,6 +16,7 @@ public class InstituteModel {
     private String mobile;
     private String email;
     private String imageURL;
+    private String starRating;
 
     // Constructors...
 
@@ -24,13 +25,14 @@ public class InstituteModel {
     }
 
     // Parameterized constructor
-    public InstituteModel(String instituteName, String instituteDescription, String instituteAddress, String mobile, String email, String imageURL) {
+    public InstituteModel(String instituteName, String instituteDescription, String instituteAddress, String mobile, String email, String imageURL , String starRating) {
         this.instituteName = instituteName;
         this.instituteDescription = instituteDescription;
         this.instituteAddress = instituteAddress;
         this.mobile = mobile;
         this.email = email;
         this.imageURL = imageURL;
+        this.starRating = starRating;
     }
 
     // Getters and setters...
@@ -89,5 +91,12 @@ public class InstituteModel {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
+    }
+    public String getStarRating() {
+        return starRating;
+    }
+
+    public void setStarRating(String starRating) {
+        this.starRating = starRating;
     }
 }
