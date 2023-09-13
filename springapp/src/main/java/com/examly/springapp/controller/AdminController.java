@@ -167,7 +167,7 @@ public class AdminController {
      * // return ResponseEntity.ok(createdInstitutes); // }
      */
     
-     @PostMapping("/addCourses")
+     //@PostMapping("/addCourses")
     /* public ResponseEntity<List<CourseModel>> addCourses(@RequestBody List<CourseModel> courses) {
         List<CourseModel> createdCourses = new ArrayList<>();
     
