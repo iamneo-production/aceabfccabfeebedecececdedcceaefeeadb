@@ -123,35 +123,13 @@ public class AdminController {
     }
 
     
-     //Note this is for MASSS INSERTING OF DATA .
-     /*  @PostMapping("/addInstitutes") // public
-     * ResponseEntity<List<InstituteModel>> addInstitute(@RequestBody
-     * List<InstituteModel> institutes) { // List<InstituteModel> createdInstitutes
-     * = new ArrayList<>();
-     * 
-     * // for (InstituteModel institute : institutes) { // InstituteModel
-     * createdInstitute = instituteService.createInstitute(institute); //
-     * createdInstitutes.add(createdInstitute); // }
-     * 
-     * // return ResponseEntity.ok(createdInstitutes); // }
-     */
-     /* @PostMapping("/addCourses")
-    public ResponseEntity<List<CourseModel>> addCourses(@RequestBody List<CourseModel> courses) {
-        List<CourseModel> createdCourses = new ArrayList<>();
+
     
-        for (CourseModel course : courses) {
-            CourseModel createdCourse = courseService.createCourse(course);
-            createdCourses.add(createdCourse);
-        }
-    
-        return ResponseEntity.ok(createdCourses);
-    }
     @GetMapping("/viewInstitute/{instituteId}")
     public ResponseEntity<InstituteModel> viewInstitute(@PathVariable int instituteId) {
         Optional<InstituteModel> institute = instituteService.getInstituteById(instituteId);
         return institute.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-*/
     @PutMapping("/editInstitute/{instituteId}")
     public ResponseEntity<InstituteModel> editInstitute(@PathVariable int instituteId,
             @RequestBody InstituteModel updatedInstitute) {
@@ -174,4 +152,43 @@ public class AdminController {
         List<InstituteModel> institutes = instituteService.getAllInstitutes();
         return ResponseEntity.ok(institutes);
     }
+
+
+      //Note this is for MASS INSERTING OF DATA .
+     /*  @PostMapping("/addInstitutes") // public
+     * ResponseEntity<List<InstituteModel>> addInstitute(@RequestBody
+     * List<InstituteModel> institutes) { // List<InstituteModel> createdInstitutes
+     * = new ArrayList<>();
+     * 
+     * // for (InstituteModel institute : institutes) { // InstituteModel
+     * createdInstitute = instituteService.createInstitute(institute); //
+     * createdInstitutes.add(createdInstitute); // }
+     * 
+     * // return ResponseEntity.ok(createdInstitutes); // }
+     */
+    
+     @PostMapping("/addCourses")
+    /* public ResponseEntity<List<CourseModel>> addCourses(@RequestBody List<CourseModel> courses) {
+        List<CourseModel> createdCourses = new ArrayList<>();
+    
+        for (CourseModel course : courses) {
+            CourseModel createdCourse = courseService.createCourse(course);
+            createdCourses.add(createdCourse);
+        }
+    
+        return ResponseEntity.ok(createdCourses);
+    }
+    */
+    
+    
+
+
+
+
+
+
+
+
+
+
 }
