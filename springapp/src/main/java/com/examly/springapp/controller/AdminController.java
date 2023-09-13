@@ -78,6 +78,19 @@ public class AdminController {
     }
 
     // Course operations
+
+@PostMapping("/addCourses")
+public ResponseEntity<List<CourseModel>> addCourses(@RequestBody List<CourseModel> courses) {
+    List<CourseModel> createdCourses = new ArrayList<>();
+
+    for (CourseModel course : courses) {
+        CourseModel createdCourse = courseService.createCourse(course);
+        createdCourses.add(createdCourse);
+    }
+
+    return ResponseEntity.ok(createdCourses);
+}
+
     @PostMapping("/addCourse")
     public ResponseEntity<CourseModel> addCourse(@RequestBody CourseModel course) {
         CourseModel createdCourse = courseService.createCourse(course);
