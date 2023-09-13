@@ -108,6 +108,32 @@ const UniversityList = () => {
     ],
     []
   );
+  useEffect(() => {
+    // Define the API endpoint URL where your data is hosted
+    const apiUrl = 'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/institute';
+
+    // Make a GET request to fetch the list of institutes from the API
+    axios.get(apiUrl)
+      .then((response) => {
+        // Assuming your API returns an array of institutes
+        const dataFromApi = response.data;
+
+        // Extract relevant information and format it into cardDetails
+        const formattedCardDetails = dataFromApi.map((institute) => ({
+          collegeId: institute.instituteId,
+          title: institute.instituteName,
+          description: institute.instituteDescription,
+          imageURL: institute.imageURL,
+          place: institute.instituteAddress,
+          starRating: parseFloat(institute.starRating), // Convert starRating to a float
+        }));
+
+        setCardDetails(formattedCardDetails);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
 
   useEffect(() => {
     setFilteredCards(cardDetails);
