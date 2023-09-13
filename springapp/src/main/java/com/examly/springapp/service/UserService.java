@@ -9,7 +9,6 @@ public interface UserService {
     UserModel saveUser(UserModel user);
     public List<UserModel> getAllUsers();
     Optional<UserModel> getUserByEmailAndPassword(String email, String password);
-    
-    Optional<UserModel> findByEmailAndPasswordAndUserRole(String email, String password, String userRole);
+    Optional<UserModel> getAdminByEmailAndPassword(String email, String password);
     Optional<UserModel> getUserByEmail(String email);
 }
