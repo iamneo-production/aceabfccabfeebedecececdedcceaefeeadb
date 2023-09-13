@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<UserModel> getUserByEmailAndPassword(String email, String password) {
-        return userRepository.findByEmailAndPassword(email, password);
+        return userRepository.findByEmailAndPassword(email, password, "user");
     }
 
     @Override
