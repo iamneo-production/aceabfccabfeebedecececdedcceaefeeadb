@@ -9,19 +9,12 @@ import com.examly.springapp.service.InstituteService;
 import com.examly.springapp.model.StudentModel;
 import com.examly.springapp.service.StudentService;
 
-
-
-
-
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import java.util.*;
 
 import org.springframework.http.HttpStatus;
-
 
 @RestController
 @CrossOrigin
@@ -32,9 +25,7 @@ public class AdminController {
     private final InstituteService instituteService;
 
     @Autowired
-    public AdminController(
-            StudentService studentService,
-            CourseService courseService,
+    public AdminController(StudentService studentService, CourseService courseService,
             InstituteService instituteService) {
         this.studentService = studentService;
         this.courseService = courseService;
@@ -55,8 +46,8 @@ public class AdminController {
     }
 
     @PutMapping("/editStudent/{studentId}")
-    public ResponseEntity<StudentModel> editStudent(
-            @PathVariable int studentId, @RequestBody StudentModel updatedStudent) {
+    public ResponseEntity<StudentModel> editStudent(@PathVariable int studentId,
+            @RequestBody StudentModel updatedStudent) {
         StudentModel student = studentService.updateStudent(studentId, updatedStudent);
         if (student != null) {
             return ResponseEntity.ok(student);
@@ -91,8 +82,7 @@ public class AdminController {
     }
 
     @PutMapping("/editCourse/{courseId}")
-    public ResponseEntity<CourseModel> editCourse(
-            @PathVariable int courseId, @RequestBody CourseModel updatedCourse) {
+    public ResponseEntity<CourseModel> editCourse(@PathVariable int courseId, @RequestBody CourseModel updatedCourse) {
         CourseModel course = courseService.updateCourse(courseId, updatedCourse);
         if (course != null) {
             return ResponseEntity.ok(course);
@@ -113,20 +103,13 @@ public class AdminController {
         return ResponseEntity.ok(courses);
     }
 
-    
     // @GetMapping("/courseByInstitute/{instituteId}")
-    
-    // public List<CourseModel> getCoursesByInstituteId(@PathVariable int instituteId) {
-    //     // Call the service method to retrieve courses by Institute ID
-    //     return courseService.getCoursesByInstituteId(instituteId);
+
+    // public List<CourseModel> getCoursesByInstituteId(@PathVariable int
+    // instituteId) {
+    // // Call the service method to retrieve courses by Institute ID
+    // return courseService.getCoursesByInstituteId(instituteId);
     // }
-
-
-
-
-
-
-
 
     // Institute operations
     @PostMapping("/addInstitute")
@@ -135,29 +118,39 @@ public class AdminController {
         return ResponseEntity.ok(createdInstitute);
     }
 
-   /* //Note this is for MASSS INSERTING OF DATA FOR INSTITUTES. 
-//     @PostMapping("/addInstitute")
-// public ResponseEntity<List<InstituteModel>> addInstitute(@RequestBody List<InstituteModel> institutes) {
-//     List<InstituteModel> createdInstitutes = new ArrayList<>();
-
-//     for (InstituteModel institute : institutes) {
-//         InstituteModel createdInstitute = instituteService.createInstitute(institute);
-//         createdInstitutes.add(createdInstitute);
-//     }
-
-//     return ResponseEntity.ok(createdInstitutes);
-// }
-*/
-
+    
+     //Note this is for MASSS INSERTING OF DATA .
+     /*  @PostMapping("/addInstitutes") // public
+     * ResponseEntity<List<InstituteModel>> addInstitute(@RequestBody
+     * List<InstituteModel> institutes) { // List<InstituteModel> createdInstitutes
+     * = new ArrayList<>();
+     * 
+     * // for (InstituteModel institute : institutes) { // InstituteModel
+     * createdInstitute = instituteService.createInstitute(institute); //
+     * createdInstitutes.add(createdInstitute); // }
+     * 
+     * // return ResponseEntity.ok(createdInstitutes); // }
+     */
+     /* @PostMapping("/addCourses")
+    public ResponseEntity<List<CourseModel>> addCourses(@RequestBody List<CourseModel> courses) {
+        List<CourseModel> createdCourses = new ArrayList<>();
+    
+        for (CourseModel course : courses) {
+            CourseModel createdCourse = courseService.createCourse(course);
+            createdCourses.add(createdCourse);
+        }
+    
+        return ResponseEntity.ok(createdCourses);
+    }
     @GetMapping("/viewInstitute/{instituteId}")
     public ResponseEntity<InstituteModel> viewInstitute(@PathVariable int instituteId) {
         Optional<InstituteModel> institute = instituteService.getInstituteById(instituteId);
         return institute.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-
+*/
     @PutMapping("/editInstitute/{instituteId}")
-    public ResponseEntity<InstituteModel> editInstitute(
-            @PathVariable int instituteId, @RequestBody InstituteModel updatedInstitute) {
+    public ResponseEntity<InstituteModel> editInstitute(@PathVariable int instituteId,
+            @RequestBody InstituteModel updatedInstitute) {
         InstituteModel institute = instituteService.updateInstitute(instituteId, updatedInstitute);
         if (institute != null) {
             return ResponseEntity.ok(institute);
