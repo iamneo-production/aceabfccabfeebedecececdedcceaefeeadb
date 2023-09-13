@@ -20,34 +20,30 @@ import Footer from '../../Footer'
 import axios from 'axios';
 
 const defaultTheme = createTheme();
-
 const UniversityList = () => {
   const params = useParams();
   const [searchQuery, setSearchQuery] = useState('');
-  const [filteredCards, setFilteredCards] = useState([]);
+  const [filteredCards, setFilteredCards] = useState([]); // Initialize as an empty array
   const [loading, setLoading] = useState(true);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [cardDetails,setCardDetails] = useState(null);
+  const [cardDetails, setCardDetails] = useState(null);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
-    const handleSearch = () => {
-      const filtered = cardDetails.filter((card) => {
-        const lowerCaseQuery = searchQuery.toLowerCase();
-       
-        return (
-          card.title.toLowerCase().includes(lowerCaseQuery) ||
-          card.place.toLowerCase().includes(lowerCaseQuery) ||
-          card.collegeId.toString().includes(lowerCaseQuery)
-        );
-      });
-      setFilteredCards(filtered);
-    };
-    
-    
- 
+  const handleSearch = () => {
+    const filtered = cardDetails.filter((card) => {
+      const lowerCaseQuery = searchQuery.toLowerCase();
+
+      return (
+        card.title.toLowerCase().includes(lowerCaseQuery) ||
+        card.place.toLowerCase().includes(lowerCaseQuery) ||
+        card.collegeId.toString().includes(lowerCaseQuery)
+      );
+    });
+    setFilteredCards(filtered);
+  };
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
@@ -57,19 +53,19 @@ const UniversityList = () => {
     setSelectedCard(null);
   };
 
-
   useEffect(() => {
     // Define the API endpoint URL where your data is hosted
-    const apiUrl = 'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/institute';
+    const apiUrl =
+      'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/institute';
 
     // Make a GET request to fetch the list of institutes from the API
-    axios.get(apiUrl)
+    axios
+      .get(apiUrl)
       .then((response) => {
         // Assuming your API returns an array of institutes
         const dataFromApi = response.data;
-        console.log(response.data)
+        console.log(response.data);
 
-      
         const formattedCardDetails = dataFromApi.map((institute) => ({
           collegeId: institute.instituteId,
           title: institute.instituteName,
@@ -80,15 +76,13 @@ const UniversityList = () => {
         }));
 
         setCardDetails(formattedCardDetails);
-        setFilteredCards(cardDetails);
+        setFilteredCards(formattedCardDetails); // Initialize filteredCards with the formatted data
         setLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
-  }, [cardDetails]);
-
-
+  }, []);
 
   return (
     <ThemeProvider theme={defaultTheme}>
