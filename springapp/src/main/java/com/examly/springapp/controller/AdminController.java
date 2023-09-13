@@ -141,17 +141,17 @@ public class AdminController {
     }
 
    /* //Note this is for MASSS INSERTING OF DATA FOR INSTITUTES. 
-//     @PostMapping("/addInstitute")
-// public ResponseEntity<List<InstituteModel>> addInstitute(@RequestBody List<InstituteModel> institutes) {
-//     List<InstituteModel> createdInstitutes = new ArrayList<>();
+    @PostMapping("/addInstitute")
+public ResponseEntity<List<InstituteModel>> addInstitute(@RequestBody List<InstituteModel> institutes) {
+    List<InstituteModel> createdInstitutes = new ArrayList<>();
 
-//     for (InstituteModel institute : institutes) {
-//         InstituteModel createdInstitute = instituteService.createInstitute(institute);
-//         createdInstitutes.add(createdInstitute);
-//     }
+    for (InstituteModel institute : institutes) {
+        InstituteModel createdInstitute = instituteService.createInstitute(institute);
+        createdInstitutes.add(createdInstitute);
+    }
 
-//     return ResponseEntity.ok(createdInstitutes);
-// }
+    return ResponseEntity.ok(createdInstitutes);
+}
 */
 
     @GetMapping("/viewInstitute/{instituteId}")
