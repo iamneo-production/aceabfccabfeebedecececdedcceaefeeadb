@@ -18,7 +18,7 @@ public class CourseServiceImpl implements CourseService {
     public CourseModel createCourse(CourseModel course) {
         return courseRepository.save(course);
     }
-    @Override
+   
     public List<CourseModel> getCoursesByInstituteInstituteId(int instituteId) {
         return courseRepository.findByInstituteInstituteId(instituteId);
     }
