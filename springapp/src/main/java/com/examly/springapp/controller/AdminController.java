@@ -113,8 +113,18 @@ public class AdminController {
         return ResponseEntity.ok(courses);
     }
 
+    @Autowired
+    public CourseController(CourseService courseService) {
+        this.courseService = courseService;
+    }
+    @GetMapping("/courseByInstitute/{instituteId}")
+    
+    public List<CourseModel> getCoursesByInstituteId(@PathVariable int instituteId) {
+        // Call the service method to retrieve courses by Institute ID
+        return courseService.getCoursesByInstituteId(instituteId);
 
-    @GetMapping("/couRseByInstitute/{instituteId}")
+
+    }
 
 
 
