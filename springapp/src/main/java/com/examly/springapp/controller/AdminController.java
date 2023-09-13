@@ -155,20 +155,21 @@ public class AdminController {
 
 
       //Note this is for MASS INSERTING OF DATA .
-     /*  @PostMapping("/addInstitutes") // public
-     * ResponseEntity<List<InstituteModel>> addInstitute(@RequestBody
-     * List<InstituteModel> institutes) { // List<InstituteModel> createdInstitutes
-     * = new ArrayList<>();
-     * 
-     * // for (InstituteModel institute : institutes) { // InstituteModel
-     * createdInstitute = instituteService.createInstitute(institute); //
-     * createdInstitutes.add(createdInstitute); // }
-     * 
-     * // return ResponseEntity.ok(createdInstitutes); // }
-     */
+      @PostMapping("/addInstitutes") 
+       public  ResponseEntity<List<InstituteModel>> addInstitute(@RequestBody List<InstituteModel> institutes) { 
+         List<InstituteModel> createdInstitutes  = new ArrayList<>();
+      
+      for (InstituteModel institute : institutes)
+       { InstituteModel   createdInstitute = instituteService.createInstitute(institute); 
+     createdInstitutes.add(createdInstitute); 
+     }
     
-     //@PostMapping("/addCourses")
-    /* public ResponseEntity<List<CourseModel>> addCourses(@RequestBody List<CourseModel> courses) {
+       return ResponseEntity.ok(createdInstitutes); 
+      }
+     
+    
+    @PostMapping("/addCourses")
+    public ResponseEntity<List<CourseModel>> addCourses(@RequestBody List<CourseModel> courses) {
         List<CourseModel> createdCourses = new ArrayList<>();
     
         for (CourseModel course : courses) {
@@ -178,7 +179,7 @@ public class AdminController {
     
         return ResponseEntity.ok(createdCourses);
     }
-    */
+  
     
     
 
