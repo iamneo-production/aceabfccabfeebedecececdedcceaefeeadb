@@ -120,6 +120,20 @@ public class AdminController {
         return ResponseEntity.ok(createdInstitute);
     }
 
+    //Note this is for MASSS INSERTING OF DATA 
+//     @PostMapping("/addInstitute")
+// public ResponseEntity<List<InstituteModel>> addInstitute(@RequestBody List<InstituteModel> institutes) {
+//     List<InstituteModel> createdInstitutes = new ArrayList<>();
+
+//     for (InstituteModel institute : institutes) {
+//         InstituteModel createdInstitute = instituteService.createInstitute(institute);
+//         createdInstitutes.add(createdInstitute);
+//     }
+
+//     return ResponseEntity.ok(createdInstitutes);
+// }
+
+
     @GetMapping("/viewInstitute/{instituteId}")
     public ResponseEntity<InstituteModel> viewInstitute(@PathVariable int instituteId) {
         Optional<InstituteModel> institute = instituteService.getInstituteById(instituteId);
