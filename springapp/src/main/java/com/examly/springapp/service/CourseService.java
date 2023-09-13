@@ -8,6 +8,8 @@ public interface CourseService {
     CourseModel createCourse(CourseModel course);
     Optional<CourseModel> getCourseById(int courseId);
     List<CourseModel> getAllCourses();
+    List<CourseModel> getCoursesByInstituteId(int instituteId);
+
 
 
     CourseModel updateCourse(int courseId, CourseModel updatedCourse);
