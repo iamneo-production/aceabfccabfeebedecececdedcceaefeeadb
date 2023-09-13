@@ -113,6 +113,16 @@ public class AdminController {
         return ResponseEntity.ok(courses);
     }
 
+
+    @GetMapping("/couRseByInstitute/{instituteId}")
+
+
+
+
+
+
+
+
     // Institute operations
     @PostMapping("/addInstitute")
     public ResponseEntity<InstituteModel> addInstitute(@RequestBody InstituteModel institute) {
@@ -120,7 +130,7 @@ public class AdminController {
         return ResponseEntity.ok(createdInstitute);
     }
 
-    //Note this is for MASSS INSERTING OF DATA 
+   /* //Note this is for MASSS INSERTING OF DATA FOR INSTITUTES. 
 //     @PostMapping("/addInstitute")
 // public ResponseEntity<List<InstituteModel>> addInstitute(@RequestBody List<InstituteModel> institutes) {
 //     List<InstituteModel> createdInstitutes = new ArrayList<>();
@@ -132,7 +142,7 @@ public class AdminController {
 
 //     return ResponseEntity.ok(createdInstitutes);
 // }
-
+*/
 
     @GetMapping("/viewInstitute/{instituteId}")
     public ResponseEntity<InstituteModel> viewInstitute(@PathVariable int instituteId) {
