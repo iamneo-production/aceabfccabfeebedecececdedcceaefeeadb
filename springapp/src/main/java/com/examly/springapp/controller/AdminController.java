@@ -102,16 +102,16 @@ public class AdminController {
         List<CourseModel> courses = courseService.getAllCourses();
         return ResponseEntity.ok(courses);
     }
-    @GetMapping("/coursesByInstitute/{instituteId}")
-public ResponseEntity<List<CourseModel>> getCoursesByInstituteId(@PathVariable int instituteId) {
-    List<CourseModel> courses = courseService.getCoursesByInstituteId(instituteId);
+//     @GetMapping("/coursesByInstitute/{instituteId}")
+// public ResponseEntity<List<CourseModel>> getCoursesByInstituteId(@PathVariable int instituteId) {
+//     List<CourseModel> courses = courseService.getCoursesByInstituteId(instituteId);
     
-    if (courses.isEmpty()) {
-        return ResponseEntity.notFound().build();
-    } else {
-        return ResponseEntity.ok(courses);
-    }
-}
+//     if (courses.isEmpty()) {
+//         return ResponseEntity.notFound().build();
+//     } else {
+//         return ResponseEntity.ok(courses);
+//     }
+// }
 
 
 

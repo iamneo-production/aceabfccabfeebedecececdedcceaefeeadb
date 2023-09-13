@@ -19,9 +19,9 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.save(course);
     }
    
-    public List<CourseModel> getCoursesByInstituteInstituteId(int instituteId) {
-        return courseRepository.findByInstituteInstituteId(instituteId);
-    }
+    // public List<CourseModel> getCoursesByInstituteInstituteId(int instituteId) {
+    //     return courseRepository.findByInstituteInstituteId(instituteId);
+    // }
 
     @Override
     public Optional<CourseModel> getCourseById(int courseId) {
