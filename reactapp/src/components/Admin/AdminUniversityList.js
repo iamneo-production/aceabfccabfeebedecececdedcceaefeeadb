@@ -19,7 +19,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import TextField from "@mui/material/TextField";
 import AdminAppBar from "../AdminAppBar";
-import Footer from "../Footer"
+import Footer from "../Footer";
+import axios from "axios";
 
 const defaultTheme = createTheme();
 
@@ -33,6 +34,7 @@ const AdminUniversityList = () => {
   const [editFormData, setEditFormData] = useState({});
   const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [addFormData, setAddFormData] = useState({});
+  const [cardDetails, setCardDetails] = useState(null);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -88,64 +90,93 @@ const AdminUniversityList = () => {
     setAddDialogOpen(false); // Close the dialog after saving
   };
 
-  const cardDetails = React.useMemo(
-    () => [
-      {
-        collegeId: 1,
-        title: "Huston University",
-        description: "Description for Card 1",
-        imageURL: "https://source.unsplash.com/random/800x600?sig=1",
-        place: "Houston, TX",
-        starRating: 4.5,
-      },
-      {
-        collegeId: 2,
-        title: "University of Houston",
-        description: "Description for Card 2",
-        imageURL: "https://source.unsplash.com/random/800x600?sig=2",
-        place: "Houston, TX",
-        starRating: 4.0,
-      },
-      {
-        collegeId: 3,
-        title: "MIT",
-        description: "Description for Card 3",
-        imageURL: "https://source.unsplash.com/random/800x600?sig=3",
-        place: "Cambridge, MA",
-        starRating: 4.8,
-      },
-      {
-        collegeId: 4,
-        title: "VIT",
-        description: "Description for Card 4",
-        imageURL: "https://source.unsplash.com/random/800x600?sig=4",
-        place: "Vellore, India",
-        starRating: 4.2,
-      },
-      {
-        collegeId: 5,
-        title: "SRM",
-        description: "Description for Card 5",
-        imageURL: "https://source.unsplash.com/random/800x600?sig=5",
-        place: "Chennai, India",
-        starRating: 4.6,
-      },
-      {
-        collegeId: 6,
-        title: "DPS",
-        description: "Description for Card 6",
-        imageURL: "https://source.unsplash.com/random/800x600?sig=6",
-        place: "New Delhi, India",
-        starRating: 4.0,
-      },
-    ],
-    []
-  );
-
+  // const cardDetails = React.useMemo(
+  //   () => [
+  //     {
+  //       collegeId: 1,
+  //       title: "Huston University",
+  //       description: "Description for Card 1",
+  //       imageURL: "https://source.unsplash.com/random/800x600?sig=1",
+  //       place: "Houston, TX",
+  //       starRating: 4.5,
+  //     },
+  //     {
+  //       collegeId: 2,
+  //       title: "University of Houston",
+  //       description: "Description for Card 2",
+  //       imageURL: "https://source.unsplash.com/random/800x600?sig=2",
+  //       place: "Houston, TX",
+  //       starRating: 4.0,
+  //     },
+  //     {
+  //       collegeId: 3,
+  //       title: "MIT",
+  //       description: "Description for Card 3",
+  //       imageURL: "https://source.unsplash.com/random/800x600?sig=3",
+  //       place: "Cambridge, MA",
+  //       starRating: 4.8,
+  //     },
+  //     {
+  //       collegeId: 4,
+  //       title: "VIT",
+  //       description: "Description for Card 4",
+  //       imageURL: "https://source.unsplash.com/random/800x600?sig=4",
+  //       place: "Vellore, India",
+  //       starRating: 4.2,
+  //     },
+  //     {
+  //       collegeId: 5,
+  //       title: "SRM",
+  //       description: "Description for Card 5",
+  //       imageURL: "https://source.unsplash.com/random/800x600?sig=5",
+  //       place: "Chennai, India",
+  //       starRating: 4.6,
+  //     },
+  //     {
+  //       collegeId: 6,
+  //       title: "DPS",
+  //       description: "Description for Card 6",
+  //       imageURL: "https://source.unsplash.com/random/800x600?sig=6",
+  //       place: "New Delhi, India",
+  //       starRating: 4.0,
+  //     },
+  //   ],
+  //   []
+  // );
   useEffect(() => {
-    setFilteredCards(cardDetails);
-    setLoading(false);
-  }, [cardDetails]);
+    // Define the API endpoint URL where your data is hosted
+    const apiUrl =
+      'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/institute';
+
+    // Make a GET request to fetch the list of institutes from the API
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        // Assuming your API returns an array of institutes
+        const dataFromApi = response.data;
+        console.log(response.data);
+
+        const formattedCardDetails = dataFromApi.map((institute) => ({
+          collegeId: institute.instituteId,
+          title: institute.instituteName,
+          description: institute.instituteDescription,
+          imageURL: institute.imageURL,
+          place: institute.instituteAddress,
+          starRating: parseFloat(institute.starRating), // Convert starRating to a float
+        }));
+
+        setCardDetails(formattedCardDetails);
+        setFilteredCards(formattedCardDetails); // Initialize filteredCards with the formatted data
+        setLoading(false);
+       
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
+
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
