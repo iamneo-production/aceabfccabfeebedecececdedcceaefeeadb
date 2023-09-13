@@ -17,6 +17,7 @@ import UserAppBar from '../../UserAppBar';
 import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
 import Footer from '../../Footer'
+import axios from 'axios';
 
 const defaultTheme = createTheme();
 
@@ -26,6 +27,7 @@ const UniversityList = () => {
   const [filteredCards, setFilteredCards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [cardDetails,setCardDetails] = useState(null);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -55,59 +57,7 @@ const UniversityList = () => {
     setSelectedCard(null);
   };
 
-  const cardDetails = React.useMemo(
-    () => [
-      {
-        collegeId: 1,
-        title: 'Huston University',
-        description: 'Description for Card 1',
-        imageURL: 'https://source.unsplash.com/random/800x600?sig=1',
-        place: 'Houston, TX',
-        starRating: 4.5,
-      },
-      {
-        collegeId: 2,
-        title: 'University of Houston',
-        description: 'Description for Card 2',
-        imageURL: 'https://source.unsplash.com/random/800x600?sig=2',
-        place: 'Houston, TX',
-        starRating: 4.0,
-      },
-      {
-        collegeId: 3,
-        title: 'MIT',
-        description: 'Description for Card 3',
-        imageURL: 'https://source.unsplash.com/random/800x600?sig=3',
-        place: 'Cambridge, MA',
-        starRating: 4.8,
-      },
-      {
-        collegeId: 4,
-        title: 'VIT',
-        description: 'Description for Card 4',
-        imageURL: 'https://source.unsplash.com/random/800x600?sig=4',
-        place: 'Vellore, India',
-        starRating: 4.2,
-      },
-      {
-        collegeId: 5,
-        title: 'SRM',
-        description: 'Description for Card 5',
-        imageURL: 'https://source.unsplash.com/random/800x600?sig=5',
-        place: 'Chennai, India',
-        starRating: 4.6,
-      },
-      {
-        collegeId: 6,
-        title: 'DPS',
-        description: 'Description for Card 6',
-        imageURL: 'https://source.unsplash.com/random/800x600?sig=6',
-        place: 'New Delhi, India',
-        starRating: 4.0,
-      },
-    ],
-    []
-  );
+
   useEffect(() => {
     // Define the API endpoint URL where your data is hosted
     const apiUrl = 'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/institute';
@@ -117,8 +67,9 @@ const UniversityList = () => {
       .then((response) => {
         // Assuming your API returns an array of institutes
         const dataFromApi = response.data;
+        console.log(response.data)
 
-        // Extract relevant information and format it into cardDetails
+      
         const formattedCardDetails = dataFromApi.map((institute) => ({
           collegeId: institute.instituteId,
           title: institute.instituteName,
@@ -129,16 +80,15 @@ const UniversityList = () => {
         }));
 
         setCardDetails(formattedCardDetails);
+        setFilteredCards(cardDetails);
+        setLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
-  }, []);
-
-  useEffect(() => {
-    setFilteredCards(cardDetails);
-    setLoading(false);
   }, [cardDetails]);
+
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
