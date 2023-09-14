@@ -1,10 +1,6 @@
 package com.examly.springapp.model;
 
 import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.*;
 import lombok.*;
 
@@ -27,10 +23,7 @@ public class StudentModel {
     private int Diploma;
     private String eligibility;
 
-    // User ID as a foreign key
-    @OneToOne
-   
-    private UserModel user;
+    private Long userId; // Added userId field
 
     // Constructors...
 
@@ -39,7 +32,7 @@ public class StudentModel {
     }
 
     // Parameterized constructor
-    public StudentModel(String studentName, Date studentDOB, String address, String mobile, int SSLC, int HSC, int Diploma, String eligibility, UserModel user) {
+    public StudentModel(String studentName, Date studentDOB, String address, String mobile, int SSLC, int HSC, int Diploma, String eligibility, Long userId) {
         this.studentName = studentName;
         this.studentDOB = studentDOB;
         this.address = address;
@@ -48,10 +41,11 @@ public class StudentModel {
         this.HSC = HSC;
         this.Diploma = Diploma;
         this.eligibility = eligibility;
-        this.user = user;
+        this.userId = userId; // Set userId
     }
 
     // Getters and setters...
+
     public int getStudentId() {
         return studentId;
     }
@@ -124,11 +118,11 @@ public class StudentModel {
         this.eligibility = eligibility;
     }
 
-    public UserModel getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(UserModel user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

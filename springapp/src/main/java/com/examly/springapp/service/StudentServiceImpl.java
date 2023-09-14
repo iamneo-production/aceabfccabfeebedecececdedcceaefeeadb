@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-
 @Service
 public class StudentServiceImpl implements StudentService {
     @Autowired
@@ -22,6 +21,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Optional<StudentModel> getStudentById(int studentId) {
         return studentRepository.findById(studentId);
+    }
+
+    @Override
+    public Optional<StudentModel> getStudentByUserId(Long userId) {
+        return studentRepository.findByUserId(userId);
     }
 
     @Override
@@ -46,6 +50,7 @@ public class StudentServiceImpl implements StudentService {
     public void deleteStudent(int studentId) {
         studentRepository.deleteById(studentId);
     }
+
     @Autowired
     public StudentServiceImpl(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
@@ -53,16 +58,12 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentModel getStudentByuserId(Long userId) {
-        return studentRepository.findByUserUserId(userId);
-    }
-    @Override
-    public StudentModel getStudentByUserId(Long userId) {
-        return studentRepository.findByUserUserId(userId);
+        return studentRepository.findByUserId(userId).orElse(null);
     }
 
     @Override
     public StudentModel createOrUpdateStudent(StudentModel studentData, Long userId) {
-        StudentModel existingStudent = studentRepository.findByUserUserId(userId);
+        StudentModel existingStudent = studentRepository.findByUserId(userId).orElse(null);
         if (existingStudent != null) {
             // Update existing student data
             existingStudent.setStudentName(studentData.getStudentName());
@@ -77,6 +78,7 @@ public class StudentServiceImpl implements StudentService {
             return studentRepository.save(existingStudent);
         } else {
             // Create a new student record
+            studentData.setUserId(userId);
             return studentRepository.save(studentData);
         }
     }

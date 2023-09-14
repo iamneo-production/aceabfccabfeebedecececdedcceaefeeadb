@@ -102,7 +102,7 @@ public class AdminController {
             return new ResponseEntity<>(updatedStudent, HttpStatus.OK);
         } else {
             // No student with the same user ID exists, create a new student record with the provided userId
-            studentData.getUser().setUserId(userId); // Set the userId in the associated user
+            studentData.setUserId(userId); // Set the userId directly in the studentData
             StudentModel createdStudent = studentService.createStudent(studentData);
     
             return new ResponseEntity<>(createdStudent, HttpStatus.CREATED);
