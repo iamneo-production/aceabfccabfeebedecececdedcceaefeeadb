@@ -46,6 +46,36 @@ public class StudentServiceImpl implements StudentService {
     public void deleteStudent(int studentId) {
         studentRepository.deleteById(studentId);
     }
+    @Autowired
+    public StudentServiceImpl(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
+    @Override
+    public StudentModel getStudentByUserId(Long userId) {
+        return studentRepository.findByUserUserId(userId);
+    }
+
+    @Override
+    public StudentModel createOrUpdateStudent(StudentModel studentData, Long userId) {
+        StudentModel existingStudent = studentRepository.findByUserUserId(userId);
+        if (existingStudent != null) {
+            // Update existing student data
+            existingStudent.setStudentName(studentData.getStudentName());
+            existingStudent.setStudentDOB(studentData.getStudentDOB());
+            existingStudent.setAddress(studentData.getAddress());
+            existingStudent.setMobile(studentData.getMobile());
+            existingStudent.setSSLC(studentData.getSSLC());
+            existingStudent.setHSC(studentData.getHSC());
+            existingStudent.setDiploma(studentData.getDiploma());
+            existingStudent.setEligibility(studentData.getEligibility());
+            // Update other fields as needed
+            return studentRepository.save(existingStudent);
+        } else {
+            // Create a new student record
+            return studentRepository.save(studentData);
+        }
+    }
 
     // Implement custom service methods if needed
 }
