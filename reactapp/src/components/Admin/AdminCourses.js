@@ -43,18 +43,8 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
   };
 
   const handleSearchChange = (e) => {
-    const { value } = e.target;
-    setSearchQuery(value);
+    setSearchQuery(e.target.value);
   };
-
-  const filteredCourses = courseList.filter((course) => {
-    const lowerCaseQuery = searchQuery.toLowerCase();
-    return (
-      course.courseName.toLowerCase().includes(lowerCaseQuery) ||
-      course.courseDuration.toLowerCase().includes(lowerCaseQuery) ||
-      course.courseDescription.toLowerCase().includes(lowerCaseQuery)
-    );
-  });
 
   const handleEditClick = (course) => {
     setSelectedCourse(course);
@@ -82,6 +72,20 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
     // Implement the logic to delete the course with the given courseId
     // You can filter the courseList to remove the course or make an API call
   };
+
+  // Filter courses based on the search query
+  const filteredCourses = courseList.filter((course) => {
+    if (searchQuery.trim() === "") {
+      return true; // Show all courses if search query is empty
+    }
+
+    const query = searchQuery.toLowerCase();
+    return (
+      course.courseName.toLowerCase().includes(query) ||
+      course.courseDuration.toString().toLowerCase().includes(query) ||
+      course.courseDescription.toLowerCase().includes(query)
+    );
+  });
 
   return (
     <div>
