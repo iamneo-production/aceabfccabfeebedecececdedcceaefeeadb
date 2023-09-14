@@ -19,6 +19,9 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [enrollFormOpen, setEnrollFormOpen] = useState(false);
+  const[course]
+  
+   
 
   useEffect(() => {
     axios
@@ -58,6 +61,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
       eligibility: "",
     });
     setEnrollFormOpen(true);
+    
   };
 
   const handleCloseEnrollForm = () => {
@@ -250,12 +254,17 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                 />
               </Grid>
               <Grid item xs={4}>
-                {/* Use RadioGroup for eligibility */}
+
                 <RadioGroup
                   aria-label="Eligibility"
                   name="eligibility"
-                  value={formData.eligibility} // Make sure value matches the key in formData
-                  onChange={handleInputChange}
+                  value={formData.eligibility}
+                  onChange={(e) => {
+                    setFormData({
+                      ...formData,
+                      eligibility: e.target.value,
+                    });
+                  }}
                 >
                   <FormControlLabel
                     value="Eligible"
