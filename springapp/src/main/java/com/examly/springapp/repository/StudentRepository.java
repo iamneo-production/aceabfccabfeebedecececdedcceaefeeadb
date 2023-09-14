@@ -9,6 +9,5 @@ import java.util.Optional;
 @Repository
 public interface StudentRepository extends JpaRepository<StudentModel, Integer> {
     // Add custom query methods if needed
-
     Optional<StudentModel> findByUserId(Long userId);
 }

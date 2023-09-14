@@ -23,8 +23,6 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findById(studentId);
     }
 
-   
-
     @Override
     public List<StudentModel> getAllStudents() {
         return studentRepository.findAll();
@@ -57,8 +55,27 @@ public class StudentServiceImpl implements StudentService {
     public StudentModel getStudentByUserId(Long userId) {
         return studentRepository.findByUserId(userId).orElse(null);
     }
- 
 
-      
-    // Implement custom service methods if needed
+    @Override
+    public StudentModel createOrUpdateStudent(StudentModel studentData, Long userId) {
+        StudentModel existingStudent = studentRepository.findByUserId(userId).orElse(null);
+
+        if (existingStudent != null) {
+            // Update existing student data
+            existingStudent.setStudentName(studentData.getStudentName());
+            existingStudent.setStudentDOB(studentData.getStudentDOB());
+            existingStudent.setAddress(studentData.getAddress());
+            existingStudent.setMobile(studentData.getMobile());
+            existingStudent.setSSLC(studentData.getSSLC());
+            existingStudent.setHSC(studentData.getHSC());
+            existingStudent.setDiploma(studentData.getDiploma());
+            existingStudent.setEligibility(studentData.getEligibility());
+            // Update other fields as needed
+            return studentRepository.save(existingStudent);
+        } else {
+            // Create a new student record
+            studentData.setUserId(userId); // Set the userId in the studentData
+            return studentRepository.save(studentData);
+        }
+    }
 }
