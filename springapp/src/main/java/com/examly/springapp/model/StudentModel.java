@@ -26,7 +26,7 @@ public class StudentModel {
 
     // User ID as a foreign key
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "UserId")
     private UserModel user;
 
     // Constructors...

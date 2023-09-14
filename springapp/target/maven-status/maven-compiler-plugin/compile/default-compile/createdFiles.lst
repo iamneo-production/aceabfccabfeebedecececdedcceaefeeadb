@@ -6,7 +6,6 @@ com/examly/springapp/service/StudentServiceImpl.class
 com/examly/springapp/service/CourseService.class
 com/examly/springapp/model/CourseModel.class
 com/examly/springapp/controller/AuthController.class
-com/examly/springapp/controller/AdminController$StudentController.class
 com/examly/springapp/service/InstituteService.class
 com/examly/springapp/controller/AdmissionController.class
 com/examly/springapp/service/InstituteServiceImpl.class

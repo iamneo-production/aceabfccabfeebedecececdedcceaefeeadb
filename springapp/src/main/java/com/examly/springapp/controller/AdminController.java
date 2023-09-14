@@ -68,27 +68,20 @@ public class AdminController {
         return ResponseEntity.ok(students);
     }
   
-public class StudentController {
 
-    private final StudentService studentService;
 
-    @Autowired
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
-    }
 
-    @GetMapping("getStudent/{userId}")
-    public ResponseEntity<StudentModel> getStudentByUserId(@PathVariable Long userId) {
-        StudentModel student = studentService.getStudentByUserId(userId);
+    @GetMapping("getStudent/{UserId}")
+    public ResponseEntity<StudentModel> getStudentByUserId(@PathVariable Long UserId) {
+        StudentModel student = studentService.getStudentByUserId(UserId);
         return ResponseEntity.ok(student);
     }
 
-    @PostMapping("addStudent/{userId}")
-    public ResponseEntity<StudentModel> createOrUpdateStudent(@PathVariable Long userId, @RequestBody StudentModel studentData) {
-        StudentModel updatedStudent = studentService.createOrUpdateStudent(studentData, userId);
+    @PostMapping("addStudent/{UserId}")
+    public ResponseEntity<StudentModel> createOrUpdateStudent(@PathVariable Long UserId, @RequestBody StudentModel studentData) {
+        StudentModel updatedStudent = studentService.createOrUpdateStudent(studentData, UserId);
         return new ResponseEntity<>(updatedStudent, HttpStatus.CREATED);
     }
-}
 
 
 
