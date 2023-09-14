@@ -18,31 +18,21 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [enrollFormOpen, setEnrollFormOpen] = useState(false);
- 
-  const fetchCourseList = async () => {
-    try {
-      const response = await axios.get(
-        `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/coursesByInstitute/${collegeId}`
-      );
-      if (response.status === 200) {
-        
-        setCourseList(response.data);
-      } else {
-        console.error("Failed to fetch course data");
-      }
-    } catch (error) {
-      console.error("Error fetching course data:", error);
-    }
-  };
-
-  // Call the fetchCourseList function
 
   useEffect(() => {
-    fetchCourseList().then(console.log(courseList));
-    
-    
-   
-  }, [collegeId]); // Run the effect whenever collegeId changes
+    axios.get(
+      `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/coursesByInstitute/${collegeId}`
+    )
+    .then((response) => {
+      // Use a callback function to set the courseList state with the response data
+      setCourseList(response.data);
+    })
+    .catch((error) => {
+      console.error("Error fetching course data:", error);
+    });
+  }, [collegeId]);
+  
+
 
 
 
