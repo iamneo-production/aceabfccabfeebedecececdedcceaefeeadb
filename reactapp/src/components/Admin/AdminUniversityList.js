@@ -182,7 +182,7 @@ const AdminUniversityList = () => {
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
 
-      <AdminAppBar id={params.userId} />
+      <AdminAppBar id={params.UserId} />
      
 
       <main>

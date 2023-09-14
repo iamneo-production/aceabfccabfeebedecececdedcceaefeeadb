@@ -36,7 +36,7 @@ const RegisteredCourses = () => {
   return (
     <div style={containerStyle}>
       
-      <UserAppBar id={params.userId} />
+      <UserAppBar id={params.UserId} />
       <div style={contentStyle}>
         
         <Card variant="outlined">

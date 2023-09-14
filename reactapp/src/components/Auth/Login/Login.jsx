@@ -57,14 +57,14 @@ const Login = () => {
       axios
         .post(apiEndpoint, formData)
         .then((response) => {
-          console.log(response.data.userId);
-          // Set the userId based on the response
-          let userId =response.data.userId
-          if(userId=="Not Found")  alert("User not Found")
+          console.log(response.data.UserId);
+          // Set the UserId based on the response
+          let UserId =response.data.UserId
+          if(UserId=="Not Found")  alert("User not Found")
           else { 
             
-            userId = response.data.userId;
-            navigate(`/AdminHomePage/UniversityList/${userId}`);
+            UserId = response.data.UserId;
+            navigate(`/AdminHomePage/UniversityList/${UserId}`);
 
           }
           
@@ -83,13 +83,13 @@ const Login = () => {
       axios
         .post(apiEndpoint, formData)
         .then((response) => {
-          console.log(response.data.userId);
-          if(response.data.userId=="Not Found")  alert("User not Found")
+          console.log(response.data.UserId);
+          if(response.data.UserId=="Not Found")  alert("User not Found")
           else{
-            navigate(`/HomePage/UniversityList/${response.data.userId}`);
+            navigate(`/HomePage/UniversityList/${response.data.UserId}`);
 
           }
-          // Set the userId based o`n the response
+          // Set the UserId based o`n the response
           
           
         })

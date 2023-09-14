@@ -88,7 +88,7 @@ const UniversityList = () => {
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
 
-      <UserAppBar id={params.userId} />
+      <UserAppBar id={params.UserId} />
       <div style={{ textAlign: 'center', marginTop: '20px' }}>
           <h1 style={{ fontFamily: 'AdmitEasy', fontSize: '32px', color: 'darkblue' }}>
             Welcome to AdmitEasy

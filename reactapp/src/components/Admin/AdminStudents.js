@@ -389,7 +389,7 @@ const AdminStudents = () => {
 
   return (
     <div>
-      <AdminAppBar id={params.userId} />
+      <AdminAppBar id={params.UserId} />
       <Typography variant="h4" gutterBottom>
         Students
       </Typography>
