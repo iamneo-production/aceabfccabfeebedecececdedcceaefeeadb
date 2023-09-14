@@ -9,6 +9,9 @@ import com.examly.springapp.service.InstituteService;
 import com.examly.springapp.model.StudentModel;
 import com.examly.springapp.service.StudentService;
 
+import com.examly.springapp.model.UserModel;
+import com.examly.springapp.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -84,7 +87,7 @@ public class AdminController {
     // }
     @PostMapping("addStudent/{userId}")
 public ResponseEntity<StudentModel> createOrUpdateStudent(@PathVariable Long userId, @RequestBody StudentModel studentData) {
-    // Set the userId in studentData
+    
     studentData.setUser(new UserModel(userId)); // Assuming UserModel has a constructor that accepts userId
 
     // Now you can create or update the student with the associated userId
