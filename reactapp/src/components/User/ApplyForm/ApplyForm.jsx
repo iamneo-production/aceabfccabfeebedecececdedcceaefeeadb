@@ -21,6 +21,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [enrollFormOpen, setEnrollFormOpen] = useState(false);
   const [eligibility, setEligibility] = useState(""); // Added state for eligibility
+  const [courseId, setCourseId] = useState(null); // Added state for courseId
 
   useEffect(() => {
     axios
@@ -44,6 +45,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
     SSLC: "",
     HSC: "",
     Diploma: "",
+    eligibility: "", // Added eligibility to formData
   });
 
   const handleEnrollClick = (course) => {
@@ -56,8 +58,10 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
       SSLC: "",
       HSC: "",
       Diploma: "",
+      eligibility: "", // Reset eligibility when enrolling
     });
     setEligibility(""); // Reset eligibility when enrolling
+    setCourseId(course.courseId); // Set the courseId when enrolling
     setEnrollFormOpen(true);
   };
 
@@ -78,6 +82,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
     e.preventDefault();
     console.log("Form Data:", formData);
     console.log("Eligibility:", eligibility);
+    console.log("Course Id:", courseId);
     handleCloseEnrollForm();
   };
 
