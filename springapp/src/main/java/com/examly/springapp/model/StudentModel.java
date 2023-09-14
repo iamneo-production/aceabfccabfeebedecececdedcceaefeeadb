@@ -29,7 +29,7 @@ public class StudentModel {
 
     // User ID as a foreign key
     @OneToOne
-    @JoinColumn(name = "userId")
+   
     private UserModel user;
 
     // Constructors...

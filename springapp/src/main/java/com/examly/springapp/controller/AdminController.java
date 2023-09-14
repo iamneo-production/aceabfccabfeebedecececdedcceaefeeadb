@@ -84,7 +84,7 @@ public class AdminController {
     public ResponseEntity<StudentModel> createOrUpdateStudent(@PathVariable Long userId, @RequestBody StudentModel studentData) {
         // Check if a student with the given user ID exists
         StudentModel existingStudent = studentService.getStudentByUserId(userId);
-        
+    
         if (existingStudent != null) {
             // A student with the same user ID already exists, update the existing student's details
             existingStudent.setStudentName(studentData.getStudentName());
@@ -98,13 +98,13 @@ public class AdminController {
     
             // Save the updated student
             StudentModel updatedStudent = studentService.updateStudent(existingStudent.getStudentId(), existingStudent);
-            
+    
             return new ResponseEntity<>(updatedStudent, HttpStatus.OK);
         } else {
-            // No student with the same user ID exists, create a new student with the provided details
-            studentData.setUser(new UserModel(userId)); // Set the user with the given user ID
+            // No student with the same user ID exists, create a new student record with the provided userId
+            studentData.getUser().setUserId(userId); // Set the userId in the associated user
             StudentModel createdStudent = studentService.createStudent(studentData);
-            
+    
             return new ResponseEntity<>(createdStudent, HttpStatus.CREATED);
         }
     }
