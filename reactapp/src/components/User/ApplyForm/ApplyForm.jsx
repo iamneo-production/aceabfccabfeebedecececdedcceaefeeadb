@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -7,98 +7,43 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
-import Footer from "../../Footer"
+import Footer from "../../Footer";
+import axios from "axios";
 
 const ApplyForm = ({ collegeId, title, onClose }) => {
   console.log(collegeId)
-  const courseList = [
-        {
-          courseId: 1,
-          courseName: "Masters in Computer Science",
-          duration: "2 years",
-          description: "A comprehensive program in computer science.",
-          studentsCount: 50,
-          timings: "9:00 AM - 11:00 AM",
-        },
-        {
-          courseId: 2,
-          courseName: "Masters in Business Administration (MBA)",
-          duration: "2 years",
-          description: "Advanced studies in business management.",
-          studentsCount: 40,
-          timings: "10:00 AM - 12:00 PM",
-        },
-        {
-          courseId: 3,
-          courseName: "Masters in Electrical Engineering",
-          duration: "2 years",
-          description: "In-depth knowledge of electrical systems.",
-          studentsCount: 30,
-          timings: "11:00 AM - 1:00 PM",
-        },
-        {
-          courseId: 4,
-          courseName: "Masters in Data Science",
-          duration: "2 years",
-          description: "Harnessing the power of data for insights.",
-          studentsCount: 35,
-          timings: "2:00 PM - 4:00 PM",
-        },
-        {
-          courseId: 5,
-          courseName: "Masters in Psychology",
-          duration: "2 years",
-          description: "Understanding the human mind and behavior.",
-          studentsCount: 25,
-          timings: "3:00 PM - 5:00 PM",
-        },
-        {
-          courseId: 6,
-          courseName: "Masters in Civil Engineering",
-          duration: "2 years",
-          description: "Design and construction of infrastructure.",
-          studentsCount: 28,
-          timings: "9:30 AM - 11:30 AM",
-        },
-        {
-          courseId: 7,
-          courseName: "Masters in Environmental Science",
-          duration: "2 years",
-          description: "Exploring environmental issues and solutions.",
-          studentsCount: 20,
-          timings: "10:30 AM - 12:30 PM",
-        },
-        {
-          courseId: 8,
-          courseName: "Masters in Public Health",
-          duration: "2 years",
-          description: "Promoting health in communities.",
-          studentsCount: 22,
-          timings: "1:30 PM - 3:30 PM",
-        },
-        {
-          courseId: 9,
-          courseName: "Masters in Finance",
-          duration: "2 years",
-          description: "Managing financial resources effectively.",
-          studentsCount: 18,
-          timings: "2:30 PM - 4:30 PM",
-        },
-        {
-          courseId: 10,
-          courseName: "Masters in Linguistics",
-          duration: "2 years",
-          description: "Studying language and communication.",
-          studentsCount: 15,
-          timings: "3:30 PM - 5:30 PM",
-        },
-        // Add more courses as needed
-      ];
 
+  const [courseList,setCourseList] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState(courseList);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [enrollFormOpen, setEnrollFormOpen] = useState(false);
+ 
+
+  useEffect(() => {
+    const fetchCourseList = async () => {
+      try {
+        const response = await axios.get(
+          `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/coursesByInstitute/${collegeId}`
+        );
+        if (response.status === 200) {
+          setCourseList(response.data);
+        } else {
+          console.error("Failed to fetch course data");
+        }
+      } catch (error) {
+        console.error("Error fetching course data:", error);
+      }
+    };
+
+    // Call the fetchCourseList function
+    fetchCourseList();
+  }, [collegeId]); // Run the effect whenever collegeId changes
+
+
+
+
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
