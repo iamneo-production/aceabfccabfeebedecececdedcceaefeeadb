@@ -20,7 +20,7 @@ public class UserModel {
     private String userRole;
 
     public UserModel(){
-        // TODO document why this constructor is empty
+        
     }
 
     public Long getuserId() {
