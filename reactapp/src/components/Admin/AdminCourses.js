@@ -17,10 +17,8 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
   const [editFormData, setEditFormData] = useState({
     courseId: null,
     courseName: "",
-    duration: "",
-    description: "",
-    studentsCount: "",
-    timings: "",
+    courseDuration: "",
+    courseDescription: "",
   });
 
   useEffect(() => {
@@ -53,9 +51,8 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
     const lowerCaseQuery = searchQuery.toLowerCase();
     return (
       course.courseName.toLowerCase().includes(lowerCaseQuery) ||
-      course.duration.toLowerCase().includes(lowerCaseQuery) ||
-      course.timings.toLowerCase().includes(lowerCaseQuery) ||
-      course.description.toLowerCase().includes(lowerCaseQuery)
+      course.courseDuration.toLowerCase().includes(lowerCaseQuery) ||
+      course.courseDescription.toLowerCase().includes(lowerCaseQuery)
     );
   });
 
@@ -131,16 +128,10 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
                   Course Name: {course.courseName}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Duration: {course.duration}
+                  Duration: {course.courseDuration} years
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Description: {course.description}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Students: {course.studentsCount}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Timings: {course.timings}
+                  Description: {course.courseDescription}
                 </Typography>
                 <div
                   style={{
@@ -186,39 +177,21 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
               onChange={handleEditFormInputChange}
             />
             <TextField
-              label="Duration"
+              label="Duration (in years)"
               fullWidth
-              id="duration"
+              id="courseDuration"
               margin="normal"
               variant="outlined"
-              value={editFormData.duration}
+              value={editFormData.courseDuration}
               onChange={handleEditFormInputChange}
             />
             <TextField
               label="Description"
               fullWidth
-              id="description"
+              id="courseDescription"
               margin="normal"
               variant="outlined"
-              value={editFormData.description}
-              onChange={handleEditFormInputChange}
-            />
-            <TextField
-              label="Students Count"
-              fullWidth
-              id="studentsCount"
-              margin="normal"
-              variant="outlined"
-              value={editFormData.studentsCount}
-              onChange={handleEditFormInputChange}
-            />
-            <TextField
-              label="Timings"
-              fullWidth
-              id="timings"
-              margin="normal"
-              variant="outlined"
-              value={editFormData.timings}
+              value={editFormData.courseDescription}
               onChange={handleEditFormInputChange}
             />
             <Button variant="contained" color="primary" type="submit">
