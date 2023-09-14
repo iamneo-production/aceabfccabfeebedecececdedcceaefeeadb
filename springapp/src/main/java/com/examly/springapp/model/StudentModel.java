@@ -1,12 +1,15 @@
 package com.examly.springapp.model;
+
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.*;
+import lombok.*;
 
 @Entity
+@Data
 public class StudentModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,7 +52,6 @@ public class StudentModel {
     }
 
     // Getters and setters...
-
     public int getStudentId() {
         return studentId;
     }
@@ -130,4 +132,3 @@ public class StudentModel {
         this.user = user;
     }
 }
- 
