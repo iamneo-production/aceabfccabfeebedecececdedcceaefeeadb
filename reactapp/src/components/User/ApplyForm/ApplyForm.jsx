@@ -49,6 +49,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   const handleEnrollClick = (course) => {
     setSelectedCourse(course);
     setFormData({
+      ...formData,
       studentName: "",
       studentDOB: "",
       address: "",
@@ -183,6 +184,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                 <TextField
                   label="Date of Birth"
                   fullWidth
+                  type="date"
                   id="studentDOB"
                   margin="normal"
                   variant="outlined"
@@ -245,23 +247,23 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                   onChange={handleInputChange}
                 />
               </Grid>
-              <Grid item xs={4}>
-                <Select
-                  label="Eligibility"
-                  fullWidth
-                  id="eligibility"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.eligibility}
-                  onChange={handleInputChange}
-                >
-                  <MenuItem value="Eligible">Eligible</MenuItem>
-                  <MenuItem value="Not Eligible">Not Eligible</MenuItem>
-                </Select>
-                
-              </Grid>
-            </Grid>
-            <Button variant="contained" color="primary" type="submit">
+              
+<Grid item xs={4}>
+  <Select
+    label="Eligibility"
+    fullWidth
+    id="eligibility" // Match the id with the key in formData
+    margin="normal"
+    variant="outlined"
+    value={formData.eligibility || ""} // Set an initial value or an empty string
+    onChange={handleInputChange}
+  >
+    <MenuItem value="Eligible">Eligible</MenuItem>
+    <MenuItem value="Not Eligible">Not Eligible</MenuItem>
+  </Select>
+</Grid>
+
+variant="contained" color="primary" type="submit">
               Save
             </Button>
           </form>
