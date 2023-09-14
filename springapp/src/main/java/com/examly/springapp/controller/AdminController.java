@@ -76,7 +76,7 @@ public class AdminController {
 
     @GetMapping("getStudent/{userId}")
     public ResponseEntity<StudentModel> getStudentByuserId(@PathVariable Long userId) {
-        StudentModel student = studentService.getStudentByuserId(userId);
+        StudentModel student = studentService.getStudentByUserId(userId);
         return ResponseEntity.ok(student);
     }
 
