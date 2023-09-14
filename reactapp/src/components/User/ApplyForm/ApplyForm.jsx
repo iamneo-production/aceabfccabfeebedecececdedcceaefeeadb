@@ -19,7 +19,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [enrollFormOpen, setEnrollFormOpen] = useState(false);
-
+  const [courseId, setCourseId] = useState(null); // Store courseId
 
   useEffect(() => {
     axios
@@ -36,19 +36,18 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   }, [collegeId]);
 
   const [formData, setFormData] = useState({
-    "studentName": "",
-    "studentDOB": "",
-    "address": "",
-    "mobile": "",
-    "SSLC": "",
-    "HSC": "",
-    "Diploma": "",
-    "eligibility": ""
-
+    studentName: "",
+    studentDOB: "",
+    address: "",
+    mobile: "",
+    SSLC: "",
+    HSC: "",
+    Diploma: "",
+    eligibility: "",
   });
 
   const handleEnrollClick = (course) => {
-    console.log(course.courseId)
+    setCourseId(course.courseId); // Store courseId
     setSelectedCourse(course);
     setFormData({
       studentName: "",
@@ -58,10 +57,8 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
       SSLC: "",
       HSC: "",
       Diploma: "",
+      eligibility: "",
     });
-    console.log(course.courseId);
-
-
     setEnrollFormOpen(true);
   };
 
@@ -81,16 +78,18 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log("Form Data:", formData);
-
+    console.log("Course ID:", courseId); // Log courseId
 
     handleCloseEnrollForm();
   };
 
   const handleInputChange = (e) => {
-    setFormData({ ...formData });
+    const { id, value } = e.target;
+    setFormData({
+      ...formData,
+      [id]: value,
+    });
   };
-
-
 
   return (
     <div>
@@ -259,7 +258,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                 <RadioGroup
                   aria-label="Eligibility"
                   name="eligibility"
-
+                  value={formData.eligibility}
                   onChange={handleInputChange}
                 >
                   <FormControlLabel
