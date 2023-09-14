@@ -12,6 +12,8 @@ import axios from "axios";
 import RadioGroup from "@mui/material/RadioGroup";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import {useParams} from "react-router-dom";
+
 
 const ApplyForm = ({ collegeId, title, onClose }) => {
   const [courseList, setCourseList] = useState([]);
@@ -19,7 +21,28 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [enrollFormOpen, setEnrollFormOpen] = useState(false);
-  
+  const [formData, setFormData] = useState({
+    studentName: "",
+    studentDOB: "",
+    address: "",
+    mobile: "",
+    SSLC: "",
+    HSC: "",
+    Diploma: "",
+    eligibility: "",
+  });
+
+  const { userId } = useParams();
+  axios
+  .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${userId}`, formData)
+  .then((response) => {
+    console.log("Enrollment successful:", response.data);
+    handleCloseEnrollForm();
+  })
+  .catch((error) => {
+    console.error("Error enrolling student:", error);
+  });
+
   
    
 
@@ -37,16 +60,6 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
       });
   }, [collegeId]);
 
-  const [formData, setFormData] = useState({
-    studentName: "",
-    studentDOB: "",
-    address: "",
-    mobile: "",
-    SSLC: "",
-    HSC: "",
-    Diploma: "",
-    eligibility: "",
-  });
 
   const handleEnrollClick = (course) => {
     setSelectedCourse(course);
