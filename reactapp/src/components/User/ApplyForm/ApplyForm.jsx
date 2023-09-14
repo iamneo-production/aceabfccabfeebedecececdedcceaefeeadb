@@ -20,19 +20,19 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   const [enrollFormOpen, setEnrollFormOpen] = useState(false);
 
   useEffect(() => {
-    axios.get(
-      `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/coursesByInstitute/${collegeId}`
-    )
-    .then((response) => {
-      // Use a callback function to set the courseList state with the response data
-      setCourseList(response.data);
-      setFilteredCourses(courseList)
-      
-    })
-    .catch((error) => {
-      console.error("Error fetching course data:", error);
-    });
+    axios
+      .get(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/coursesByInstitute/${collegeId}`)
+      .then((response) => {
+        // Use a callback function to set the courseList state with the response data
+        setCourseList(response.data);
+        setFilteredCourses(response.data); // Set filteredCourses with the response data
+        
+      })
+      .catch((error) => {
+        console.error("Error fetching course data:", error);
+      });
   }, [collegeId]);
+  
   
 
 
@@ -133,39 +133,8 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
 
       
 
+
 {/* <Grid container spacing={2}>
-  {filteredCourses.map((course) => (
-    <Grid key={course.courseId} item xs={12}>
-      <Card>
-        <CardContent style={{ textAlign: "left" }}>
-          <Typography variant="h6" component="div">
-            Course Name: {course.courseName}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Duration: {course.duration}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Description: {course.description}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Students: {course.studentsCount}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Timings: {course.timings}
-          </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => handleEnrollClick(course)}
-          >
-            Enroll Now
-          </Button>
-        </CardContent>
-      </Card>
-    </Grid>
-  ))}
-</Grid> */}
-<Grid container spacing={2}>
   {filteredCourses.map((course) => (
     <Grid key={course.courseId} item xs={12}>
       <Card style={{ width: '100%' }}>
@@ -199,7 +168,42 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
     </Grid>
   ))}
 </Grid>
+ */}
 
+<Grid container spacing={2}>
+  {courseList.map((course) => (
+    <Grid key={course.courseId} item xs={12}>
+      <Card style={{ width: '100%' }}>
+        <CardContent style={{ textAlign: "left" }}>
+          <Typography variant="h6" component="div">
+            Course Name: {course.courseName}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Duration: {course.duration}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Description: {course.description}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Students: {course.studentsCount}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Timings: {course.timings}
+          </Typography>
+        </CardContent>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '8px' }}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleEnrollClick(course)}
+          >
+            Enroll Now
+          </Button>
+        </div>
+      </Card>
+    </Grid>
+  ))}
+</Grid>
 
 
 
