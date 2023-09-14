@@ -71,15 +71,15 @@ public class AdminController {
 
 
 
-    @GetMapping("getStudent/{UserId}")
-    public ResponseEntity<StudentModel> getStudentByUserId(@PathVariable Long UserId) {
-        StudentModel student = studentService.getStudentByUserId(UserId);
+    @GetMapping("getStudent/{userId}")
+    public ResponseEntity<StudentModel> getStudentByuserId(@PathVariable Long userId) {
+        StudentModel student = studentService.getStudentByuserId(userId);
         return ResponseEntity.ok(student);
     }
 
-    @PostMapping("addStudent/{UserId}")
-    public ResponseEntity<StudentModel> createOrUpdateStudent(@PathVariable Long UserId, @RequestBody StudentModel studentData) {
-        StudentModel updatedStudent = studentService.createOrUpdateStudent(studentData, UserId);
+    @PostMapping("addStudent/{userId}")
+    public ResponseEntity<StudentModel> createOrUpdateStudent(@PathVariable Long userId, @RequestBody StudentModel studentData) {
+        StudentModel updatedStudent = studentService.createOrUpdateStudent(studentData, userId);
         return new ResponseEntity<>(updatedStudent, HttpStatus.CREATED);
     }
 

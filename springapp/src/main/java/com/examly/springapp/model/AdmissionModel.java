@@ -20,9 +20,9 @@ public class AdmissionModel {
     @JoinColumn(name = "studentId")
     private StudentModel student;
 
-    // Many-to-One relationship with UserModel (for UserId)
+    // Many-to-One relationship with UserModel (for userId)
     @ManyToOne
-    @JoinColumn(name = "UserId")
+    @JoinColumn(name = "userId")
     private UserModel user;
 
     // Constructors...

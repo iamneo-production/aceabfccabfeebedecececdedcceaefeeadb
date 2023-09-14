@@ -16,11 +16,11 @@ const RoutePaths = () => {
       <Route path="/" element={<Auth />} />
       <Route path="/Login" element={<Login />} />
       <Route path="/Signup" element={<Signup />} />     
-      <Route path="/HomePage/UniversityList/:UserId" element={<UniversityList />} />
-      <Route path="/HomePage/RegisteredCourses/:UserId" element={<RegisteredCourses />} />    
-      <Route path="/AdminHomePage/UniversityList/:UserId" element={<AdminUniversityList />} />
-      <Route path="/AdminHomePage/Courses/:UserId" element={<AdminCourses />} />
-      <Route path="/AdminHomePage/Students/:UserId" element={<AdminStudents />} />
+      <Route path="/HomePage/UniversityList/:userId" element={<UniversityList />} />
+      <Route path="/HomePage/RegisteredCourses/:userId" element={<RegisteredCourses />} />    
+      <Route path="/AdminHomePage/UniversityList/:userId" element={<AdminUniversityList />} />
+      <Route path="/AdminHomePage/Courses/:userId" element={<AdminCourses />} />
+      <Route path="/AdminHomePage/Students/:userId" element={<AdminStudents />} />
     </Routes>
   );
 };

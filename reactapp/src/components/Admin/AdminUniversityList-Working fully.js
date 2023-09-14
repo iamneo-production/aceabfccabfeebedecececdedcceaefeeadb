@@ -147,7 +147,7 @@ const AdminUniversityList = () => {
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
 
-      <AdminAppBar id={params.UserId} />
+      <AdminAppBar id={params.userId} />
 
       <main>
         <Box sx={{ bgcolor: 'background.paper', pb: 6 }}></Box>

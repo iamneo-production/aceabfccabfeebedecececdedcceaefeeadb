@@ -12,7 +12,7 @@ public class UserModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long UserId;
+    private Long userId;
     private String email;
     private String password;
     private String username;
@@ -23,12 +23,12 @@ public class UserModel {
         // TODO document why this constructor is empty
     }
 
-    public Long getUserId() {
-        return UserId;
+    public Long getuserId() {
+        return userId;
     }
 
-    public void setUserId(Long UserId) {
-        this.UserId = UserId;
+    public void setuserId(Long userId) {
+        this.userId = userId;
     }
     public String getEmail() {
         return email;

@@ -52,10 +52,10 @@ public class AuthController {
 
         Map<String, String> response = new HashMap<>();
         if (user.isPresent()) {
-            response.put("UserId", user.get().getUserId().toString());
+            response.put("userId", user.get().getuserId().toString());
             return ResponseEntity.ok(response);
         } else {
-            response.put("UserId", "Not Found");
+            response.put("userId", "Not Found");
             return ResponseEntity.ok(response);
         }
     }
@@ -70,10 +70,10 @@ public class AuthController {
 
         Map<String, String> response = new HashMap<>();
         if (adminUser.isPresent()) {
-            response.put("UserId", adminUser.get().getUserId().toString());
+            response.put("userId", adminUser.get().getuserId().toString());
             return ResponseEntity.ok(response);
         } else {
-            response.put("UserId", "Not Found");
+            response.put("userId", "Not Found");
             return ResponseEntity.ok(response);
         }
     }
