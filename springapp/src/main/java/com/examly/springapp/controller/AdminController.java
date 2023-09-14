@@ -85,7 +85,7 @@ public ResponseEntity<StudentModel> createOrUpdateStudent(@PathVariable Long use
     // Check if a student with the given user ID exists
     StudentModel existingStudent = studentService.getStudentByUserId(userId);
     
-    if (existingStudent != null) {
+    if (existingStudent ) {
         // A student with the same user ID already exists, update the existing student's details
         existingStudent.setStudentName(studentData.getStudentName());
         existingStudent.setStudentDOB(studentData.getStudentDOB());
