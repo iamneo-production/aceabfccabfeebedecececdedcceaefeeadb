@@ -80,20 +80,11 @@ public class AdminController {
         return ResponseEntity.ok(student);
     }
 
-    // @PostMapping("addStudent/{userId}")
-    // public ResponseEntity<StudentModel> createOrUpdateStudent(@PathVariable Long userId, @RequestBody StudentModel studentData) {
-    //     StudentModel updatedStudent = studentService.createOrUpdateStudent(studentData, userId);
-    //     return new ResponseEntity<>(updatedStudent, HttpStatus.CREATED);
-    // }
     @PostMapping("addStudent/{userId}")
-public ResponseEntity<StudentModel> createOrUpdateStudent(@PathVariable Long userId, @RequestBody StudentModel studentData) {
-    
-    studentData.setUser(new UserModel(userId)); // Assuming UserModel has a constructor that accepts userId
-
-    // Now you can create or update the student with the associated userId
-    StudentModel updatedStudent = studentService.createOrUpdateStudent(studentData, userId);
-    return new ResponseEntity<>(updatedStudent, HttpStatus.CREATED);
-}
+    public ResponseEntity<StudentModel> createOrUpdateStudent(@PathVariable Long userId, @RequestBody StudentModel studentData) {
+        StudentModel updatedStudent = studentService.createOrUpdateStudent(studentData, userId);
+        return new ResponseEntity<>(updatedStudent, HttpStatus.CREATED);
+    }
 
 
 
