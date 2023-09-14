@@ -9,6 +9,8 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Footer from "../../Footer";
 import axios from "axios";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 const ApplyForm = ({ collegeId, title, onClose }) => {
   console.log(collegeId);
@@ -34,28 +36,29 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   }, [collegeId]);
 
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    gender: "",
-    fatherName: "",
-    phoneNumber1: "",
-    phoneNumber2: "",
-    motherName: "",
-    houseNo: "",
-    streetName: "",
-    areaName: "",
-    pinCode: "",
-    state: "",
-    nationality: "",
-    email: "",
-    age: "",
-    sslcMarks: "",
-    hscMarks: "",
+    studentName: "",
+    studentDOB: "",
+    address: "",
+    mobile: "",
+    SSLC: "",
+    HSC: "",
+    Diploma: "",
+    eligibility: "",
   });
 
   const handleEnrollClick = (course) => {
     setSelectedCourse(course);
-    setFormData({});
+    setFormData({
+      ...formData,
+      studentName: "",
+      studentDOB: "",
+      address: "",
+      mobile: "",
+      SSLC: "",
+      HSC: "",
+      Diploma: "",
+      eligibility: "",
+    });
     setEnrollFormOpen(true);
   };
 
@@ -168,179 +171,94 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
             <Grid container spacing={2}>
               <Grid item xs={4}>
                 <TextField
-                  label="First Name"
+                  label="Student Name"
                   fullWidth
-                  id="firstName"
+                  id="studentName"
                   margin="normal"
                   variant="outlined"
-                  value={formData.firstName}
+                  value={formData.studentName}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Last Name"
+                  label="Date of Birth"
                   fullWidth
-                  id="lastName"
+                  id="studentDOB"
                   margin="normal"
                   variant="outlined"
-                  value={formData.lastName}
+                  value={formData.studentDOB}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Gender"
+                  label="Address"
                   fullWidth
-                  id="gender"
+                  id="address"
                   margin="normal"
                   variant="outlined"
-                  value={formData.gender}
+                  value={formData.address}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Father's Name"
+                  label="Mobile"
                   fullWidth
-                  id="fatherName"
+                  id="mobile"
                   margin="normal"
                   variant="outlined"
-                  value={formData.fatherName}
+                  value={formData.mobile}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Phone Number 1"
+                  label="SSLC Marks"
                   fullWidth
-                  id="phoneNumber1"
+                  id="SSLC"
                   margin="normal"
                   variant="outlined"
-                  value={formData.phoneNumber1}
+                  value={formData.SSLC}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Phone Number 2"
+                  label="HSC Marks"
                   fullWidth
-                  id="phoneNumber2"
+                  id="HSC"
                   margin="normal"
                   variant="outlined"
-                  value={formData.phoneNumber2}
+                  value={formData.HSC}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Mother's Name"
+                  label="Diploma Marks"
                   fullWidth
-                  id="motherName"
+                  id="Diploma"
                   margin="normal"
                   variant="outlined"
-                  value={formData.motherName}
+                  value={formData.Diploma}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
-                <TextField
-                  label="House No"
+                <Select
+                  label="Eligibility"
                   fullWidth
-                  id="houseNo"
+                  id="eligibility"
                   margin="normal"
                   variant="outlined"
-                  value={formData.houseNo}
+                  value={formData.eligibility}
                   onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="Street Name"
-                  fullWidth
-                  id="streetName"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.streetName}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="Area Name"
-                  fullWidth
-                  id="areaName"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.areaName}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="Pin Code"
-                  fullWidth
-                  id="pinCode"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.pinCode}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="State"
-                  fullWidth
-                  id="state"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.state}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="Nationality"
-                  fullWidth
-                  id="nationality"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.nationality}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="Email"
-                  fullWidth
-                  id="email"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="Age"
-                  fullWidth
-                  id="age"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.age}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="SSLC/HSC Marks"
-                  fullWidth
-                  id="sslcMarks"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.sslcMarks}
-                  onChange={handleInputChange}
-                />
+                >
+                  <MenuItem value="Eligible">Eligible</MenuItem>
+                  <MenuItem value="Not Eligible">Not Eligible</MenuItem>
+                </Select>
               </Grid>
             </Grid>
             <Button variant="contained" color="primary" type="submit">
