@@ -28,7 +28,7 @@ public class StudentModel {
     private String eligibility;
 
     // User ID as a foreign key
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "userId")
     private UserModel user;
 
