@@ -22,7 +22,7 @@ public class AdmissionModel {
 
     // Many-to-One relationship with UserModel (for userId)
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "UserId")
     private UserModel user;
 
     // Constructors...

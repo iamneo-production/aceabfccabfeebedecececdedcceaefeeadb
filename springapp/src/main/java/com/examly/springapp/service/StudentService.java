@@ -12,7 +12,7 @@ public interface StudentService {
     StudentModel updateStudent(int studentId, StudentModel updatedStudent);
     void deleteStudent(int studentId);
     // Add custom service methods if needed
-    StudentModel getStudentByUserId(Long userId);
-    StudentModel createOrUpdateStudent(StudentModel studentData, Long userId);
+    StudentModel getStudentByUserId(Long UserId);
+    StudentModel createOrUpdateStudent(StudentModel studentData, Long UserId);
 }
 

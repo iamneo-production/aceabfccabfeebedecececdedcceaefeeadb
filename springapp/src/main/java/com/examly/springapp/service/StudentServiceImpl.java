@@ -52,13 +52,13 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentModel getStudentByUserId(Long userId) {
-        return studentRepository.findByUserUserId(userId);
+    public StudentModel getStudentByUserId(Long UserId) {
+        return studentRepository.findByUserUserId(UserId);
     }
 
     @Override
-    public StudentModel createOrUpdateStudent(StudentModel studentData, Long userId) {
-        StudentModel existingStudent = studentRepository.findByUserUserId(userId);
+    public StudentModel createOrUpdateStudent(StudentModel studentData, Long UserId) {
+        StudentModel existingStudent = studentRepository.findByUserUserId(UserId);
         if (existingStudent != null) {
             // Update existing student data
             existingStudent.setStudentName(studentData.getStudentName());
