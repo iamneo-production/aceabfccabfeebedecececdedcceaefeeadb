@@ -19,7 +19,6 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [enrollFormOpen, setEnrollFormOpen] = useState(false);
-  const [courseId, setCourseId] = useState(null); // Store courseId
 
   useEffect(() => {
     axios
@@ -47,7 +46,6 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   });
 
   const handleEnrollClick = (course) => {
-    setCourseId(course.courseId); // Store courseId
     setSelectedCourse(course);
     setFormData({
       studentName: "",
@@ -78,8 +76,6 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log("Form Data:", formData);
-    console.log("Course ID:", courseId); // Log courseId
-
     handleCloseEnrollForm();
   };
 
@@ -258,7 +254,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                 <RadioGroup
                   aria-label="Eligibility"
                   name="eligibility"
-                  value={formData.eligibility}
+                  value={formData.eligibility} // Make sure value matches the key in formData
                   onChange={handleInputChange}
                 >
                   <FormControlLabel
