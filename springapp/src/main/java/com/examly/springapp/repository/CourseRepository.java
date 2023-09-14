@@ -14,5 +14,6 @@ import java.util.Optional;
 public interface CourseRepository extends JpaRepository<CourseModel, Integer> {
     // You can add custom query methods here if needed
     @Query("SELECT c FROM CourseModel c WHERE c.institute.instituteId = :instituteId")
-    List<CourseModel> findByInstituteInstituteId(@Param("instituteId") int instituteId);
+List<CourseModel> findByInstituteInstituteId(@Param("instituteId") int instituteId);
+
 }
