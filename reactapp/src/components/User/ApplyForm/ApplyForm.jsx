@@ -9,8 +9,10 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Footer from "../../Footer";
 import axios from "axios";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
 
 const ApplyForm = ({ collegeId, title, onClose }) => {
   const [courseList, setCourseList] = useState([]);
@@ -18,6 +20,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [enrollFormOpen, setEnrollFormOpen] = useState(false);
+  const [eligibility, setEligibility] = useState(""); // Added state for eligibility
 
   useEffect(() => {
     axios
@@ -41,11 +44,9 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
     SSLC: "",
     HSC: "",
     Diploma: "",
-    eligibility: "", // Ensure this key matches the id attribute of the Select component
   });
 
   const handleEnrollClick = (course) => {
-    console.log("Course ID:", course.courseId); // Log courseId
     setSelectedCourse(course);
     setFormData({
       studentName: "",
@@ -55,8 +56,8 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
       SSLC: "",
       HSC: "",
       Diploma: "",
-      eligibility: "", // Reset eligibility as well
     });
+    setEligibility(""); // Reset eligibility when enrolling
     setEnrollFormOpen(true);
   };
 
@@ -76,6 +77,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log("Form Data:", formData);
+    console.log("Eligibility:", eligibility);
     handleCloseEnrollForm();
   };
 
@@ -119,7 +121,28 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                 <Typography variant="h6" component="div">
                   Course Name: {course.courseName}
                 </Typography>
-                {/* ... (previous code) */}
+                <Typography variant="body2" color="text.secondary">
+                  Duration: {course.courseDuration} years
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Description: {course.courseDescription}
+                </Typography>
+                {/* Institute Details */}
+                <Typography variant="body2" color="text.secondary">
+                  Institute Name: {course.institute.instituteName}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Institute Address: {course.institute.instituteAddress}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Mobile: {course.institute.mobile}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Email: {course.institute.email}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Star Rating: {course.institute.starRating}
+                </Typography>
               </CardContent>
               <div
                 style={{
@@ -151,7 +174,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                   label="Student Name"
                   fullWidth
                   id="studentName"
-                  margin="normal"
+                  margin="dense" // Change margin value to "dense"
                   variant="outlined"
                   value={formData.studentName}
                   onChange={handleInputChange}
@@ -162,9 +185,9 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                   label="Date of Birth"
                   fullWidth
                   id="studentDOB"
-                  margin="normal"
+                  margin="dense" // Change margin value to "dense"
                   variant="outlined"
-                  type="date" // Change input type to date
+                  type="date"
                   value={formData.studentDOB}
                   onChange={handleInputChange}
                 />
@@ -174,7 +197,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                   label="Address"
                   fullWidth
                   id="address"
-                  margin="normal"
+                  margin="dense" // Change margin value to "dense"
                   variant="outlined"
                   value={formData.address}
                   onChange={handleInputChange}
@@ -185,7 +208,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                   label="Mobile"
                   fullWidth
                   id="mobile"
-                  margin="normal"
+                  margin="dense" // Change margin value to "dense"
                   variant="outlined"
                   value={formData.mobile}
                   onChange={handleInputChange}
@@ -196,7 +219,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                   label="SSLC Marks"
                   fullWidth
                   id="SSLC"
-                  margin="normal"
+                  margin="dense" // Change margin value to "dense"
                   variant="outlined"
                   value={formData.SSLC}
                   onChange={handleInputChange}
@@ -207,7 +230,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                   label="HSC Marks"
                   fullWidth
                   id="HSC"
-                  margin="normal"
+                  margin="dense" // Change margin value to "dense"
                   variant="outlined"
                   value={formData.HSC}
                   onChange={handleInputChange}
@@ -218,25 +241,35 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                   label="Diploma Marks"
                   fullWidth
                   id="Diploma"
-                  margin="normal"
+                  margin="dense" // Change margin value to "dense"
                   variant="outlined"
                   value={formData.Diploma}
                   onChange={handleInputChange}
                 />
               </Grid>
-              <Grid item xs={4}>
-                <Select
-                  label="Eligibility"
-                  fullWidth
-                  id="eligibility" // Match the id with the key in formData
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.eligibility || ""} // Set an initial value or an empty string
-                  onChange={handleInputChange}
-                >
-                  <MenuItem value="Eligible">Eligible</MenuItem>
-                  <MenuItem value="Not Eligible">Not Eligible</MenuItem>
-                </Select>
+              <Grid item xs={8}>
+                <FormControl component="fieldset">
+                  <Typography variant="subtitle1" gutterBottom>
+                    Eligibility
+                  </Typography>
+                  <RadioGroup
+                    aria-label="eligibility"
+                    name="eligibility"
+                    value={eligibility}
+                    onChange={(e) => setEligibility(e.target.value)}
+                  >
+                    <FormControlLabel
+                      value="Eligible"
+                      control={<Radio />}
+                      label="Eligible"
+                    />
+                    <FormControlLabel
+                      value="Not Eligible"
+                      control={<Radio />}
+                      label="Not Eligible"
+                    />
+                  </RadioGroup>
+                </FormControl>
               </Grid>
             </Grid>
             <Button variant="contained" color="primary" type="submit">
