@@ -49,7 +49,6 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   const handleEnrollClick = (course) => {
     setSelectedCourse(course);
     setFormData({
-      ...formData,
       studentName: "",
       studentDOB: "",
       address: "",
