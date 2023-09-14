@@ -258,6 +258,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                   <MenuItem value="Eligible">Eligible</MenuItem>
                   <MenuItem value="Not Eligible">Not Eligible</MenuItem>
                 </Select>
+                
               </Grid>
             </Grid>
             <Button variant="contained" color="primary" type="submit">
