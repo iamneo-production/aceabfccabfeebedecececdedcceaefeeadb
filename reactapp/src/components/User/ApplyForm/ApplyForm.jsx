@@ -41,10 +41,11 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
     SSLC: "",
     HSC: "",
     Diploma: "",
-    eligibility: "",
+    eligibility: "", // Ensure this key matches the id attribute of the Select component
   });
 
   const handleEnrollClick = (course) => {
+    console.log("Course ID:", course.courseId); // Log courseId
     setSelectedCourse(course);
     setFormData({
       studentName: "",
@@ -54,7 +55,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
       SSLC: "",
       HSC: "",
       Diploma: "",
-      eligibility: "",
+      eligibility: "", // Reset eligibility as well
     });
     setEnrollFormOpen(true);
   };
@@ -118,28 +119,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                 <Typography variant="h6" component="div">
                   Course Name: {course.courseName}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Duration: {course.courseDuration} years
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Description: {course.courseDescription}
-                </Typography>
-                {/* Institute Details */}
-                <Typography variant="body2" color="text.secondary">
-                  Institute Name: {course.institute.instituteName}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Institute Address: {course.institute.instituteAddress}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Mobile: {course.institute.mobile}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Email: {course.institute.email}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Star Rating: {course.institute.starRating}
-                </Typography>
+                {/* ... (previous code) */}
               </CardContent>
               <div
                 style={{
