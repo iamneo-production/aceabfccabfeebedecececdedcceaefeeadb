@@ -19,7 +19,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [enrollFormOpen, setEnrollFormOpen] = useState(false);
-  const[course]
+  
   
    
 
@@ -79,6 +79,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    console.log(selectedCourse.courseId)
     console.log("Form Data:", formData);
     handleCloseEnrollForm();
   };
