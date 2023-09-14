@@ -80,7 +80,7 @@ public class AdminController {
         return ResponseEntity.ok(student);
     }
 
-    @PostMapping("addStudent/{userId}")
+    @PostMapping("addStudentNew/{userId}")
     public ResponseEntity<StudentModel> createOrUpdateStudent(@PathVariable Long userId, @RequestBody StudentModel studentData) {
         // Check if a student with the given user ID exists
         StudentModel existingStudent = studentService.getStudentByUserId(userId);
