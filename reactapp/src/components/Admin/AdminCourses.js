@@ -11,23 +11,11 @@ import axios from "axios";
 
 const AdminCourses = ({ collegeId, title, onClose }) => {
   const [courseList, setCourseList] = useState([]);
-  const [filteredCourses, setFilteredCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [editFormOpen, setEditFormOpen] = useState(false);
   const [editFormData, setEditFormData] = useState({
-    courseName: "",
-    duration: "",
-    description: "",
-    studentsCount: "",
-    timings: "",
-  });
-
-  // State to track whether the "Add Course" form dialog is open
-  const [addFormOpen, setAddFormOpen] = useState(false);
-
-  // State to store form data for adding a new course
-  const [addFormData, setAddFormData] = useState({
+    courseId: null,
     courseName: "",
     duration: "",
     description: "",
@@ -41,7 +29,6 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
       .get(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/coursesByInstitute/${collegeId}`)
       .then((response) => {
         setCourseList(response.data);
-        setFilteredCourses(response.data);
       })
       .catch((error) => {
         console.error("Error fetching course data:", error);
@@ -60,24 +47,21 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
   const handleSearchChange = (e) => {
     const { value } = e.target;
     setSearchQuery(value);
-    // Call the handleSearch function immediately on input change
-    handleSearch(value);
   };
 
-  const handleSearch = (query) => {
-    const filtered = courseList.filter((course) => {
-      const nameMatch = course.courseName.toLowerCase().includes(query.toLowerCase());
-      const durationMatch = course.duration.toLowerCase().includes(query.toLowerCase());
-      const timingsMatch = course.timings.toLowerCase().includes(query.toLowerCase());
-      const descriptionMatch = course.description.toLowerCase().includes(query.toLowerCase());
-      return nameMatch || durationMatch || timingsMatch || descriptionMatch;
-    });
-    setFilteredCourses(filtered);
-  };
+  const filteredCourses = courseList.filter((course) => {
+    const lowerCaseQuery = searchQuery.toLowerCase();
+    return (
+      course.courseName.toLowerCase().includes(lowerCaseQuery) ||
+      course.duration.toLowerCase().includes(lowerCaseQuery) ||
+      course.timings.toLowerCase().includes(lowerCaseQuery) ||
+      course.description.toLowerCase().includes(lowerCaseQuery)
+    );
+  });
 
   const handleEditClick = (course) => {
     setSelectedCourse(course);
-    setEditFormData({ ...course }); // Initialize form data with course details
+    setEditFormData({ ...course });
     setEditFormOpen(true);
   };
 
@@ -102,34 +86,6 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
     // You can filter the courseList to remove the course or make an API call
   };
 
-  // Function to open the "Add Course" form dialog
-  const openAddForm = () => {
-    setAddFormOpen(true);
-  };
-
-  // Function to close the "Add Course" form dialog
-  const closeAddForm = () => {
-    setAddFormOpen(false);
-  };
-
-  // Function to handle changes in the "Add Course" form inputs
-  const handleAddFormInputChange = (e) => {
-    const { id, value } = e.target;
-    setAddFormData({
-      ...addFormData,
-      [id]: value,
-    });
-  };
-
-  // Function to handle the submission of the "Add Course" form
-  const handleAddFormSubmit = (e) => {
-    e.preventDefault();
-    console.log("New Course Details:", addFormData);
-    // Implement logic to add the new course to the courseList or make an API call
-    // Close the "Add Course" form dialog
-    closeAddForm();
-  };
-
   return (
     <div>
       <Grid container justifyContent="space-between">
@@ -143,11 +99,10 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
         </Grid>
       </Grid>
 
-      {/* Add Course Button */}
       <Button
         variant="contained"
         color="primary"
-        onClick={openAddForm} // Open the "Add Course" form dialog
+        onClick={() => handleEditClick({})}
       >
         Add Course
       </Button>
@@ -217,7 +172,9 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
 
       <Dialog open={editFormOpen} onClose={handleCloseEditForm}>
         <DialogContent>
-          <h3>Edit Course: {selectedCourse?.courseName}</h3>
+          <h3>
+            {selectedCourse ? `Edit Course: ${selectedCourse.courseName}` : "Add New Course"}
+          </h3>
           <form onSubmit={handleEditFormSubmit}>
             <TextField
               label="Course Name"
@@ -263,63 +220,6 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
               variant="outlined"
               value={editFormData.timings}
               onChange={handleEditFormInputChange}
-            />
-            <Button variant="contained" color="primary" type="submit">
-              Save
-            </Button>
-          </form>
-        </DialogContent>
-      </Dialog>
-
-      {/* "Add Course" Form Dialog */}
-      <Dialog open={addFormOpen} onClose={closeAddForm}>
-        <DialogContent>
-          <h3>Add New Course</h3>
-          <form onSubmit={handleAddFormSubmit}>
-            <TextField
-              label="Course Name"
-              fullWidth
-              id="courseName"
-              margin="normal"
-              variant="outlined"
-              value={addFormData.courseName}
-              onChange={handleAddFormInputChange}
-            />
-            <TextField
-              label="Duration"
-              fullWidth
-              id="duration"
-              margin="normal"
-              variant="outlined"
-              value={addFormData.duration}
-              onChange={handleAddFormInputChange}
-            />
-            <TextField
-              label="Description"
-              fullWidth
-              id="description"
-              margin="normal"
-              variant="outlined"
-              value={addFormData.description}
-              onChange={handleAddFormInputChange}
-            />
-            <TextField
-              label="Students Count"
-              fullWidth
-              id="studentsCount"
-              margin="normal"
-              variant="outlined"
-              value={addFormData.studentsCount}
-              onChange={handleAddFormInputChange}
-            />
-            <TextField
-              label="Timings"
-              fullWidth
-              id="timings"
-              margin="normal"
-              variant="outlined"
-              value={addFormData.timings}
-              onChange={handleAddFormInputChange}
             />
             <Button variant="contained" color="primary" type="submit">
               Save
