@@ -9,10 +9,9 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Footer from "../../Footer";
 import axios from "axios";
-import FormControl from "@mui/material/FormControl";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
+import Radio from "@mui/material/Radio";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 const ApplyForm = ({ collegeId, title, onClose }) => {
   const [courseList, setCourseList] = useState([]);
@@ -20,8 +19,8 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [enrollFormOpen, setEnrollFormOpen] = useState(false);
-  const [eligibility, setEligibility] = useState(""); // Added state for eligibility
-  const [courseId, setCourseId] = useState(null); // Added state for courseId
+  const [eligibility, setEligibility] = useState("");
+  const [courseId, setCourseId] = useState(null);
 
   useEffect(() => {
     axios
@@ -45,7 +44,6 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
     SSLC: "",
     HSC: "",
     Diploma: "",
-    eligibility: "", // Added eligibility to formData
   });
 
   const handleEnrollClick = (course) => {
@@ -58,7 +56,6 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
       SSLC: "",
       HSC: "",
       Diploma: "",
-      eligibility: "", // Reset eligibility when enrolling
     });
     setEligibility(""); // Reset eligibility when enrolling
     setCourseId(course.courseId); // Set the courseId when enrolling
@@ -92,6 +89,10 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
       ...formData,
       [id]: value,
     });
+  };
+
+  const handleEligibilityChange = (e) => {
+    setEligibility(e.target.value);
   };
 
   return (
@@ -152,7 +153,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
               <div
                 style={{
                   display: "flex",
-                  justifyContent: "flex-end",
+                  justifyContent: "space-between",
                   padding: "8px",
                 }}
               >
@@ -163,6 +164,10 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                 >
                   Enroll Now
                 </Button>
+                {/* Include courseId */}
+                <Typography variant="body2" color="text.secondary">
+                  Course ID: {course.courseId}
+                </Typography>
               </div>
             </Card>
           </Grid>
@@ -179,7 +184,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                   label="Student Name"
                   fullWidth
                   id="studentName"
-                  margin="dense" // Change margin value to "dense"
+                  margin="normal"
                   variant="outlined"
                   value={formData.studentName}
                   onChange={handleInputChange}
@@ -190,7 +195,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                   label="Date of Birth"
                   fullWidth
                   id="studentDOB"
-                  margin="dense" // Change margin value to "dense"
+                  margin="normal"
                   variant="outlined"
                   type="date"
                   value={formData.studentDOB}
@@ -202,7 +207,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                   label="Address"
                   fullWidth
                   id="address"
-                  margin="dense" // Change margin value to "dense"
+                  margin="normal"
                   variant="outlined"
                   value={formData.address}
                   onChange={handleInputChange}
@@ -213,7 +218,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                   label="Mobile"
                   fullWidth
                   id="mobile"
-                  margin="dense" // Change margin value to "dense"
+                  margin="normal"
                   variant="outlined"
                   value={formData.mobile}
                   onChange={handleInputChange}
@@ -224,7 +229,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                   label="SSLC Marks"
                   fullWidth
                   id="SSLC"
-                  margin="dense" // Change margin value to "dense"
+                  margin="normal"
                   variant="outlined"
                   value={formData.SSLC}
                   onChange={handleInputChange}
@@ -235,7 +240,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                   label="HSC Marks"
                   fullWidth
                   id="HSC"
-                  margin="dense" // Change margin value to "dense"
+                  margin="normal"
                   variant="outlined"
                   value={formData.HSC}
                   onChange={handleInputChange}
@@ -246,35 +251,31 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                   label="Diploma Marks"
                   fullWidth
                   id="Diploma"
-                  margin="dense" // Change margin value to "dense"
+                  margin="normal"
                   variant="outlined"
                   value={formData.Diploma}
                   onChange={handleInputChange}
                 />
               </Grid>
-              <Grid item xs={8}>
-                <FormControl component="fieldset">
-                  <Typography variant="subtitle1" gutterBottom>
-                    Eligibility
-                  </Typography>
-                  <RadioGroup
-                    aria-label="eligibility"
-                    name="eligibility"
-                    value={eligibility}
-                    onChange={(e) => setEligibility(e.target.value)}
-                  >
-                    <FormControlLabel
-                      value="Eligible"
-                      control={<Radio />}
-                      label="Eligible"
-                    />
-                    <FormControlLabel
-                      value="Not Eligible"
-                      control={<Radio />}
-                      label="Not Eligible"
-                    />
-                  </RadioGroup>
-                </FormControl>
+              <Grid item xs={4}>
+                {/* Use RadioGroup for eligibility */}
+                <RadioGroup
+                  aria-label="Eligibility"
+                  name="eligibility"
+                  value={eligibility}
+                  onChange={handleEligibilityChange}
+                >
+                  <FormControlLabel
+                    value="Eligible"
+                    control={<Radio />}
+                    label="Eligible"
+                  />
+                  <FormControlLabel
+                    value="Not Eligible"
+                    control={<Radio />}
+                    label="Not Eligible"
+                  />
+                </RadioGroup>
               </Grid>
             </Grid>
             <Button variant="contained" color="primary" type="submit">
