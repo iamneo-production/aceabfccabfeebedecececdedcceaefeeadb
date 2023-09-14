@@ -81,33 +81,36 @@ public class AdminController {
     }
 
     @PostMapping("addStudent/{userId}")
-    public ResponseEntity<StudentModel> createOrUpdateStudent(@PathVariable Long userId, @RequestBody StudentModel studentData) {
-        // Check if a student with the given user ID exists
-        StudentModel existingStudent = studentService.getStudentByUserId(userId);
+public ResponseEntity<StudentModel> createOrUpdateStudent(@PathVariable Long userId, @RequestBody StudentModel studentData) {
+    // Check if a student with the given user ID exists
+    StudentModel existingStudent = studentService.getStudentByUserId(userId);
+    
+    if (existingStudent != null) {
+        // A student with the same user ID already exists, update the existing student's details
+        existingStudent.setStudentName(studentData.getStudentName());
+        existingStudent.setStudentDOB(studentData.getStudentDOB());
+        existingStudent.setAddress(studentData.getAddress());
+        existingStudent.setMobile(studentData.getMobile());
+        existingStudent.setSSLC(studentData.getSSLC());
+        existingStudent.setHSC(studentData.getHSC());
+        existingStudent.setDiploma(studentData.getDiploma());
+        existingStudent.setEligibility(studentData.getEligibility());
         
-        if (existingStudent != null) {
-            // A student with the same user ID already exists, update the existing student's details
-            existingStudent.setStudentName(studentData.getStudentName());
-            existingStudent.setStudentDOB(studentData.getStudentDOB());
-            existingStudent.setAddress(studentData.getAddress());
-            existingStudent.setMobile(studentData.getMobile());
-            existingStudent.setSSLC(studentData.getSSLC());
-            existingStudent.setHSC(studentData.getHSC());
-            existingStudent.setDiploma(studentData.getDiploma());
-            existingStudent.setEligibility(studentData.getEligibility());
-            
-            // Save the updated student
-            StudentModel updatedStudent = studentService.updateStudent(existingStudent.getStudentId(), existingStudent);
-            
-            return new ResponseEntity<>(updatedStudent, HttpStatus.OK);
-        } else {
-            // No student with the same user ID exists, create a new student
-            studentData.setUser(new UserModel(userId)); // Set the user with the given user ID
-            StudentModel createdStudent = studentService.createStudent(studentData);
-            
-            return new ResponseEntity<>(createdStudent, HttpStatus.CREATED);
-        }
+        // Set the existing user in the studentData
+        studentData.setUser(existingStudent.getUser());
+        
+        // Save the updated student
+        StudentModel updatedStudent = studentService.updateStudent(existingStudent.getStudentId(), existingStudent);
+        
+        return new ResponseEntity<>(updatedStudent, HttpStatus.OK);
+    } else {
+        // No student with the same user ID exists, create a new student
+        studentData.setUser(new UserModel(userId)); // Set the user with the given user ID
+        StudentModel createdStudent = studentService.createStudent(studentData);
+        
+        return new ResponseEntity<>(createdStudent, HttpStatus.CREATED);
     }
+}
 
 
 
