@@ -14,7 +14,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   console.log(collegeId)
 
   const [courseList,setCourseList] = useState([]);
-  const [filteredCourses, setFilteredCourses] = useState(courseList);
+  const [filteredCourses, setFilteredCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [enrollFormOpen, setEnrollFormOpen] = useState(false);
@@ -26,6 +26,8 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
     .then((response) => {
       // Use a callback function to set the courseList state with the response data
       setCourseList(response.data);
+      setFilteredCourses(courseList)
+      
     })
     .catch((error) => {
       console.error("Error fetching course data:", error);
