@@ -55,6 +55,10 @@ public class StudentServiceImpl implements StudentService {
     public StudentModel getStudentByuserId(Long userId) {
         return studentRepository.findByUserUserId(userId);
     }
+    @Override
+    public StudentModel getStudentByUserId(Long userId) {
+        return studentRepository.findByUserUserId(userId);
+    }
 
     @Override
     public StudentModel createOrUpdateStudent(StudentModel studentData, Long userId) {

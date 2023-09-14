@@ -95,20 +95,14 @@ public ResponseEntity<StudentModel> createOrUpdateStudent(@PathVariable Long use
         existingStudent.setHSC(studentData.getHSC());
         existingStudent.setDiploma(studentData.getDiploma());
         existingStudent.setEligibility(studentData.getEligibility());
-        
-        // Set the existing user in the studentData
-        studentData.setUser(existingStudent.getUser());
-        
+
         // Save the updated student
         StudentModel updatedStudent = studentService.updateStudent(existingStudent.getStudentId(), existingStudent);
         
         return new ResponseEntity<>(updatedStudent, HttpStatus.OK);
     } else {
-        // No student with the same user ID exists, create a new student
-        studentData.setUser(new UserModel(userId)); // Set the user with the given user ID
-        StudentModel createdStudent = studentService.createStudent(studentData);
-        
-        return new ResponseEntity<>(createdStudent, HttpStatus.CREATED);
+        // No student with the same user ID exists, return an appropriate response or throw an exception
+        return ResponseEntity.notFound().build();
     }
 }
 

@@ -10,6 +10,7 @@ import java.util.Optional;
 public interface StudentRepository extends JpaRepository<StudentModel, Integer> {
     // Add custom query methods if needed
 
+   
     StudentModel findByUserUserId(Long userId);
 
 }

@@ -8,6 +8,7 @@ import java.util.*;
 public interface StudentService {
     StudentModel createStudent(StudentModel student);
     Optional<StudentModel> getStudentById(int studentId);
+    StudentModel getStudentByUserId(Long userId);
     List<StudentModel> getAllStudents();
     StudentModel updateStudent(int studentId, StudentModel updatedStudent);
     void deleteStudent(int studentId);
