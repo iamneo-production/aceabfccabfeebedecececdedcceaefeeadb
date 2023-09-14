@@ -18,9 +18,8 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(null);
-  const [enrollFormOpen, setEnrollFormOpen] = useState(false);
-  const [eligibility, setEligibility] = useState("");
-  const [courseId, setCourseId] = useState(null);
+  const [enrollFormOpen, setEnrollFormOpen] = useState(false);  
+ 
 
   useEffect(() => {
     axios
@@ -37,16 +36,19 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   }, [collegeId]);
 
   const [formData, setFormData] = useState({
-    studentName: "",
-    studentDOB: "",
-    address: "",
-    mobile: "",
-    SSLC: "",
-    HSC: "",
-    Diploma: "",
+    "studentName": "",
+    "studentDOB": "",
+   "address": "",
+    "mobile": "",
+    "SSLC": "",
+    "HSC": "",
+    "Diploma": "",
+    "eligibility": ""
+
   });
 
   const handleEnrollClick = (course) => {
+    console.log(course.courseId)
     setSelectedCourse(course);
     setFormData({
       studentName: "",
@@ -57,7 +59,8 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
       HSC: "",
       Diploma: "",
     });
-    setEligibility(""); // Reset eligibility when enrolling
+    console.log(courseId);
+   
     setCourseId(course.courseId); // Set the courseId when enrolling
     setEnrollFormOpen(true);
   };
@@ -79,21 +82,15 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
     e.preventDefault();
     console.log("Form Data:", formData);
     console.log("Eligibility:", eligibility);
-    console.log("Course Id:", courseId);
+    
     handleCloseEnrollForm();
   };
 
-  const handleInputChange = (e) => {
-    const { id, value } = e.target;
-    setFormData({
-      ...formData,
-      [id]: value,
-    });
+  const handleInputChange = (e) => {  
+    setFormData({...formData});
   };
 
-  const handleEligibilityChange = (e) => {
-    setEligibility(e.target.value);
-  };
+ 
 
   return (
     <div>
@@ -263,7 +260,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                   aria-label="Eligibility"
                   name="eligibility"
                   value={eligibility}
-                  onChange={handleEligibilityChange}
+                  onChange={handleInputChange}
                 >
                   <FormControlLabel
                     value="Eligible"
