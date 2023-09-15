@@ -74,6 +74,7 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
   };
 
   // Filter courses based on the search query
+  
   const filteredCourses = courseList.filter((course) => {
     if (searchQuery.trim() === "") {
       return true; // Show all courses if the search query is empty
@@ -86,6 +87,7 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
       course.courseDescription.toLowerCase().includes(query)
     );
   });
+
 
   return (
     <div>
