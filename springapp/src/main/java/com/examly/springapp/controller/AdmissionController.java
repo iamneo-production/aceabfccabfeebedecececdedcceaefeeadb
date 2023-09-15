@@ -3,6 +3,8 @@ package com.examly.springapp.controller;
 import com.examly.springapp.model.AdmissionModel;
 import com.examly.springapp.service.AdmissionService;
 import com.examly.springapp.service.StudentService;
+import com.examly.springapp.service.InstituteService;
+import com.examly.springapp.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +17,16 @@ import org.springframework.http.HttpStatus;
 @RequestMapping("/admin")
 public class AdmissionController {
     private final AdmissionService admissionService;
+    private final CourseService courseService;
+    private final InstituteService instituteService;
 
     @Autowired
-    public AdmissionController(AdmissionService admissionService) {
+    public AdmissionController(AdmissionService admissionService,CourseService courseService,InstituteService instituteService) {
         this.admissionService = admissionService;
+        this.courseService = courseService;
+        this.instituteService = instituteService;
     }
+   
 
     // Add an admission
     @PostMapping("/addAdmission")
