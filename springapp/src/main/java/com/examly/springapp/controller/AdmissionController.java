@@ -2,6 +2,8 @@ package com.examly.springapp.controller;
 
 import com.examly.springapp.model.AdmissionModel;
 import com.examly.springapp.service.AdmissionService;
+import com.examly.springapp.service.StudentService;
+import com.examly.springapp.model.StudentModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -28,17 +30,23 @@ public class AdmissionController {
         AdmissionModel createdAdmission = admissionService.createAdmission(admission);
         return ResponseEntity.ok(createdAdmission);
     }
+    private final StudentService studentService;
 
+    @Autowired
+    public AdmissionController(AdmissionService admissionService, StudentService studentService) {
+        this.admissionService = admissionService;
+        this.studentService = studentService;
+    }
     @PostMapping("/admin/addAdmissionNew/{userId}")
 public ResponseEntity<AdmissionModel> addAdmission(
     @RequestBody AdmissionModel admission,
-    @PathVariable int userId
+    @PathVariable Long userId
 ) {
     // Fetch the corresponding studentId from the Student table using userId
-    long studentId = studentService.getStudentIdByUserId(userId);
+    int studentId = studentService.getStudentIdByUserId(userId);
 
     // Set userId and studentId in the AdmissionModel
-    admission.setUserId(userId);
+    admission.setUserId(userId.intValue());
     admission.setStudentId(studentId);
 
     AdmissionModel createdAdmission = admissionService.createAdmission(admission);
