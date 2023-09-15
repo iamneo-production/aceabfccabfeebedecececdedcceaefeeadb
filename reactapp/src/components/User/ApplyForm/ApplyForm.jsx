@@ -80,6 +80,9 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
       .catch((error) => {
         console.error("Error fetching student data:", error);
       });
+
+
+
   };
   
 
@@ -119,6 +122,29 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
       .catch((error) => {
         console.error("Error enrolling student:", error);
       });
+      const admissionData = {
+        courseId: selectedCourse.courseId, // Use the selected course ID
+        instituteId: collegeId, // Use the college ID as institute ID
+        status: "enrolled", // Set the status to "enrolled"
+     
+      };
+      axios
+      .post(
+        `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addAdmission/${userId}`,   admissionData
+      )
+      .then((response) => {
+        console.log("Admission created successfully:", response.data);
+        handleCloseEnrollForm();
+      })
+      .catch((error) => {
+        console.error("Error creating admission:", error);
+      });
+  };
+
+
+
+
+
   };
 
 
