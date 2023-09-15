@@ -29,6 +29,11 @@ public class AdmissionController {
         return ResponseEntity.ok(createdAdmission);
     }
 
+
+
+
+    
+
     // Edit an admission by ID
     @PutMapping("/admin/editAdmission/{admissionId}")
     public ResponseEntity<AdmissionModel> editAdmission(
@@ -68,6 +73,10 @@ public class AdmissionController {
             return ResponseEntity.notFound().build();
         }
     }
+
+
+
+
 
     // View all admissions
     @GetMapping("/admin/admission")
