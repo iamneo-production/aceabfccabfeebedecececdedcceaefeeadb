@@ -55,19 +55,33 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
 
   const handleEnrollClick = (course) => {
     setSelectedCourse(course);
-    setFormData({
-      studentName: "",
-      studentDOB: "",
-      address: "",
-      mobile: "",
-      SSLC: "",
-      HSC: "",
-      Diploma: "",
-      eligibility: "",
-    });
-    setEnrollFormOpen(true);
-    
+  
+    // Make a GET request to retrieve student data
+    axios
+      .get(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/getStudent/${userId}`)
+      .then((response) => {
+        const studentData = response.data;
+  
+        // Set the form data with the retrieved student data
+        setFormData({
+          studentName: studentData.studentName || "",
+          studentDOB: studentData.studentDOB || "",
+          address: studentData.address || "",
+          mobile: studentData.mobile || "",
+          SSLC: studentData.SSLC || "",
+          HSC: studentData.HSC || "",
+          Diploma: studentData.Diploma || "",
+          eligibility: studentData.eligibility || "",
+        });
+  
+        // Open the enrollment form
+        setEnrollFormOpen(true);
+      })
+      .catch((error) => {
+        console.error("Error fetching student data:", error);
+      });
   };
+  
 
   const handleCloseEnrollForm = () => {
     setEnrollFormOpen(false);
