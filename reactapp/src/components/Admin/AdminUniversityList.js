@@ -116,7 +116,37 @@ const AdminUniversityList = () => {
       .then((response) => {
         // Handle success (e.g., show a success message)
         console.log("Institute edited successfully!", response.data);
+        const apiUrl =
+        'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/institute';
+  
+      // Make a GET request to fetch the list of institutes from the API
+      axios
+        .get(apiUrl)
+        .then((response) => {
+          // Assuming your API returns an array of institutes
+          const dataFromApi = response.data;
+          console.log(response.data);
+  
+          const formattedCardDetails = dataFromApi.map((institute) => ({
+            collegeId: institute.instituteId,
+            title: institute.instituteName,
+            description: institute.instituteDescription,
+            imageURL: institute.imageURL,
+            place: institute.instituteAddress,
+            starRating: parseFloat(institute.starRating), // Convert starRating to a float
+            mobile: institute.mobile, // Include mobile number
+            email: institute.email, // Include email
+          }));
+  
+          setCardDetails(formattedCardDetails);
+          setFilteredCards(formattedCardDetails); // Initialize filteredCards with the formatted data
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+        });
         
+
 
         // Optionally, you can refresh the institute list here if needed
       })
@@ -158,6 +188,38 @@ const AdminUniversityList = () => {
       .then((response) => {
         // Handle success (e.g., show a success message)
         console.log("Institute added successfully!", response.data);
+        const apiUrl =
+        'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/institute';
+  
+      // Make a GET request to fetch the list of institutes from the API
+      axios
+        .get(apiUrl)
+        .then((response) => {
+          // Assuming your API returns an array of institutes
+          const dataFromApi = response.data;
+          console.log(response.data);
+  
+          const formattedCardDetails = dataFromApi.map((institute) => ({
+            collegeId: institute.instituteId,
+            title: institute.instituteName,
+            description: institute.instituteDescription,
+            imageURL: institute.imageURL,
+            place: institute.instituteAddress,
+            starRating: parseFloat(institute.starRating), // Convert starRating to a float
+            mobile: institute.mobile, // Include mobile number
+            email: institute.email, // Include email
+          }));
+  
+          setCardDetails(formattedCardDetails);
+          setFilteredCards(formattedCardDetails); // Initialize filteredCards with the formatted data
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+        });
+        
+
+
 
         // Optionally, you can refresh the institute list here if needed
       })
