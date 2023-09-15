@@ -117,29 +117,41 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
       .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${userId}`, enrollmentData)
       .then((response) => {
         console.log("Enrollment successful:", response.data);
+        const admissionData = {
+          courseId: selectedCourse.courseId, // Use the selected course ID
+          instituteId: collegeId, // Use the college ID as institute ID
+          status: "enrolled", // Set the status to "enrolled"
+        };
+        
+        axios
+          .post(
+            `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addAdmission/${userId}`,
+            admissionData
+          )
+          .then((admissionResponse) => {
+            console.log("Admission created successfully:", admissionResponse.data);
+            // Handle admission success as needed
+          })
+          .catch((admissionError) => {
+            console.error("Error creating admission:", admissionError);
+          });
+      })
+      .catch((error) => {
+        console.error("Error enrolling student:", error);
+      });
+  };
+   
+  
+  
+  
+  
+  
         handleCloseEnrollForm();
       })
       .catch((error) => {
         console.error("Error enrolling student:", error);
       });
-      const admissionData = {
-        courseId: selectedCourse.courseId, // Use the selected course ID
-        instituteId: collegeId, // Use the college ID as institute ID
-        status: "enrolled", // Set the status to "enrolled"
-     
-      };
-      axios
-      .post(
-        `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addAdmission/${userId}`,   admissionData
-      )
-      .then((response) => {
-        console.log("Admission created successfully:", response.data);
-        handleCloseEnrollForm();
-      })
-      .catch((error) => {
-        console.error("Error creating admission:", error);
-      });
-  };
+      
 
 
 

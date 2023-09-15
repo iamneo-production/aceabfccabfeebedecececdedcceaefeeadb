@@ -1,6 +1,10 @@
 package com.examly.springapp.model;
 
-// Imports...
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class AdmissionModel {
@@ -11,11 +15,11 @@ public class AdmissionModel {
     private int courseId;
     private int instituteId;
     private String status;
-    
-    @Column(name = "student_id") // New column for studentId
+
+    @Column(name = "student_id")
     private int studentId;
 
-    @Column(name = "user_id") // New column for userId
+    @Column(name = "user_id")
     private int userId;
 
     // Constructors...
