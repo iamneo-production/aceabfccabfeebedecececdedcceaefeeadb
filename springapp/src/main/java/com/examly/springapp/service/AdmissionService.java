@@ -1,4 +1,5 @@
 package com.examly.springapp.service;
+import com.examly.springapp.model.Student;
 
 import com.examly.springapp.model.AdmissionModel;
 
@@ -12,4 +13,6 @@ public interface AdmissionService {
     AdmissionModel updateAdmission(int admissionId, AdmissionModel updatedAdmission);
     void deleteAdmission(int admissionId);
     // Add custom service methods if needed
+    Student getStudentByUserId(Long userId);
+
 }

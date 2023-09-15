@@ -45,6 +45,10 @@ public class AdmissionServiceImpl implements AdmissionService {
     public void deleteAdmission(int admissionId) {
         admissionRepository.deleteById(admissionId);
     }
-
+    
+    @Override
+    public Student getStudentByUserId(Long userId) {
+        return studentService.getStudentByUserId(userId);
+    }
     // Implement custom service methods if needed
 }
