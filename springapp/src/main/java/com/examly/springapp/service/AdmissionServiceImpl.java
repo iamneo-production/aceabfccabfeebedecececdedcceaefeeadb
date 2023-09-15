@@ -42,6 +42,11 @@ public class AdmissionServiceImpl implements AdmissionService {
             return null; 
         }
     }
+    @Override
+public List<AdmissionModel> getAdmissionsByUserId(Long userId) {
+    return admissionRepository.findByUserId(userId);
+}
+
 
     @Override
     public void deleteAdmission(int admissionId) {
