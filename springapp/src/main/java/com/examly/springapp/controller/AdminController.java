@@ -30,12 +30,8 @@ public class AdminController {
     private final StudentService studentService;
     private final CourseService courseService;
     private final InstituteService instituteService;
-    private final AdmissionService admissionService; // Declare the AdmissionService
 
-    @Autowired
-    public AdminController(AdmissionService admissionService) {
-        this.admissionService = admissionService;
-    }
+
 
     @Autowired
     public AdminController(StudentService studentService, CourseService courseService,
@@ -180,7 +176,8 @@ public class AdminController {
             return ResponseEntity.ok(courses);
         }
     }
-  
+
+    
 
 
 
