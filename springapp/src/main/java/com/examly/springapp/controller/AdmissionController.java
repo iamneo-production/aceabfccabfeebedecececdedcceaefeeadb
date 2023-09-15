@@ -29,6 +29,23 @@ public class AdmissionController {
         return ResponseEntity.ok(createdAdmission);
     }
 
+    @PostMapping("/admin/addAdmissionNew/{userId}")
+public ResponseEntity<AdmissionModel> addAdmission(
+    @RequestBody AdmissionModel admission,
+    @PathVariable int userId
+) {
+    // Fetch the corresponding studentId from the Student table using userId
+    long studentId = studentService.getStudentIdByUserId(userId);
+
+    // Set userId and studentId in the AdmissionModel
+    admission.setUserId(userId);
+    admission.setStudentId(studentId);
+
+    AdmissionModel createdAdmission = admissionService.createAdmission(admission);
+    return ResponseEntity.ok(createdAdmission);
+}
+
+
 
 
 
