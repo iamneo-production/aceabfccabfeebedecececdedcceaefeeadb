@@ -28,15 +28,16 @@ public class AdmissionController {
         return ResponseEntity.ok(createdAdmission);
     }
 
-    @PostMapping("/admin/addAdmissionNew/{userId}")
+    @Autowired
+    private StudentService studentService; // Inject the StudentService
+
+    @PostMapping("/addAdmissionNew/{userId}")
     public ResponseEntity<AdmissionModel> addAdmission(
             @RequestBody AdmissionModel admission,
             @PathVariable Long userId) {
-        StudentService studentService;
-        
+
         int studentId = studentService.getStudentByUserId(userId).getUserId().intValue(); // Typecast to int
 
-       
         admission.setUserId(userId.intValue()); // Typecast to int
         admission.setStudentId(studentId);
 
