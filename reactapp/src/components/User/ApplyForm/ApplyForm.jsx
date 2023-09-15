@@ -68,9 +68,9 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
           studentDOB: studentData.studentDOB || "",
           address: studentData.address || "",
           mobile: studentData.mobile || "",
-          SSLC: studentData.SSLC || "",
-          HSC: studentData.HSC || "",
-          Diploma: studentData.Diploma || "",
+          SSLC: studentData.sslc || "",
+          HSC: studentData.hsc || "",
+          Diploma: studentData.diploma || "",
           eligibility: studentData.eligibility || "",
         });
   
@@ -199,10 +199,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                 >
                   Enroll Now
                 </Button>
-                {/* Include courseId */}
-                <Typography variant="body2" color="text.secondary">
-                  Course ID: {course.courseId}
-                </Typography>
+             
               </div>
             </Card>
           </Grid>
