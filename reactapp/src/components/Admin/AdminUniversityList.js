@@ -68,11 +68,37 @@ const AdminUniversityList = () => {
 
   const handleDeleteClick = () => {
     // Implement delete logic here
+    if (selectedCard) {
+      const instituteId = selectedCard.collegeId;
+
+      // Make an Axios DELETE request to delete the institute
+      axios
+        .delete(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteInstitute/${instituteId}`)
+        .then(() => {
+          console.log("Institute deleted successfully");
+          // You can perform additional actions if needed
+        })
+        .catch((error) => {
+          console.error("Error deleting institute:", error);
+        });
+    }
   };
 
   const handleEditSave = () => {
     // Handle saving edited data here
     console.log("Edited Data:", editFormData);
+
+    // Make an Axios PUT request to update the institute
+    axios
+      .put(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/editInstitute/${editFormData.collegeId}`, editFormData)
+      .then((response) => {
+        console.log("Institute edited successfully");
+        // You can perform additional actions if needed
+      })
+      .catch((error) => {
+        console.error("Error editing institute:", error);
+      });
+
     setEditDialogOpen(false); // Close the dialog after saving
   };
 
@@ -87,66 +113,24 @@ const AdminUniversityList = () => {
   const handleAddInstituteSave = () => {
     // Handle saving new institute data here
     console.log("New Institute Data:", addFormData);
+
+    // Make an Axios POST request to add a new institute
+    axios
+      .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addInstitute`, addFormData)
+      .then((response) => {
+        console.log("Institute added successfully");
+        // You can perform additional actions if needed
+      })
+      .catch((error) => {
+        console.error("Error adding institute:", error);
+      });
+
     setAddDialogOpen(false); // Close the dialog after saving
   };
 
-  // const cardDetails = React.useMemo(
-  //   () => [
-  //     {
-  //       collegeId: 1,
-  //       title: "Huston University",
-  //       description: "Description for Card 1",
-  //       imageURL: "https://source.unsplash.com/random/800x600?sig=1",
-  //       place: "Houston, TX",
-  //       starRating: 4.5,
-  //     },
-  //     {
-  //       collegeId: 2,
-  //       title: "University of Houston",
-  //       description: "Description for Card 2",
-  //       imageURL: "https://source.unsplash.com/random/800x600?sig=2",
-  //       place: "Houston, TX",
-  //       starRating: 4.0,
-  //     },
-  //     {
-  //       collegeId: 3,
-  //       title: "MIT",
-  //       description: "Description for Card 3",
-  //       imageURL: "https://source.unsplash.com/random/800x600?sig=3",
-  //       place: "Cambridge, MA",
-  //       starRating: 4.8,
-  //     },
-  //     {
-  //       collegeId: 4,
-  //       title: "VIT",
-  //       description: "Description for Card 4",
-  //       imageURL: "https://source.unsplash.com/random/800x600?sig=4",
-  //       place: "Vellore, India",
-  //       starRating: 4.2,
-  //     },
-  //     {
-  //       collegeId: 5,
-  //       title: "SRM",
-  //       description: "Description for Card 5",
-  //       imageURL: "https://source.unsplash.com/random/800x600?sig=5",
-  //       place: "Chennai, India",
-  //       starRating: 4.6,
-  //     },
-  //     {
-  //       collegeId: 6,
-  //       title: "DPS",
-  //       description: "Description for Card 6",
-  //       imageURL: "https://source.unsplash.com/random/800x600?sig=6",
-  //       place: "New Delhi, India",
-  //       starRating: 4.0,
-  //     },
-  //   ],
-  //   []
-  // );
   useEffect(() => {
     // Define the API endpoint URL where your data is hosted
-    const apiUrl =
-      'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/institute';
+    const apiUrl = 'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/institute';
 
     // Make a GET request to fetch the list of institutes from the API
     axios
@@ -168,28 +152,22 @@ const AdminUniversityList = () => {
         setCardDetails(formattedCardDetails);
         setFilteredCards(formattedCardDetails); // Initialize filteredCards with the formatted data
         setLoading(false);
-       
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
   }, []);
 
-
-
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
 
       <AdminAppBar id={params.userId} />
-     
 
       <main>
-     
         <Box sx={{ bgcolor: "background.paper", pb: 6 }}></Box>
-        <Container sx={{ py: 8 }} maxWidth="md">
-        <h3>Welcome Back Admin</h3>
+        <Container sx={{ py: 8 }}>
+          <h3>Welcome Back Admin</h3>
           <Box
             sx={{
               bgcolor: "background.paper",
@@ -441,8 +419,8 @@ const AdminUniversityList = () => {
           </Button>
         </DialogActions>
       </Dialog>
-   
-    <Footer/>
+
+      <Footer />
     </ThemeProvider>
   );
 };
