@@ -101,33 +101,38 @@ public class AdmissionController {
     
 
 // }
+
 @GetMapping("/viewAdmissionByUserId/{userId}")
-public ResponseEntity<List<AdmissionWithDetails>> viewAdmissionsByUserId(@PathVariable int userId) {
+public ResponseEntity<List<Map<String, Object>>> viewAdmissionsByUserId(@PathVariable int userId) {
     List<AdmissionModel> admissions = admissionService.getAdmissionsByUserId(userId);
-    if (!admissions.isEmpty()) {
-        List<AdmissionWithDetails> admissionsWithDetails = new ArrayList<>();
+    List<Map<String, Object>> admissionDetailsList = new ArrayList<>();
+    
+    for (AdmissionModel admission : admissions) {
+        Map<String, Object> admissionDetails = new HashMap<>();
+        admissionDetails.put("admissionId", admission.getAdmissionId());
+        admissionDetails.put("courseId", admission.getCourseId());
+        admissionDetails.put("instituteId", admission.getInstituteId());
+        admissionDetails.put("status", admission.getStatus());
+        admissionDetails.put("studentId", admission.getStudentId());
+        admissionDetails.put("userId", admission.getUserId());
 
-        for (AdmissionModel admission : admissions) {
-            String courseName = courseService.getCourseNameById(admission.getCourseId());
-            String instituteName = instituteService.getInstituteNameById(admission.getInstituteId());
+        // Fetch and add additional details
+        String courseName = courseService.getCourseNameById(admission.getCourseId());
+        String instituteName = instituteService.getInstituteNameById(admission.getInstituteId());
 
-            AdmissionWithDetails admissionWithDetails = new AdmissionWithDetails();
-            admissionWithDetails.setAdmissionId(admission.getAdmissionId());
-            admissionWithDetails.setCourseId(admission.getCourseId());
-            admissionWithDetails.setInstituteId(admission.getInstituteId());
-            admissionWithDetails.setStatus(admission.getStatus());
-            admissionWithDetails.setStudentId(admission.getStudentId());
-            admissionWithDetails.setUserId(admission.getUserId());
-            admissionWithDetails.setCourseName(courseName);
-            admissionWithDetails.setInstituteName(instituteName);
+        admissionDetails.put("courseName", courseName);
+        admissionDetails.put("instituteName", instituteName);
 
-            admissionsWithDetails.add(admissionWithDetails);
-        }
+        admissionDetailsList.add(admissionDetails);
+    }
 
-        return ResponseEntity.ok(admissionsWithDetails);
+    if (!admissionDetailsList.isEmpty()) {
+        return ResponseEntity.ok(admissionDetailsList);
     } else {
         return ResponseEntity.notFound().build();
     }
+}
+
 }
 
 
