@@ -90,9 +90,9 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
       studentDOB: formData.studentDOB,
       address: formData.address,
       mobile: formData.mobile,
-      SSLC: formData.SSLC,
-      HSC: formData.HSC,
-      Diploma: formData.Diploma,
+      sslc: formData.SSLC,
+      hsc: formData.HSC,
+      diploma: formData.Diploma,
       eligibility: formData.eligibility,
     };
 
