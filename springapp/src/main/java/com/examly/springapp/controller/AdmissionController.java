@@ -23,7 +23,7 @@ public class AdmissionController {
     }
 
     // Add an admission
-    @PostMapping("/admin/addAdmission")
+    @PostMapping("/admin/addAdmission/")
     public ResponseEntity<AdmissionModel> addAdmission(@RequestBody AdmissionModel admission) {
         AdmissionModel createdAdmission = admissionService.createAdmission(admission);
         return ResponseEntity.ok(createdAdmission);
@@ -32,7 +32,7 @@ public class AdmissionController {
 
 
 
-    
+
 
     // Edit an admission by ID
     @PutMapping("/admin/editAdmission/{admissionId}")
