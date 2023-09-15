@@ -16,10 +16,18 @@ import org.springframework.http.HttpStatus;
 @RequestMapping("/admin")
 public class AdmissionController {
     private final AdmissionService admissionService;
+    private final CourseService courseService; // Inject CourseService
+    private final InstituteService instituteService; 
 
     @Autowired
-    public AdmissionController(AdmissionService admissionService) {
+    public AdmissionController(
+        AdmissionService admissionService,
+        CourseService courseService,
+        InstituteService instituteService
+    ) {
         this.admissionService = admissionService;
+        this.courseService = courseService;
+        this.instituteService = instituteService;
     }
 
     // Add an admission
