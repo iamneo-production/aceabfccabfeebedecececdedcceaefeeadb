@@ -1,10 +1,7 @@
 package com.examly.springapp.model;
-import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.*;
+
+// Imports...
+
 @Entity
 public class AdmissionModel {
     @Id
@@ -14,16 +11,12 @@ public class AdmissionModel {
     private int courseId;
     private int instituteId;
     private String status;
-
-    // Many-to-One relationship with StudentModel
-    @ManyToOne
     
-    private StudentModel student;
+    @Column(name = "student_id") // New column for studentId
+    private int studentId;
 
-    // Many-to-One relationship with UserModel (for userId)
-    @ManyToOne
-    @JoinColumn(name = "userId")
-    private UserModel user;
+    @Column(name = "user_id") // New column for userId
+    private int userId;
 
     // Constructors...
 
@@ -32,15 +25,17 @@ public class AdmissionModel {
     }
 
     // Parameterized constructor
-    public AdmissionModel(int courseId, int instituteId, String status, StudentModel student, UserModel user) {
+    public AdmissionModel(int courseId, int instituteId, String status, int studentId, int userId) {
         this.courseId = courseId;
         this.instituteId = instituteId;
         this.status = status;
-        this.student = student;
-        this.user = user;
+        this.studentId = studentId;
+        this.userId = userId;
     }
 
     // Getters and setters...
+
+    // Update getters and setters for studentId and userId accordingly.
 
     public int getAdmissionId() {
         return admissionId;
@@ -74,19 +69,19 @@ public class AdmissionModel {
         this.status = status;
     }
 
-    public StudentModel getStudent() {
-        return student;
+    public int getStudentId() {
+        return studentId;
     }
 
-    public void setStudent(StudentModel student) {
-        this.student = student;
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
     }
 
-    public UserModel getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser(UserModel user) {
-        this.user = user;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }
