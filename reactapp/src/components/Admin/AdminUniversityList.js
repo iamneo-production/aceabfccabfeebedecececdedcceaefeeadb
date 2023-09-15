@@ -68,37 +68,11 @@ const AdminUniversityList = () => {
 
   const handleDeleteClick = () => {
     // Implement delete logic here
-    if (selectedCard) {
-      const instituteId = selectedCard.collegeId;
-
-      // Make an Axios DELETE request to delete the institute
-      axios
-        .delete(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteInstitute/${instituteId}`)
-        .then(() => {
-          console.log("Institute deleted successfully");
-          // You can perform additional actions if needed
-        })
-        .catch((error) => {
-          console.error("Error deleting institute:", error);
-        });
-    }
   };
 
   const handleEditSave = () => {
     // Handle saving edited data here
     console.log("Edited Data:", editFormData);
-
-    // Make an Axios PUT request to update the institute
-    axios
-      .put(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/editInstitute/${editFormData.collegeId}`, editFormData)
-      .then((response) => {
-        console.log("Institute edited successfully");
-        // You can perform additional actions if needed
-      })
-      .catch((error) => {
-        console.error("Error editing institute:", error);
-      });
-
     setEditDialogOpen(false); // Close the dialog after saving
   };
 
@@ -113,24 +87,14 @@ const AdminUniversityList = () => {
   const handleAddInstituteSave = () => {
     // Handle saving new institute data here
     console.log("New Institute Data:", addFormData);
-
-    // Make an Axios POST request to add a new institute
-    axios
-      .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addInstitute`, addFormData)
-      .then((response) => {
-        console.log("Institute added successfully");
-        // You can perform additional actions if needed
-      })
-      .catch((error) => {
-        console.error("Error adding institute:", error);
-      });
-
     setAddDialogOpen(false); // Close the dialog after saving
   };
 
+  
   useEffect(() => {
     // Define the API endpoint URL where your data is hosted
-    const apiUrl = 'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/institute';
+    const apiUrl =
+      'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/institute';
 
     // Make a GET request to fetch the list of institutes from the API
     axios
@@ -152,22 +116,28 @@ const AdminUniversityList = () => {
         setCardDetails(formattedCardDetails);
         setFilteredCards(formattedCardDetails); // Initialize filteredCards with the formatted data
         setLoading(false);
+       
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
   }, []);
 
+
+
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
 
       <AdminAppBar id={params.userId} />
+     
 
       <main>
+     
         <Box sx={{ bgcolor: "background.paper", pb: 6 }}></Box>
-        <Container sx={{ py: 8 }}>
-          <h3>Welcome Back Admin</h3>
+        <Container sx={{ py: 8 }} maxWidth="md">
+        <h3>Welcome Back Admin</h3>
           <Box
             sx={{
               bgcolor: "background.paper",
@@ -419,8 +389,8 @@ const AdminUniversityList = () => {
           </Button>
         </DialogActions>
       </Dialog>
-
-      <Footer />
+   
+    <Footer/>
     </ThemeProvider>
   );
 };
