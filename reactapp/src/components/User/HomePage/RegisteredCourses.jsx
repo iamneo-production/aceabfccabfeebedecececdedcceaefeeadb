@@ -1,25 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import UserAppBar from '../../UserAppBar';
 import { Card, CardContent, Typography, Button } from '@mui/material';
 import Footer from '../../Footer';
+import axios from 'axios'; // Import Axios
+
+const containerStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  minHeight: '100vh',
+};
+
+const contentStyle = {
+  flex: '1',
+  textAlign: 'left',
+};
 
 const RegisteredCourses = () => {
   const [registeredCourses, setRegisteredCourses] = useState([]);
   const params = useParams();
 
   const handleViewActivityClick = () => {
-    // Handle the click event for "View Activity" button here
     console.log("View Activity button clicked");
   };
 
-  const handleDeleteClick = (courseId) => {
-    // Handle the click event for the delete button here
-    console.log("Delete button clicked for course ID:", courseId);
+  const handleDeleteClick = (admissionId) => {
+    // You should implement the logic to delete the course here
+    axios
+      .delete(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteAdmission/${admissionId}`)
+      .then((response) => {
+        // Assuming the server responds with a success message
+        console.log("Course deleted successfully");
+        // Remove the deleted course from the state
+        setRegisteredCourses((prevCourses) => prevCourses.filter((course) => course.admissionId !== admissionId));
+      })
+      .catch((error) => {
+        console.error("Error deleting course:", error);
+      });
   };
 
   useEffect(() => {
-    // Fetch the registered courses list from the server
     axios
       .get(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/viewAdmissionByUserId/${params.userId}`)
       .then((response) => {
@@ -66,3 +86,5 @@ const RegisteredCourses = () => {
     </div>
   );
 };
+
+export default RegisteredCourses;
