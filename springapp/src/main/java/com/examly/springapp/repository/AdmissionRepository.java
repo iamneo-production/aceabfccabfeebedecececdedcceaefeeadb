@@ -10,8 +10,8 @@ import java.util.Optional;
 @Repository
 public interface AdmissionRepository extends JpaRepository<AdmissionModel, Integer> {
     // Add custom query methods if needed
-    List<AdmissionModel> findByUserId(Long userId);
-   
+    List<AdmissionModel> findByUserId(int userId);
+
 
 }
 

@@ -43,7 +43,7 @@ public class AdmissionServiceImpl implements AdmissionService {
         }
     }
     @Override
-public List<AdmissionModel> getAdmissionsByUserId(Long userId) {
+public List<AdmissionModel> getAdmissionsByUserId(int userId) {
     return admissionRepository.findByUserId(userId);
 }
 
