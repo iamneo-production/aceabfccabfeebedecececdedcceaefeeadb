@@ -33,15 +33,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   });
 
   const { userId } = useParams();
-  axios
-  .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${userId}`, formData)
-  .then((response) => {
-    console.log("Enrollment successful:", response.data);
-    handleCloseEnrollForm();
-  })
-  .catch((error) => {
-    console.error("Error enrolling student:", error);
-  });
+ 
 
   
    
