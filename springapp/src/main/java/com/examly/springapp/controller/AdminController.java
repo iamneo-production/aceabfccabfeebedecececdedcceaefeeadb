@@ -1,5 +1,9 @@
 package com.examly.springapp.controller;
 
+
+import com.examly.springapp.model.AdmissionModel;
+import com.examly.springapp.service.AdmissionService;
+
 import com.examly.springapp.model.CourseModel;
 import com.examly.springapp.service.CourseService;
 
@@ -26,6 +30,12 @@ public class AdminController {
     private final StudentService studentService;
     private final CourseService courseService;
     private final InstituteService instituteService;
+    private final AdmissionService admissionService; // Declare the AdmissionService
+
+    @Autowired
+    public AdminController(AdmissionService admissionService) {
+        this.admissionService = admissionService;
+    }
 
     @Autowired
     public AdminController(StudentService studentService, CourseService courseService,
