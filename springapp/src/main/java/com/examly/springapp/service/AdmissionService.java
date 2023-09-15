@@ -15,6 +15,7 @@ public interface AdmissionService {
     void deleteAdmission(int admissionId);
     // Add custom service methods if needed
     StudentModel getStudentByUserId(Long userId);
+    
    
 
 
