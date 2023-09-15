@@ -2,8 +2,6 @@ package com.examly.springapp.controller;
 
 import com.examly.springapp.model.AdmissionModel;
 import com.examly.springapp.service.AdmissionService;
-import com.examly.springapp.service.StudentService;
-import com.examly.springapp.model.StudentModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -25,40 +23,11 @@ public class AdmissionController {
     }
 
     // Add an admission
-    @PostMapping("/admin/addAdmission/")
+    @PostMapping("/admin/addAdmission")
     public ResponseEntity<AdmissionModel> addAdmission(@RequestBody AdmissionModel admission) {
         AdmissionModel createdAdmission = admissionService.createAdmission(admission);
         return ResponseEntity.ok(createdAdmission);
     }
-    private final StudentService studentService;
-
-    @Autowired
-    public AdmissionController(AdmissionService admissionService, StudentService studentService) {
-        this.admissionService = admissionService;
-        this.studentService = studentService;
-    }
-    @PostMapping("/admin/addAdmissionNew/{userId}")
-public ResponseEntity<AdmissionModel> addAdmission(
-    @RequestBody AdmissionModel admission,
-    @PathVariable Long userId
-) {
-    // Fetch the corresponding studentId from the Student table using userId
-    Long studentId = studentService.getStudentByUserId(userId).getUserId();
-
-    // Set userId and studentId in the AdmissionModel
-    admission.setUserId(userId);
-    admission.setStudentId(studentId.intValue());
-
-    AdmissionModel createdAdmission = admissionService.createAdmission(admission);
-    return ResponseEntity.ok(createdAdmission);
-}
-
-
-
-
-
-
-
 
     // Edit an admission by ID
     @PutMapping("/admin/editAdmission/{admissionId}")
@@ -99,10 +68,6 @@ public ResponseEntity<AdmissionModel> addAdmission(
             return ResponseEntity.notFound().build();
         }
     }
-
-
-
-
 
     // View all admissions
     @GetMapping("/admin/admission")
