@@ -69,7 +69,8 @@ const AdminUniversityList = () => {
     setEditDialogOpen(true);
   };
   
-  const handleDeleteClick = (card) => {
+  const handleDeleteClick = (card,e) => {
+    e.stopPropagation();
     console.log("Delete College ID:", card.collegeId); // Log the college ID
     // Define the API endpoint URL for deleting
     const deleteApiUrl = `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteInstitute/${card.collegeId}`;
