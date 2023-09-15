@@ -8,23 +8,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 public class AdmissionServiceImpl implements AdmissionService {
-
-    private final AdmissionRepository admissionRepository;
-
     @Autowired
-    public AdmissionServiceImpl(AdmissionRepository admissionRepository) {
-        this.admissionRepository = admissionRepository;
-    }
+    private AdmissionRepository admissionRepository;
 
     @Override
-    public AdmissionModel createAdmission(AdmissionModel admission, int studentId, int userId) {
-        // Set the studentId and userId in the admission model
-        admission.setStudentId(studentId);
-        admission.setUserId(userId);
-        
-        // Save the admission record
+    public AdmissionModel createAdmission(AdmissionModel admission) {
         return admissionRepository.save(admission);
     }
 
@@ -55,4 +46,6 @@ public class AdmissionServiceImpl implements AdmissionService {
     public void deleteAdmission(int admissionId) {
         admissionRepository.deleteById(admissionId);
     }
+
+    // Implement custom service methods if needed
 }

@@ -3,10 +3,10 @@ package com.examly.springapp.service;
 import com.examly.springapp.model.AdmissionModel;
 
 import java.util.Optional;
-import java.util.List;
+import java.util.*;
 
 public interface AdmissionService {
-    AdmissionModel createAdmission(AdmissionModel admission, int studentId, int userId);
+    AdmissionModel createAdmission(AdmissionModel admission);
     Optional<AdmissionModel> getAdmissionById(int admissionId);
     List<AdmissionModel> getAllAdmissions();
     AdmissionModel updateAdmission(int admissionId, AdmissionModel updatedAdmission);

@@ -2,13 +2,12 @@ package com.examly.springapp.controller;
 
 import com.examly.springapp.model.AdmissionModel;
 import com.examly.springapp.service.AdmissionService;
-import com.examly.springapp.service.StudentService; // Import StudentService
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import java.util.*;
 
 import org.springframework.http.HttpStatus;
-import java.util.*;
 
 
 
@@ -17,12 +16,10 @@ import java.util.*;
 @RequestMapping("/")
 public class AdmissionController {
     private final AdmissionService admissionService;
-    private final StudentService studentService;
 
     @Autowired
-    public AdmissionController(AdmissionService admissionService, StudentService studentService) {
+    public AdmissionController(AdmissionService admissionService) {
         this.admissionService = admissionService;
-        this.studentService = studentService; // Initialize StudentService
     }
 
     // Add an admission
@@ -31,36 +28,6 @@ public class AdmissionController {
         AdmissionModel createdAdmission = admissionService.createAdmission(admission);
         return ResponseEntity.ok(createdAdmission);
     }
-
-
-    @PostMapping("/addAdmissionNew/{userId}")
-public ResponseEntity<AdmissionModel> addAdmission(
-        @PathVariable int userId,
-        @RequestParam int courseId,
-        @RequestParam int instituteId,
-        @RequestParam String status
-) {
-    // Fetch the corresponding studentId from the Student table using userId
-    int studentId = studentService.getStudentIdByUserId(userId);
-    
-    // Create a new AdmissionModel using the provided data
-    AdmissionModel admission = new AdmissionModel(courseId, instituteId, status, studentId, userId);
-    
-    // Create the admission with studentId and userId
-    AdmissionModel createdAdmission = admissionService.createAdmission(admission);
-    
-    return ResponseEntity.ok(createdAdmission);
-}
-
-
-
-        
-
-
-
-
-
-
 
     // Edit an admission by ID
     @PutMapping("/admin/editAdmission/{admissionId}")
@@ -74,15 +41,15 @@ public ResponseEntity<AdmissionModel> addAdmission(
         }
     }
 
-    
-    // View an admission by ID
-@GetMapping("/admin/viewAdmission/{admissionId}")
-public ResponseEntity<AdmissionModel> viewAdmission(@PathVariable int admissionId) {
-    Optional<AdmissionModel> admission = admissionService.getAdmissionById(admissionId);
-    return admission.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-}
 
-  
+    // View an admission by ID
+    @GetMapping("/admin/viewAdmission/{admissionId}")
+    public ResponseEntity<AdmissionModel> viewAdmission(@PathVariable int admissionId) {
+        Optional<AdmissionModel> admission = admissionService.getAdmissionById(admissionId);
+        return admission.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+
 
     // Delete an admission by ID
     @DeleteMapping("/admin/deleteAdmission/{admissionId}")
