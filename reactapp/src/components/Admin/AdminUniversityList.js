@@ -105,23 +105,14 @@ const AdminUniversityList = () => {
 
     // Prepare the data to send in the request body
     const editedInstituteData = {
-      title: editFormData.title,
-      description: editFormData.description,
-      place: editFormData.place,
+      instituteName: editFormData.title,
+      instituteDescription: editFormData.description,
+      instituteAddress: editFormData.place,
       starRating: editFormData.starRating,
       imageURL: editFormData.imageURL,
-
-
-
-
-
-      collegeId: institute.instituteId,
-      title: institute.instituteName,
-      description: institute.instituteDescription,
-      imageURL: institute.imageURL,
-      place: institute.instituteAddress,
-      starRating: parseFloat(institute.starRating),
-    };
+    mobile : editFormData.Buttonmobile,
+    email :  editFormData.email
+   };
 
     // Make a PUT request to update the institute
     axios
