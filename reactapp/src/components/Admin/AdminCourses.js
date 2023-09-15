@@ -74,20 +74,20 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
   };
 
   // Filter courses based on the search query
-  
-  const filteredCourses = courseList.filter((course) => {
-    if (searchQuery.trim() === "") {
-      return true; // Show all courses if the search query is empty
-    }
+  const filteredCourses = Array.isArray(courseList)
+    ? courseList.filter((course) => {
+        if (searchQuery.trim() === "") {
+          return true; // Show all courses if the search query is empty
+        }
 
-    const query = searchQuery.toLowerCase();
-    return (
-      course.courseName.toLowerCase().includes(query) ||
-      course.courseDuration.toString().toLowerCase().includes(query) ||
-      course.courseDescription.toLowerCase().includes(query)
-    );
-  });
-
+        const query = searchQuery.toLowerCase();
+        return (
+          course.courseName.toLowerCase().includes(query) ||
+          course.courseDuration.toString().toLowerCase().includes(query) ||
+          course.courseDescription.toLowerCase().includes(query)
+        );
+      })
+    : [];
 
   return (
     <div>
@@ -102,18 +102,13 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
         </Grid>
       </Grid>
 
-      {courseList.length === 0 ? ( // Check if the courseList is empty
+      {courseList.length === 0 ? (
+        // Check if the courseList is empty and display a message
         <div>
-          <p>Please add courses!</p>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => handleEditClick({})}
-          >
-            Add Course
-          </Button>
+          <p>Please add courses or wait for the data to load...</p>
         </div>
       ) : (
+        // Display the course list
         <div>
           <Button
             variant="contained"
