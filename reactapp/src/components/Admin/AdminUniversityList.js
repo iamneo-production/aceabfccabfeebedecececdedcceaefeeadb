@@ -56,19 +56,27 @@ const AdminUniversityList = () => {
   const handleCardClick = (card) => {
     setSelectedCard(card);
   };
-  const handleEditClick = (card, e) => {
-    e.stopPropagation(); // Prevent the click event from propagating to the card
-    setEditFormData(card);
-    setEditDialogOpen(true);
-  };
+ 
 
   const handleEditDialogClose = () => {
     setEditDialogOpen(false);
   };
 
-  const handleDeleteClick = () => {
-  
+  const handleEditClick = (card, e) => {
+    e.stopPropagation(); // Prevent the click event from propagating to the card
+    console.log("Edit College ID:", card.collegeId); // Log the college ID
+    setEditFormData(card);
+    setEditDialogOpen(true);
   };
+  const handleDeleteClick = (card) => {
+    console.log("Delete College ID:", card.collegeId); // Log the college ID
+    // Implement delete logic here and then refresh the institute list
+    // ...
+  };
+  
+
+  
+  
 
   const handleEditSave = () => {
     // Handle saving edited data here
