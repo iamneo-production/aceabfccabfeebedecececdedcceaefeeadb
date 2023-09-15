@@ -81,6 +81,9 @@ const AdminUniversityList = () => {
       .then((response) => {
         // Handle success (e.g., show a success message)
         console.log("Institute deleted successfully!", response.data);
+        setCardDetails((prevDetails) =>
+          prevDetails.filter((item) => item.collegeId !== card.collegeId)
+        );
 
         // Optionally, you can refresh the institute list here if needed
       })
