@@ -92,10 +92,29 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(selectedCourse.courseId)
-    console.log("Form Data:", formData);
-    handleCloseEnrollForm();
+    // Construct the data to send in the POST request
+    const enrollmentData = {
+      studentName: formData.studentName,
+      studentDOB: formData.studentDOB,
+      address: formData.address,
+      mobile: formData.mobile,
+      SSLC: formData.SSLC,
+      HSC: formData.HSC,
+      Diploma: formData.Diploma,
+      eligibility: formData.eligibility,
+    };
+
+    axios
+      .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${userId}`, enrollmentData)
+      .then((response) => {
+        console.log("Enrollment successful:", response.data);
+        handleCloseEnrollForm();
+      })
+      .catch((error) => {
+        console.error("Error enrolling student:", error);
+      });
   };
+
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
