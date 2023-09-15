@@ -160,16 +160,37 @@ public class AdminController {
         List<CourseModel> courses = courseService.getAllCourses();
         return ResponseEntity.ok(courses);
     }
-    @GetMapping("/coursesByInstitute/{instituteId}")
-    public ResponseEntity<List<CourseModel>> getCoursesByInstituteId(@PathVariable int instituteId) {
-        List<CourseModel> courses = courseService.getCoursesByInstituteInstituteId(instituteId);
+    // @GetMapping("/coursesByInstitute/{instituteId}")
+    // public ResponseEntity<List<CourseModel>> getCoursesByInstituteId(@PathVariable int instituteId) {
+    //     List<CourseModel> courses = courseService.getCoursesByInstituteInstituteId(instituteId);
 
-        if (courses.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.ok(courses);
-        }
+    //     if (courses.isEmpty()) {
+    //         return ResponseEntity.noContent().build();
+    //     } else {
+    //         return ResponseEntity.ok(courses);
+    //     }
+    // }
+    @GetMapping("/coursesByInstitute/{instituteId}")
+public ResponseEntity<List<CourseModel>> getCoursesByInstituteId(@PathVariable int instituteId) {
+    List<CourseModel> courses = courseService.getCoursesByInstituteInstituteId(instituteId);
+
+    // Create a map to store course counts
+    Map<CourseModel, Integer> courseCounts = new HashMap<>();
+
+    for (CourseModel course : courses) {
+        int count = admissionService.getCountOfAdmissionsByCourseId(course.getCourseId());
+        courseCounts.put(course, count);
     }
+
+    if (courses.isEmpty()) {
+        return ResponseEntity.noContent().build();
+    } else {
+        // You now have a map of courses with their admission counts
+        // Return this map or process it further as needed
+        return ResponseEntity.ok(courses);
+    }
+}
+
 
 
 
