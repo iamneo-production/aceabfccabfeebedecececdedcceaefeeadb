@@ -37,8 +37,7 @@ public class AdmissionServiceImpl implements AdmissionService {
             updatedAdmission.setAdmissionId(admissionId);
             return admissionRepository.save(updatedAdmission);
         } else {
-            // Handle the case when the admission with the given ID does not exist.
-            return null; // or throw an exception
+            return null; 
         }
     }
 
