@@ -90,3 +90,5 @@ public class AdmissionController {
         return ResponseEntity.ok(admissions);
     }
 }
+
+
