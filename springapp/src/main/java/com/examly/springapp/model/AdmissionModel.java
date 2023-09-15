@@ -17,7 +17,7 @@ public class AdmissionModel {
     private String status;
 
     @Column(name = "student_id")
-    private int studentId;
+    private Long studentId;
 
     @Column(name = "user_id")
     private int userId;

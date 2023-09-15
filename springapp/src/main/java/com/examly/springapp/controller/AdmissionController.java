@@ -43,15 +43,16 @@ public ResponseEntity<AdmissionModel> addAdmission(
     @PathVariable Long userId
 ) {
     // Fetch the corresponding studentId from the Student table using userId
-    Long studentId = studentService.getStudentByUserId(userId).userId;
+    Long studentId = studentService.getStudentByUserId(userId).getUserId();
 
     // Set userId and studentId in the AdmissionModel
-    admission.setUserId(userId.intValue());
-    admission.setStudentId(studentId);
+    admission.setUserId(userId);
+    admission.setStudentId(studentId.intValue());
 
     AdmissionModel createdAdmission = admissionService.createAdmission(admission);
     return ResponseEntity.ok(createdAdmission);
 }
+
 
 
 
