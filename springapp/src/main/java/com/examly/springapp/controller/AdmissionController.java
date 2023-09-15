@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import java.util.*;
-import com.examly.springapp.service.CourseService;
-import com.examly.springapp.service.InstituteService;
+
 import org.springframework.http.HttpStatus;
 
 @RestController
@@ -16,8 +15,6 @@ import org.springframework.http.HttpStatus;
 @RequestMapping("/admin")
 public class AdmissionController {
     private final AdmissionService admissionService;
-    private final CourseService courseService; // Inject CourseService
-    private final InstituteService instituteService; 
 
     @Autowired
     public AdmissionController(AdmissionService admissionService) {
@@ -92,24 +89,13 @@ public class AdmissionController {
         List<AdmissionModel> admissions = admissionService.getAllAdmissions();
         return ResponseEntity.ok(admissions);
     }
-//     @GetMapping("/viewAdmissionByUserId/{userId}")
-//     public ResponseEntity<List<AdmissionModel>> viewAdmissionsByUserId(@PathVariable int userId) {
-//         List<AdmissionModel> admissions = admissionService.getAdmissionsByUserId(userId);
-//         if (!admissions.isEmpty()) {
-//             return ResponseEntity.ok(admissions);
-//         } else {
-//             return ResponseEntity.notFound().build();
-//         }
-//     }
-    
 
-// }
 
 @GetMapping("/viewAdmissionByUserId/{userId}")
 public ResponseEntity<List<Map<String, Object>>> viewAdmissionsByUserId(@PathVariable int userId) {
     List<AdmissionModel> admissions = admissionService.getAdmissionsByUserId(userId);
     List<Map<String, Object>> admissionDetailsList = new ArrayList<>();
-    
+
     for (AdmissionModel admission : admissions) {
         Map<String, Object> admissionDetails = new HashMap<>();
         admissionDetails.put("admissionId", admission.getAdmissionId());

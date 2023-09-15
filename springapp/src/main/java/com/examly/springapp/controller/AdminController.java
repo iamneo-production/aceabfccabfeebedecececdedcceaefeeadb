@@ -170,45 +170,18 @@ public class AdminController {
         List<CourseModel> courses = courseService.getAllCourses();
         return ResponseEntity.ok(courses);
     }
-    // @GetMapping("/coursesByInstitute/{instituteId}")
-    // public ResponseEntity<List<CourseModel>> getCoursesByInstituteId(@PathVariable int instituteId) {
-    //     List<CourseModel> courses = courseService.getCoursesByInstituteInstituteId(instituteId);
-
-    //     if (courses.isEmpty()) {
-    //         return ResponseEntity.noContent().build();
-    //     } else {
-    //         return ResponseEntity.ok(courses);
-    //     }
-    // }
-  
     @GetMapping("/coursesByInstitute/{instituteId}")
-    public ResponseEntity<List<Map<String, Object>>> getCoursesByInstituteId(@PathVariable int instituteId) {
+    public ResponseEntity<List<CourseModel>> getCoursesByInstituteId(@PathVariable int instituteId) {
         List<CourseModel> courses = courseService.getCoursesByInstituteInstituteId(instituteId);
-    
-        // Create a list to store course details with counts
-        List<Map<String, Object>> courseDetailsList = new ArrayList<>();
-    
-        for (CourseModel course : courses) {
-            Map<String, Object> courseDetails = new HashMap<>();
-            courseDetails.put("courseId", course.getCourseId());
-            courseDetails.put("courseName", course.getCourseName());
-            courseDetails.put("duration", course.getDuration());
-            courseDetails.put("description", course.getDescription());
-    
-            // Fetch and add the count of admissions for this course
-            int admissionCount = admissionService.getCountOfAdmissionsByCourseId(course.getCourseId());
-            courseDetails.put("admissionCount", admissionCount);
-    
-            courseDetailsList.add(courseDetails);
-        }
-    
-        if (!courseDetailsList.isEmpty()) {
-            return ResponseEntity.ok(courseDetailsList);
-        } else {
+
+        if (courses.isEmpty()) {
             return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(courses);
         }
     }
-    
+  
+
 
 
 
