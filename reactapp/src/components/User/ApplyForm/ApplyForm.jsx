@@ -12,8 +12,7 @@ import axios from "axios";
 import RadioGroup from "@mui/material/RadioGroup";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import {useParams} from "react-router-dom";
-
+import { useParams } from "react-router-dom";
 
 const ApplyForm = ({ collegeId, title, onClose }) => {
   const [courseList, setCourseList] = useState([]);
@@ -33,10 +32,6 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   });
 
   const { userId } = useParams();
- 
-
-  
-   
 
   useEffect(() => {
     axios
@@ -52,17 +47,13 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
       });
   }, [collegeId]);
 
-
   const handleEnrollClick = (course) => {
     setSelectedCourse(course);
-  
-    // Make a GET request to retrieve student data
+
     axios
       .get(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/getStudent/${userId}`)
       .then((response) => {
         const studentData = response.data;
-  
-        // Set the form data with the retrieved student data
         setFormData({
           studentName: studentData.studentName || "",
           studentDOB: studentData.studentDOB || "",
@@ -73,18 +64,12 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
           Diploma: studentData.diploma || "",
           eligibility: studentData.eligibility || "",
         });
-  
-        // Open the enrollment form
         setEnrollFormOpen(true);
       })
       .catch((error) => {
         console.error("Error fetching student data:", error);
       });
-
-
-
   };
-  
 
   const handleCloseEnrollForm = () => {
     setEnrollFormOpen(false);
@@ -101,7 +86,6 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    // Construct the data to send in the POST request
     const enrollmentData = {
       studentName: formData.studentName,
       studentDOB: formData.studentDOB,
@@ -118,11 +102,11 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
       .then((response) => {
         console.log("Enrollment successful:", response.data);
         const admissionData = {
-          courseId: selectedCourse.courseId, // Use the selected course ID
-          instituteId: collegeId, // Use the college ID as institute ID
-          status: "enrolled", // Set the status to "enrolled"
+          courseId: selectedCourse.courseId,
+          instituteId: collegeId,
+          status: "enrolled",
         };
-        
+
         axios
           .post(
             `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addAdmissionNew/${userId}`,
@@ -130,7 +114,6 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
           )
           .then((admissionResponse) => {
             console.log("Admission created successfully:", admissionResponse.data);
-            // Handle admission success as needed
           })
           .catch((admissionError) => {
             console.error("Error creating admission:", admissionError);
@@ -140,24 +123,8 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
         console.error("Error enrolling student:", error);
       });
 
-   
-  
-  
-  
-  
-  
-        handleCloseEnrollForm();
-      }).catch((error) => {
-        console.error("Error enrolling student:", error);
-      });
-      
-
-
-
-
-
+    handleCloseEnrollForm();
   };
-
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -205,7 +172,6 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                 <Typography variant="body2" color="text.secondary">
                   Description: {course.courseDescription}
                 </Typography>
-                {/* Institute Details */}
                 <Typography variant="body2" color="text.secondary">
                   Institute Name: {course.institute.instituteName}
                 </Typography>
@@ -236,7 +202,6 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                 >
                   Enroll Now
                 </Button>
-             
               </div>
             </Card>
           </Grid>
@@ -327,7 +292,6 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                 />
               </Grid>
               <Grid item xs={4}>
-
                 <RadioGroup
                   aria-label="Eligibility"
                   name="eligibility"
