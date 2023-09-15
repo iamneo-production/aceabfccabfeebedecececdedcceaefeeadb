@@ -2,14 +2,13 @@ package com.examly.springapp.controller;
 
 import com.examly.springapp.model.AdmissionModel;
 import com.examly.springapp.service.AdmissionService;
+import com.examly.springapp.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import java.util.*;
 
 import org.springframework.http.HttpStatus;
-
-
 
 @RestController
 @CrossOrigin
@@ -29,10 +28,27 @@ public class AdmissionController {
         return ResponseEntity.ok(createdAdmission);
     }
 
+    @PostMapping("/admin/addAdmissionNew/{userId}")
+    public ResponseEntity<AdmissionModel> addAdmission(
+            @RequestBody AdmissionModel admission,
+            @PathVariable Long userId) {
+        StudentService studentService;
+        
+        int studentId = studentService.getStudentByUserId(userId).getUserId().intValue(); // Typecast to int
+
+       
+        admission.setUserId(userId.intValue()); // Typecast to int
+        admission.setStudentId(studentId);
+
+        AdmissionModel createdAdmission = admissionService.createAdmission(admission);
+        return ResponseEntity.ok(createdAdmission);
+    }
+
     // Edit an admission by ID
     @PutMapping("/admin/editAdmission/{admissionId}")
     public ResponseEntity<AdmissionModel> editAdmission(
             @PathVariable int admissionId, @RequestBody AdmissionModel updatedAdmission) {
+
         AdmissionModel admission = admissionService.updateAdmission(admissionId, updatedAdmission);
         if (admission != null) {
             return ResponseEntity.ok(admission);
@@ -41,15 +57,12 @@ public class AdmissionController {
         }
     }
 
-
     // View an admission by ID
     @GetMapping("/admin/viewAdmission/{admissionId}")
     public ResponseEntity<AdmissionModel> viewAdmission(@PathVariable int admissionId) {
         Optional<AdmissionModel> admission = admissionService.getAdmissionById(admissionId);
         return admission.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-
-
 
     // Delete an admission by ID
     @DeleteMapping("/admin/deleteAdmission/{admissionId}")
