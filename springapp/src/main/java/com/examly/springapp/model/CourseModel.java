@@ -15,9 +15,9 @@ public class CourseModel {
     private int courseDuration;
     
     // Institute ID as a foreign key
-    
-    @Column(InstituteId)
-    private InstituteId 
+    @ManyToOne
+    @JoinColumn(name = "institute_id")
+    private InstituteModel institute;
     
     // Constructors...
 

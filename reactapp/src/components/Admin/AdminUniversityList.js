@@ -110,6 +110,17 @@ const AdminUniversityList = () => {
       place: editFormData.place,
       starRating: editFormData.starRating,
       imageURL: editFormData.imageURL,
+
+
+
+
+
+      collegeId: institute.instituteId,
+      title: institute.instituteName,
+      description: institute.instituteDescription,
+      imageURL: institute.imageURL,
+      place: institute.instituteAddress,
+      starRating: parseFloat(institute.starRating),
     };
 
     // Make a PUT request to update the institute
