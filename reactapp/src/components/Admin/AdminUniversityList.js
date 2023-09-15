@@ -69,21 +69,61 @@ const AdminUniversityList = () => {
     setEditDialogOpen(true);
   };
   
-  const handleDeleteClick = (card,e) => {
-    e.stopPropagation(); // Prevent the click event from propagating to the card
+  const handleDeleteClick = (card) => {
     console.log("Delete College ID:", card.collegeId); // Log the college ID
-    // Implement delete logic here and then refresh the institute list
-    // ...
+    // Define the API endpoint URL for deleting
+    const deleteApiUrl = `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteInstitute/${card.collegeId}`;
+
+    // Make a DELETE request to remove the institute
+    axios
+      .delete(deleteApiUrl)
+      .then((response) => {
+        // Handle success (e.g., show a success message)
+        console.log("Institute deleted successfully!", response.data);
+
+        // Optionally, you can refresh the institute list here if needed
+      })
+      .catch((error) => {
+        // Handle errors (e.g., show an error message)
+        console.error("Error deleting institute:", error);
+      });
+
+    // Close the dialog after deleting
+    setEditDialogOpen(false);
   };
-  
 
   
   
 
   const handleEditSave = () => {
-    // Handle saving edited data here
-    console.log("Edited Data:", editFormData);
-    setEditDialogOpen(false); // Close the dialog after saving
+    // Define the API endpoint URL for editing
+    const editApiUrl = `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/editInstitute/${editFormData.collegeId}`;
+
+    // Prepare the data to send in the request body
+    const editedInstituteData = {
+      title: editFormData.title,
+      description: editFormData.description,
+      place: editFormData.place,
+      starRating: editFormData.starRating,
+      imageURL: editFormData.imageURL,
+    };
+
+    // Make a PUT request to update the institute
+    axios
+      .put(editApiUrl, editedInstituteData)
+      .then((response) => {
+        // Handle success (e.g., show a success message)
+        console.log("Institute edited successfully!", response.data);
+
+        // Optionally, you can refresh the institute list here if needed
+      })
+      .catch((error) => {
+        // Handle errors (e.g., show an error message)
+        console.error("Error editing institute:", error);
+      });
+
+    // Close the dialog after saving
+    setEditDialogOpen(false);
   };
 
   const handleAddInstituteClick = () => {
