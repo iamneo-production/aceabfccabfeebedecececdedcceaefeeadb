@@ -89,6 +89,16 @@ public class AdmissionController {
         List<AdmissionModel> admissions = admissionService.getAllAdmissions();
         return ResponseEntity.ok(admissions);
     }
+    @GetMapping("/viewAdmissionByUserId/{userId}")
+public ResponseEntity<List<AdmissionModel>> viewAdmissionsByUserId(@PathVariable Long userId) {
+    List<AdmissionModel> admissions = admissionService.getAdmissionsByUserId(userId);
+    if (!admissions.isEmpty()) {
+        return ResponseEntity.ok(admissions);
+    } else {
+        return ResponseEntity.notFound().build();
+    }
+}
+
 }
 
 
