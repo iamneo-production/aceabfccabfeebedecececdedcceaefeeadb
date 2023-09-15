@@ -89,17 +89,45 @@ public class AdmissionController {
         List<AdmissionModel> admissions = admissionService.getAllAdmissions();
         return ResponseEntity.ok(admissions);
     }
-    @GetMapping("/viewAdmissionByUserId/{userId}")
-    public ResponseEntity<List<AdmissionModel>> viewAdmissionsByUserId(@PathVariable int userId) {
-        List<AdmissionModel> admissions = admissionService.getAdmissionsByUserId(userId);
-        if (!admissions.isEmpty()) {
-            return ResponseEntity.ok(admissions);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+//     @GetMapping("/viewAdmissionByUserId/{userId}")
+//     public ResponseEntity<List<AdmissionModel>> viewAdmissionsByUserId(@PathVariable int userId) {
+//         List<AdmissionModel> admissions = admissionService.getAdmissionsByUserId(userId);
+//         if (!admissions.isEmpty()) {
+//             return ResponseEntity.ok(admissions);
+//         } else {
+//             return ResponseEntity.notFound().build();
+//         }
+//     }
     
 
+// }
+@GetMapping("/viewAdmissionByUserId/{userId}")
+public ResponseEntity<List<AdmissionWithDetails>> viewAdmissionsByUserId(@PathVariable int userId) {
+    List<AdmissionModel> admissions = admissionService.getAdmissionsByUserId(userId);
+    if (!admissions.isEmpty()) {
+        List<AdmissionWithDetails> admissionsWithDetails = new ArrayList<>();
+
+        for (AdmissionModel admission : admissions) {
+            String courseName = courseService.getCourseNameById(admission.getCourseId());
+            String instituteName = instituteService.getInstituteNameById(admission.getInstituteId());
+
+            AdmissionWithDetails admissionWithDetails = new AdmissionWithDetails();
+            admissionWithDetails.setAdmissionId(admission.getAdmissionId());
+            admissionWithDetails.setCourseId(admission.getCourseId());
+            admissionWithDetails.setInstituteId(admission.getInstituteId());
+            admissionWithDetails.setStatus(admission.getStatus());
+            admissionWithDetails.setStudentId(admission.getStudentId());
+            admissionWithDetails.setUserId(admission.getUserId());
+            admissionWithDetails.setCourseName(courseName);
+            admissionWithDetails.setInstituteName(instituteName);
+
+            admissionsWithDetails.add(admissionWithDetails);
+        }
+
+        return ResponseEntity.ok(admissionsWithDetails);
+    } else {
+        return ResponseEntity.notFound().build();
+    }
 }
 
 
