@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import java.util.*;
-
+import com.examly.springapp.service.CourseService;
+import com.examly.springapp.service.InstituteService;
 import org.springframework.http.HttpStatus;
 
 @RestController
