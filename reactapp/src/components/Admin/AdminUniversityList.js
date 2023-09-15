@@ -68,7 +68,9 @@ const AdminUniversityList = () => {
     setEditFormData(card);
     setEditDialogOpen(true);
   };
-  const handleDeleteClick = (card) => {
+  
+  const handleDeleteClick = (card,e) => {
+    e.stopPropagation(); // Prevent the click event from propagating to the card
     console.log("Delete College ID:", card.collegeId); // Log the college ID
     // Implement delete logic here and then refresh the institute list
     // ...
@@ -248,7 +250,7 @@ const AdminUniversityList = () => {
                         </Button>
                         <Button
                           variant="outlined"
-                          onClick={() => handleDeleteClick(card)}
+                          onClick={(e) => handleDeleteClick(card,e)}
                         >
                           Delete
                         </Button>
