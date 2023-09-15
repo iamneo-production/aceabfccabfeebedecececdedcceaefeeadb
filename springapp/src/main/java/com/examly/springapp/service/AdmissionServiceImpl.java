@@ -4,6 +4,8 @@ import com.examly.springapp.model.AdmissionModel;
 import com.examly.springapp.repository.AdmissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.examly.springapp.model.StudentModel;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -45,9 +47,15 @@ public class AdmissionServiceImpl implements AdmissionService {
     public void deleteAdmission(int admissionId) {
         admissionRepository.deleteById(admissionId);
     }
-    
+    private final StudentService studentService;
+
+    @Autowired
+    public AdmissionServiceImpl(StudentService studentService) {
+        this.studentService = studentService;
+    }
+
     @Override
-    public Student getStudentByUserId(Long userId) {
+    public StudentModel getStudentByUserId(Long userId) {
         return studentService.getStudentByUserId(userId);
     }
     // Implement custom service methods if needed
