@@ -41,6 +41,12 @@ public class InstituteServiceImpl implements InstituteService {
             return null; // or throw an exception
         }
     }
+    @Override
+    public String getInstituteNameById(int instituteId) {
+        Optional<InstituteModel> instituteOptional = instituteRepository.findById(instituteId);
+        return instituteOptional.map(InstituteModel::getInstituteName).orElse(null);
+    }
+
 
     @Override
     public void deleteInstitute(int instituteId) {

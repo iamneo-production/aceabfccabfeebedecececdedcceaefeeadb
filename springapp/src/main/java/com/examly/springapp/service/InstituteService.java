@@ -11,5 +11,6 @@ public interface InstituteService {
     List<InstituteModel> getAllInstitutes();
     InstituteModel updateInstitute(int instituteId, InstituteModel updatedInstitute);
     void deleteInstitute(int instituteId);
+    String getInstituteNameById(int instituteId);
     // Add custom service methods if needed
 }

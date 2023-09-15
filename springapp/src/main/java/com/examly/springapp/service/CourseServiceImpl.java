@@ -5,6 +5,7 @@ import com.examly.springapp.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -51,6 +52,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void deleteCourse(int courseId) {
         courseRepository.deleteById(courseId);
+    }
+    @Override
+    public String getCourseNameById(int courseId) {
+        Optional<CourseModel> courseOptional = courseRepository.findById(courseId);
+        return courseOptional.map(CourseModel::getCourseName).orElse(null);
     }
 
     // Implement custom service methods if needed
