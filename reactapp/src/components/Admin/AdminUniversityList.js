@@ -67,7 +67,7 @@ const AdminUniversityList = () => {
   };
 
   const handleDeleteClick = () => {
-    // Implement delete logic here
+  
   };
 
   const handleEditSave = () => {
