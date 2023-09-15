@@ -2,12 +2,13 @@ package com.examly.springapp.controller;
 
 import com.examly.springapp.model.AdmissionModel;
 import com.examly.springapp.service.AdmissionService;
+import com.examly.springapp.service.StudentService; // Import StudentService
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
-import java.util.*;
 
 import org.springframework.http.HttpStatus;
+import java.util.*;
 
 
 
@@ -16,16 +17,30 @@ import org.springframework.http.HttpStatus;
 @RequestMapping("/")
 public class AdmissionController {
     private final AdmissionService admissionService;
+    private final StudentService studentService;
 
     @Autowired
-    public AdmissionController(AdmissionService admissionService) {
+    public AdmissionController(AdmissionService admissionService, StudentService studentService) {
         this.admissionService = admissionService;
+        this.studentService = studentService; // Initialize StudentService
     }
 
     // Add an admission
     @PostMapping("/admin/addAdmission")
     public ResponseEntity<AdmissionModel> addAdmission(@RequestBody AdmissionModel admission) {
         AdmissionModel createdAdmission = admissionService.createAdmission(admission);
+        return ResponseEntity.ok(createdAdmission);
+    }
+    @PostMapping("/addAdmission/{userId}")
+    public ResponseEntity<AdmissionModel> addAdmission(
+            @RequestBody AdmissionModel admission,
+            @PathVariable int userId
+    ) {
+        // Fetch the corresponding studentId from the Student table using userId
+        int studentId = studentService.getStudentIdByUserId(userId);
+        
+        // Create the admission with studentId and userId
+        AdmissionModel createdAdmission = admissionService.createAdmission(admission, studentId, userId);
         return ResponseEntity.ok(createdAdmission);
     }
 
