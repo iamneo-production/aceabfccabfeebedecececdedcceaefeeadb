@@ -31,17 +31,21 @@ public class AdmissionController {
         AdmissionModel createdAdmission = admissionService.createAdmission(admission);
         return ResponseEntity.ok(createdAdmission);
     }
-    @PostMapping("/addAdmission/{userId}")
+    @PostMapping("/addAdmissionNew/{userId}")
     public ResponseEntity<AdmissionModel> addAdmission(
             @RequestBody AdmissionModel admission,
             @PathVariable int userId
     ) {
         // Fetch the corresponding studentId from the Student table using userId
         int studentId = studentService.getStudentIdByUserId(userId);
-        
+        AdmissionModel admission = new AdmissionModel(courseId, instituteId, "enrolled", studentId, userId);
+        admissionService.createAdmission(admission, courseId, userId);
+
         // Create the admission with studentId and userId
         AdmissionModel createdAdmission = admissionService.createAdmission(admission, studentId, userId);
         return ResponseEntity.ok(createdAdmission);
+
+
     }
 
     // Edit an admission by ID

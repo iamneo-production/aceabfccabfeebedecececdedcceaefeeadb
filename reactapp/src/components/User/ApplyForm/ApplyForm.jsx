@@ -125,7 +125,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
         
         axios
           .post(
-            `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addAdmission/${userId}`,
+            `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addAdmissionNew/${userId}`,
             admissionData
           )
           .then((admissionResponse) => {
@@ -139,7 +139,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
       .catch((error) => {
         console.error("Error enrolling student:", error);
       });
-  };
+
    
   
   
@@ -147,8 +147,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   
   
         handleCloseEnrollForm();
-      })
-      .catch((error) => {
+      }).catch((error) => {
         console.error("Error enrolling student:", error);
       });
       
