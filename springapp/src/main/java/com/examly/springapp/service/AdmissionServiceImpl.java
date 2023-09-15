@@ -46,10 +46,7 @@ public class AdmissionServiceImpl implements AdmissionService {
 public List<AdmissionModel> getAdmissionsByUserId(int userId) {
     return admissionRepository.findByUserId(userId);
 }
-@Override
-public int getCountOfAdmissionsByCourseId(int courseId) {
-    return admissionRepository.countByCourseId(courseId);
-}
+
 
 
     @Override

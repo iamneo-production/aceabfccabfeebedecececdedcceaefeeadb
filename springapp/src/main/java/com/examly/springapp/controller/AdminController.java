@@ -180,26 +180,35 @@ public class AdminController {
     //         return ResponseEntity.ok(courses);
     //     }
     // }
+  
     @GetMapping("/coursesByInstitute/{instituteId}")
-public ResponseEntity<List<CourseModel>> getCoursesByInstituteId(@PathVariable int instituteId) {
-    List<CourseModel> courses = courseService.getCoursesByInstituteInstituteId(instituteId);
-
-    // Create a map to store course counts
-    Map<CourseModel, Integer> courseCounts = new HashMap<>();
-
-    for (CourseModel course : courses) {
-        int count = admissionService.getCountOfAdmissionsByCourseId(course.getCourseId());
-        courseCounts.put(course, count);
+    public ResponseEntity<List<Map<String, Object>>> getCoursesByInstituteId(@PathVariable int instituteId) {
+        List<CourseModel> courses = courseService.getCoursesByInstituteInstituteId(instituteId);
+    
+        // Create a list to store course details with counts
+        List<Map<String, Object>> courseDetailsList = new ArrayList<>();
+    
+        for (CourseModel course : courses) {
+            Map<String, Object> courseDetails = new HashMap<>();
+            courseDetails.put("courseId", course.getCourseId());
+            courseDetails.put("courseName", course.getCourseName());
+            courseDetails.put("duration", course.getDuration());
+            courseDetails.put("description", course.getDescription());
+    
+            // Fetch and add the count of admissions for this course
+            int admissionCount = admissionService.getCountOfAdmissionsByCourseId(course.getCourseId());
+            courseDetails.put("admissionCount", admissionCount);
+    
+            courseDetailsList.add(courseDetails);
+        }
+    
+        if (!courseDetailsList.isEmpty()) {
+            return ResponseEntity.ok(courseDetailsList);
+        } else {
+            return ResponseEntity.noContent().build();
+        }
     }
-
-    if (courses.isEmpty()) {
-        return ResponseEntity.noContent().build();
-    } else {
-        // You now have a map of courses with their admission counts
-        // Return this map or process it further as needed
-        return ResponseEntity.ok(courses);
-    }
-}
+    
 
 
 

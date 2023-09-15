@@ -20,14 +20,8 @@ public class AdmissionController {
     private final InstituteService instituteService; 
 
     @Autowired
-    public AdmissionController(
-        AdmissionService admissionService,
-        CourseService courseService,
-        InstituteService instituteService
-    ) {
+    public AdmissionController(AdmissionService admissionService) {
         this.admissionService = admissionService;
-        this.courseService = courseService;
-        this.instituteService = instituteService;
     }
 
     // Add an admission
