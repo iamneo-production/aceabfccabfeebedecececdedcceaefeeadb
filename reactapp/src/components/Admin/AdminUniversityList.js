@@ -56,7 +56,6 @@ const AdminUniversityList = () => {
   const handleCardClick = (card) => {
     setSelectedCard(card);
   };
- 
 
   const handleEditDialogClose = () => {
     setEditDialogOpen(false);
@@ -68,8 +67,8 @@ const AdminUniversityList = () => {
     setEditFormData(card);
     setEditDialogOpen(true);
   };
-  
-  const handleDeleteClick = (card,e) => {
+
+  const handleDeleteClick = (card, e) => {
     e.stopPropagation();
     console.log("Delete College ID:", card.collegeId); // Log the college ID
     // Define the API endpoint URL for deleting
@@ -96,9 +95,6 @@ const AdminUniversityList = () => {
     setEditDialogOpen(false);
   };
 
-  
-  
-
   const handleEditSave = () => {
     // Define the API endpoint URL for editing
     const editApiUrl = `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/editInstitute/${editFormData.collegeId}`;
@@ -110,9 +106,9 @@ const AdminUniversityList = () => {
       instituteAddress: editFormData.place,
       starRating: editFormData.starRating,
       imageURL: editFormData.imageURL,
-    mobile : editFormData.Buttonmobile,
-    email :  editFormData.email
-   };
+      mobile: editFormData.mobile, // Include mobile number
+      email: editFormData.email, // Include email
+    };
 
     // Make a PUT request to update the institute
     axios
@@ -141,12 +137,38 @@ const AdminUniversityList = () => {
   };
 
   const handleAddInstituteSave = () => {
-    // Handle saving new institute data here
-    console.log("New Institute Data:", addFormData);
-    setAddDialogOpen(false); // Close the dialog after saving
+    // Define the API endpoint URL for adding a new institute
+    const addApiUrl = `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addInstitute`;
+
+    // Prepare the data to send in the request body
+    const newInstituteData = {
+      instituteName: addFormData.title,
+      instituteDescription: addFormData.description,
+      instituteAddress: addFormData.place,
+      starRating: addFormData.starRating,
+      imageURL: addFormData.imageURL,
+      mobile: addFormData.mobile, // Include mobile number
+      email: addFormData.email, // Include email
+    };
+
+    // Make a POST request to add the new institute
+    axios
+      .post(addApiUrl, newInstituteData)
+      .then((response) => {
+        // Handle success (e.g., show a success message)
+        console.log("Institute added successfully!", response.data);
+
+        // Optionally, you can refresh the institute list here if needed
+      })
+      .catch((error) => {
+        // Handle errors (e.g., show an error message)
+        console.error("Error adding institute:", error);
+      });
+
+    // Close the dialog after saving
+    setAddDialogOpen(false);
   };
 
-  
   useEffect(() => {
     // Define the API endpoint URL where your data is hosted
     const apiUrl =
@@ -167,33 +189,29 @@ const AdminUniversityList = () => {
           imageURL: institute.imageURL,
           place: institute.instituteAddress,
           starRating: parseFloat(institute.starRating), // Convert starRating to a float
+          mobile: institute.mobile, // Include mobile number
+          email: institute.email, // Include email
         }));
 
         setCardDetails(formattedCardDetails);
         setFilteredCards(formattedCardDetails); // Initialize filteredCards with the formatted data
         setLoading(false);
-       
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
   }, []);
 
-
-
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
 
       <AdminAppBar id={params.userId} />
-     
 
       <main>
-     
         <Box sx={{ bgcolor: "background.paper", pb: 6 }}></Box>
         <Container sx={{ py: 8 }} maxWidth="md">
-        <h3>Welcome Back Admin</h3>
+          <h3>Welcome Back Admin</h3>
           <Box
             sx={{
               bgcolor: "background.paper",
@@ -204,7 +222,7 @@ const AdminUniversityList = () => {
               alignItems: "center",
             }}
           >
-            {!selectedCard && ( // Conditionally render the search bar and "Add Institute" button
+            {!selectedCard && (
               <Container maxWidth="sm">
                 <input
                   type="text"
@@ -282,6 +300,12 @@ const AdminUniversityList = () => {
                           readOnly
                         />
                       </Typography>
+                      <Typography variant="subtitle1" color="text.secondary">
+                        Email: {card.email}
+                      </Typography>
+                      <Typography variant="subtitle1" color="text.secondary">
+                        Mobile: {card.mobile}
+                      </Typography>
                       <Box
                         sx={{
                           display: "flex",
@@ -296,7 +320,7 @@ const AdminUniversityList = () => {
                         </Button>
                         <Button
                           variant="outlined"
-                          onClick={(e) => handleDeleteClick(card,e)}
+                          onClick={(e) => handleDeleteClick(card, e)}
                         >
                           Delete
                         </Button>
@@ -310,7 +334,7 @@ const AdminUniversityList = () => {
         </Container>
       </main>
 
-      {!selectedCard && ( // Conditionally render the "Add Institute" button
+      {!selectedCard && (
         <Box
           sx={{
             display: "flex",
@@ -330,7 +354,6 @@ const AdminUniversityList = () => {
         </Box>
       )}
 
-      {/* Edit Dialog */}
       <Dialog open={editDialogOpen} onClose={handleEditDialogClose}>
         <DialogTitle>Edit Institute</DialogTitle>
         <DialogContent>
@@ -379,6 +402,24 @@ const AdminUniversityList = () => {
               setEditFormData({ ...editFormData, imageURL: e.target.value })
             }
           />
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Email"
+            value={editFormData.email || ""}
+            onChange={(e) =>
+              setEditFormData({ ...editFormData, email: e.target.value })
+            }
+          />
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Mobile"
+            value={editFormData.mobile || ""}
+            onChange={(e) =>
+              setEditFormData({ ...editFormData, mobile: e.target.value })
+            }
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleEditDialogClose}>Cancel</Button>
@@ -388,7 +429,6 @@ const AdminUniversityList = () => {
         </DialogActions>
       </Dialog>
 
-      {/* Add Dialog */}
       <Dialog open={addDialogOpen} onClose={handleAddDialogClose}>
         <DialogTitle>Add Institute</DialogTitle>
         <DialogContent>
@@ -437,6 +477,24 @@ const AdminUniversityList = () => {
               setAddFormData({ ...addFormData, imageURL: e.target.value })
             }
           />
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Email"
+            value={addFormData.email || ""}
+            onChange={(e) =>
+              setAddFormData({ ...addFormData, email: e.target.value })
+            }
+          />
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Mobile"
+            value={addFormData.mobile || ""}
+            onChange={(e) =>
+              setAddFormData({ ...addFormData, mobile: e.target.value })
+            }
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleAddDialogClose}>Cancel</Button>
@@ -445,8 +503,8 @@ const AdminUniversityList = () => {
           </Button>
         </DialogActions>
       </Dialog>
-   
-    <Footer/>
+
+      <Footer />
     </ThemeProvider>
   );
 };
