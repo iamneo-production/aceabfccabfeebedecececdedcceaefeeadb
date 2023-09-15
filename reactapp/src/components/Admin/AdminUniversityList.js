@@ -116,6 +116,7 @@ const AdminUniversityList = () => {
       .then((response) => {
         // Handle success (e.g., show a success message)
         console.log("Institute edited successfully!", response.data);
+        
 
         // Optionally, you can refresh the institute list here if needed
       })
