@@ -62,10 +62,35 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
 
   const handleEditFormSubmit = (e) => {
     e.preventDefault();
-    // Implement logic to update the course details with the edited data
-    // You can filter the courseList to find the course by courseId and update it
-    // Close the edit dialog
-    handleCloseEditForm();
+
+    // Create a new course object with the form data
+    const newCourse = {
+      courseName: editFormData.courseName,
+      courseDuration: parseInt(editFormData.courseDuration, 10), // Ensure it's an integer
+      courseDescription: editFormData.courseDescription,
+    };
+
+    // Make a POST request to create the new course
+    axios
+      .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addCourseNew/${collegeId}`, newCourse)
+      .then((response) => {
+        // Handle the successful response, you can update the state or perform any other actions here
+        // For example, you can close the edit form and refresh the course list
+        handleCloseEditForm();
+        // Optionally, you can refresh the course list by making another GET request
+        axios
+          .get(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/coursesByInstitute/${collegeId}`)
+          .then((response) => {
+            setCourseList(response.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching course data:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error creating course:", error);
+        // Handle the error, show a message, or perform any other necessary actions
+      });
   };
 
   const handleDeleteClick = (courseId) => {
