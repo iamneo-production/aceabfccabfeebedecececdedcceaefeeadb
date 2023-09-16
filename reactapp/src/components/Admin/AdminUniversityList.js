@@ -213,6 +213,7 @@ const AdminUniversityList = () => {
           setCardDetails(formattedCardDetails);
           setFilteredCards(formattedCardDetails); // Initialize filteredCards with the formatted data
           setLoading(false);
+          setAddFormData({});
         })
         .catch((error) => {
           console.error('Error fetching data:', error);
