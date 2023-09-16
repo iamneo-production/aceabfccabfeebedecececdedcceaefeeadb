@@ -219,13 +219,24 @@ public class AdminController {
         return ResponseEntity.ok(createdCourses);
     }
 
+
+    private final CourseService courseService;
+
+    @Autowired
+    public AdminController(CourseService courseService) {
+        this.courseService = courseService;
+    }
+
+   
     @PostMapping("/addCourseNew/{instituteId}")
     public ResponseEntity<CourseModel> addCourse(@RequestBody CourseModel course, @PathVariable int instituteId) {
-
-        course.setInstituteId(instituteId);
-
-        CourseModel createdCourse = courseService.createCourse(course);
-        return ResponseEntity.ok(createdCourse);
+        CourseModel createdCourse = courseService.createCourseWithInstitute(instituteId, course);
+        if (createdCourse != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdCourse);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            // You can also throw an exception or return an error message here.
+        }
     }
 
 }

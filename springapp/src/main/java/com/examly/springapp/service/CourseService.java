@@ -9,6 +9,8 @@ public interface CourseService {
     Optional<CourseModel> getCourseById(int courseId);
     List<CourseModel> getAllCourses();
     String getCourseNameById(int courseId);
+    CourseModel createCourseWithInstitute(int instituteId, CourseModel course);
+
 
     List<CourseModel> getCoursesByInstituteInstituteId(int instituteId);
 

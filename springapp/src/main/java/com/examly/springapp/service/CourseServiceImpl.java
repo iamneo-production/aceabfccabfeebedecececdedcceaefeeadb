@@ -4,6 +4,7 @@ import com.examly.springapp.model.CourseModel;
 import com.examly.springapp.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.model.InstituteModel;
 
 
 import java.util.List;
@@ -60,4 +61,23 @@ public class CourseServiceImpl implements CourseService {
     }
 
     // Implement custom service methods if needed
+
+
+    @Autowired
+    private InstituteService instituteService;
+
+    @Override
+    public CourseModel createCourseWithInstitute(int instituteId, CourseModel course) {
+        // Retrieve the institute associated with the given instituteId
+        Optional<InstituteModel> instituteOptional = instituteService.getInstituteById(instituteId);
+
+        if (instituteOptional.isPresent()) {
+            InstituteModel institute = instituteOptional.get();
+            course.setInstitute(institute);
+            return courseRepository.save(course);
+        } else {
+            // Handle the case when the institute with the given ID does not exist.
+            return null; // or throw an exception
+        }
+    }
 }
