@@ -10,9 +10,10 @@ import java.util.*;
 
 import org.springframework.http.HttpStatus;
 
-@RequestMapping("/")
-@CrossOrigin
 @RestController
+@CrossOrigin()
+@RequestMapping("/")
+
 
 public class AuthController {
     @Autowired
