@@ -11,7 +11,7 @@ import java.util.*;
 import org.springframework.http.HttpStatus;
 
 @RestController
-@CrossOrigin()
+@CrossOrigin
 @RequestMapping("/")
 
 
