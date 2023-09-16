@@ -87,14 +87,63 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
     // Implement logic to update the course details with the edited data
     // You can filter the courseList to find the course by courseId and update it
     // Close the edit dialog
-    handleCloseEditForm();
+
+    // Send a PUT request to update the course data
+    axios
+      .put(
+        `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/updateCourse/${selectedCourse.courseId}`,
+        editFormData
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          // Successfully updated the course
+          // You can update the course list or perform any necessary actions here
+          const updatedCourseList = courseList.map((course) =>
+            course.courseId === selectedCourse.courseId
+              ? response.data
+              : course
+          );
+          setCourseList(updatedCourseList);
+          handleCloseEditForm();
+        } else {
+          // Handle other status codes (e.g., 400 for bad request)
+          // You can display an error message or take other actions as needed
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating course:", error);
+        // Handle the error and display an error message
+        // You can also take other actions as needed
+      });
   };
 
   const handleAddFormSubmit = (e) => {
     e.preventDefault();
     // Implement logic to add a new course with the data in addFormData
     // Close the add dialog
-    handleCloseAddForm();
+
+    // Send a POST request to add a new course
+    axios
+      .post(
+        `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addCourseNew/${collegeId}`,
+        addFormData
+      )
+      .then((response) => {
+        if (response.status === 201) {
+          // Successfully added the course
+          // You can update the course list or perform any necessary actions here
+          setCourseList([...courseList, response.data]);
+          handleCloseAddForm();
+        } else {
+          // Handle other status codes (e.g., 400 for bad request)
+          // You can display an error message or take other actions as needed
+        }
+      })
+      .catch((error) => {
+        console.error("Error adding course:", error);
+        // Handle the error and display an error message
+        // You can also take other actions as needed
+      });
   };
 
   const handleDeleteClick = (courseId) => {
