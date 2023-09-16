@@ -100,7 +100,7 @@ export default function SignUp() {
         // if*signUpData.userRole === "admin" apiEndpoint = "https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/user/add"
          
         // const apiEndpoint = signUpData.userRole === 'admin' ? '/auth/admin/signup' : '/auth/user/signup';
-        const apiEndpoint = 'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/user/add'
+        const apiEndpoint = 'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/user/signup'
         axios
           .post(apiEndpoint, signUpData)
           .then((response) => {
