@@ -1,3 +1,4 @@
+
 // import React, { useState, useEffect } from "react";
 // import Card from "@mui/material/Card";
 // import CardContent from "@mui/material/CardContent";
@@ -204,160 +205,151 @@
 //         </Grid>
 //       </Grid>
 
-//       {courseList.length === 0 ? (
-//         // Check if the courseList is empty and display a message
-//         <div>
-//           <p>Please add courses or wait for the data to load...</p>
-//         </div>
-//       ) : (
-//         // Display the course list
-//         <div>
-//           <Button
-//             variant="contained"
-//             color="primary"
-//             onClick={handleAddClick}
-//           >
-//             Add Course
-//           </Button>
+//       {/* Always render the "Add Course" button */}
+//       <Button
+//         variant="contained"
+//         color="primary"
+//         onClick={handleAddClick}
+//       >
+//         Add Course
+//       </Button>
 
-//           <TextField
-//             label="Search by Course Title"
-//             variant="outlined"
-//             value={searchQuery}
-//             onChange={handleSearchChange}
-//             fullWidth
-//             style={{ margin: "10px 0" }}
-//           />
+//       <TextField
+//         label="Search by Course Title"
+//         variant="outlined"
+//         value={searchQuery}
+//         onChange={handleSearchChange}
+//         fullWidth
+//         style={{ margin: "10px 0" }}
+//       />
 
-//           <Grid container spacing={2}>
-//             {filteredCourses.map((course) => (
-//               <Grid key={course.courseId} item xs={12}>
-//                 <Card>
-//                   <CardContent
-//                     style={{
-//                       display: "flex",
-//                       flexDirection: "column",
-//                       alignItems: "flex-start",
-//                     }}
+//       <Grid container spacing={2}>
+//         {filteredCourses.map((course) => (
+//           <Grid key={course.courseId} item xs={12}>
+//             <Card>
+//               <CardContent
+//                 style={{
+//                   display: "flex",
+//                   flexDirection: "column",
+//                   alignItems: "flex-start",
+//                 }}
+//               >
+//                 <Typography variant="h6" component="div">
+//                   Course Name: {course.courseName}
+//                 </Typography>
+//                 <Typography variant="body2" color="text.secondary">
+//                   Duration: {course.courseDuration} years
+//                 </Typography>
+//                 <Typography variant="body2" color="text.secondary">
+//                   Description: {course.courseDescription}
+//                 </Typography>
+//                 <div
+//                   style={{
+//                     marginTop: "auto",
+//                     display: "flex",
+//                     justifyContent: "space-between",
+//                   }}
+//                 >
+//                   <Button
+//                     variant="contained"
+//                     color="primary"
+//                     onClick={() => handleEditClick(course)}
 //                   >
-//                     <Typography variant="h6" component="div">
-//                       Course Name: {course.courseName}
-//                     </Typography>
-//                     <Typography variant="body2" color="text.secondary">
-//                       Duration: {course.courseDuration} years
-//                     </Typography>
-//                     <Typography variant="body2" color="text.secondary">
-//                       Description: {course.courseDescription}
-//                     </Typography>
-//                     <div
-//                       style={{
-//                         marginTop: "auto",
-//                         display: "flex",
-//                         justifyContent: "space-between",
-//                       }}
-//                     >
-//                       <Button
-//                         variant="contained"
-//                         color="primary"
-//                         onClick={() => handleEditClick(course)}
-//                       >
-//                         Edit
-//                       </Button>
-//                       <Button
-//                         variant="contained"
-//                         color="secondary"
-//                         onClick={() => handleDeleteClick(course.courseId)}
-//                       >
-//                         Delete
-//                       </Button>
-//                     </div>
-//                   </CardContent>
-//                 </Card>
-//               </Grid>
-//             ))}
+//                     Edit
+//                   </Button>
+//                   <Button
+//                     variant="contained"
+//                     color="secondary"
+//                     onClick={() => handleDeleteClick(course.courseId)}
+//                   >
+//                     Delete
+//                   </Button>
+//                 </div>
+//               </CardContent>
+//             </Card>
 //           </Grid>
+//         ))}
+//       </Grid>
 
-//           <Dialog open={editFormOpen} onClose={handleCloseEditForm}>
-//             <DialogContent>
-//               <h3>
-//                 {selectedCourse
-//                   ? `Edit Course: ${selectedCourse.courseName}`
-//                   : "Add New Course"}
-//               </h3>
-//               <form onSubmit={handleEditFormSubmit}>
-//                 <TextField
-//                   label="Course Name"
-//                   fullWidth
-//                   id="courseName"
-//                   margin="normal"
-//                   variant="outlined"
-//                   value={editFormData.courseName}
-//                   onChange={handleEditFormInputChange}
-//                 />
-//                 <TextField
-//                   label="Duration (in years)"
-//                   fullWidth
-//                   id="courseDuration"
-//                   margin="normal"
-//                   variant="outlined"
-//                   value={editFormData.courseDuration}
-//                   onChange={handleEditFormInputChange}
-//                 />
-//                 <TextField
-//                   label="Description"
-//                   fullWidth
-//                   id="courseDescription"
-//                   margin="normal"
-//                   variant="outlined"
-//                   value={editFormData.courseDescription}
-//                   onChange={handleEditFormInputChange}
-//                 />
-//                 <Button variant="contained" color="primary" type="submit">
-//                   Save
-//                 </Button>
-//               </form>
-//             </DialogContent>
-//           </Dialog>
+//       <Dialog open={editFormOpen} onClose={handleCloseEditForm}>
+//         <DialogContent>
+//           <h3>
+//             {selectedCourse
+//               ? `Edit Course: ${selectedCourse.courseName}`
+//               : "Add New Course"}
+//           </h3>
+//           <form onSubmit={handleEditFormSubmit}>
+//             <TextField
+//               label="Course Name"
+//               fullWidth
+//               id="courseName"
+//               margin="normal"
+//               variant="outlined"
+//               value={editFormData.courseName}
+//               onChange={handleEditFormInputChange}
+//             />
+//             <TextField
+//               label="Duration (in years)"
+//               fullWidth
+//               id="courseDuration"
+//               margin="normal"
+//               variant="outlined"
+//               value={editFormData.courseDuration}
+//               onChange={handleEditFormInputChange}
+//             />
+//             <TextField
+//               label="Description"
+//               fullWidth
+//               id="courseDescription"
+//               margin="normal"
+//               variant="outlined"
+//               value={editFormData.courseDescription}
+//               onChange={handleEditFormInputChange}
+//             />
+//             <Button variant="contained" color="primary" type="submit">
+//               Save
+//             </Button>
+//           </form>
+//         </DialogContent>
+//       </Dialog>
 
-//           <Dialog open={addFormOpen} onClose={handleCloseAddForm}>
-//             <DialogContent>
-//               <h3>Add New Course</h3>
-//               <form onSubmit={handleAddFormSubmit}>
-//                 <TextField
-//                   label="Course Name"
-//                   fullWidth
-//                   id="courseName"
-//                   margin="normal"
-//                   variant="outlined"
-//                   value={addFormData.courseName}
-//                   onChange={handleAddFormInputChange}
-//                 />
-//                 <TextField
-//                   label="Duration (in years)"
-//                   fullWidth
-//                   id="courseDuration"
-//                   margin="normal"
-//                   variant="outlined"
-//                   value={addFormData.courseDuration}
-//                   onChange={handleAddFormInputChange}
-//                 />
-//                 <TextField
-//                   label="Description"
-//                   fullWidth
-//                   id="courseDescription"
-//                   margin="normal"
-//                   variant="outlined"
-//                   value={addFormData.courseDescription}
-//                   onChange={handleAddFormInputChange}
-//                 />
-//                 <Button variant="contained" color="primary" type="submit">
-//                   Add
-//                 </Button>
-//               </form>
-//             </DialogContent>
-//           </Dialog>
-//         </div>
-//       )}
+//       <Dialog open={addFormOpen} onClose={handleCloseAddForm}>
+//         <DialogContent>
+//           <h3>Add New Course</h3>
+//           <form onSubmit={handleAddFormSubmit}>
+//             <TextField
+//               label="Course Name"
+//               fullWidth
+//               id="courseName"
+//               margin="normal"
+//               variant="outlined"
+//               value={addFormData.courseName}
+//               onChange={handleAddFormInputChange}
+//             />
+//             <TextField
+//               label="Duration (in years)"
+//               fullWidth
+//               id="courseDuration"
+//               margin="normal"
+//               variant="outlined"
+//               value={addFormData.courseDuration}
+//               onChange={handleAddFormInputChange}
+//             />
+//             <TextField
+//               label="Description"
+//               fullWidth
+//               id="courseDescription"
+//               margin="normal"
+//               variant="outlined"
+//               value={addFormData.courseDescription}
+//               onChange={handleAddFormInputChange}
+//             />
+//             <Button variant="contained" color="primary" type="submit">
+//               Add
+//             </Button>
+//           </form>
+//         </DialogContent>
+//       </Dialog>
 //     </div>
 //   );
 // };
@@ -414,6 +406,8 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
   };
 
   const handleAddClick = () => {
+    setAddFormData({});
+
     setAddFormOpen(true);
   };
 
@@ -719,3 +713,4 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
 };
 
 export default AdminCourses;
+
