@@ -551,7 +551,14 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
       {courseList.length === 0 ? (
         // Check if the courseList is empty and display a message
         <div>
-          <p>Please add courses or wait for the data to load...</p>
+          <p>Please add courses </p>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleAddClick}
+          >
+            Add Course
+          </Button>
         </div>
       ) : (
         // Display the course list
