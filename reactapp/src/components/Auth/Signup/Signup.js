@@ -99,16 +99,13 @@ export default function SignUp() {
         // Make an Axios API call based on the selected role
         // if*signUpData.userRole === "admin" apiEndpoint = "https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/user/add"
          
-const apiEndpoint = signUpData.userRole === 'admin' ? 'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/signup' : 'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/user/signup';        
+        // const apiEndpoint = signUpData.userRole === 'admin' ? '/auth/admin/signup' : '/auth/user/signup';
+        const apiEndpoint = 'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/user/add'
         axios
           .post(apiEndpoint, signUpData)
           .then((response) => {
             console.log(response.data); // Handle success
-
-            if(response.data === "Email already exists"){
-              alert("Please Login , you have already signed up!")
-            }
-            else navigate(`/login`);
+            navigate(`/`);
           })
           .catch((error) => {
             console.error(error); // Handle error
