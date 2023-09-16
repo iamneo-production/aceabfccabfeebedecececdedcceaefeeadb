@@ -4,7 +4,7 @@ import com.examly.springapp.model.CourseModel;
 import com.examly.springapp.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.model.InstituteModel;
+import com.examly.springapp.model.InstituteModel;
 
 
 import java.util.List;

@@ -220,12 +220,6 @@ public class AdminController {
     }
 
 
-    private final CourseService courseService;
-
-    @Autowired
-    public AdminController(CourseService courseService) {
-        this.courseService = courseService;
-    }
 
    
     @PostMapping("/addCourseNew/{instituteId}")
