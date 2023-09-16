@@ -13,8 +13,8 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
   const [courseList, setCourseList] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(null);
-  const [editFormOpen, setEditFormOpen] = useState(false);
-  const [addFormOpen, setAddFormOpen] = useState(false);
+  const [addFormOpen, setAddFormOpen] = useState(false); // State for the add course form
+  const [editFormOpen, setEditFormOpen] = useState(false); // State for the edit course form
   const [editFormData, setEditFormData] = useState({
     courseId: null,
     courseName: "",
@@ -48,6 +48,10 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
     setEditFormOpen(false);
   };
 
+  const handleAddClick = () => {
+    setAddFormOpen(true);
+  };
+
   const handleCloseAddForm = () => {
     setAddFormOpen(false);
   };
@@ -60,10 +64,6 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
     setSelectedCourse(course);
     setEditFormData({ ...course });
     setEditFormOpen(true);
-  };
-
-  const handleAddClick = () => {
-    setAddFormOpen(true);
   };
 
   const handleEditFormInputChange = (e) => {
@@ -92,34 +92,9 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
 
   const handleAddFormSubmit = (e) => {
     e.preventDefault();
-    // Create a new course object with the form data
-    const newCourse = {
-      courseName: addFormData.courseName,
-      courseDuration: parseInt(addFormData.courseDuration, 10), // Ensure it's an integer
-      courseDescription: addFormData.courseDescription,
-    };
-
-    // Make a POST request to create the new course
-    axios
-      .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addCourseNew/${collegeId}`, newCourse)
-      .then((response) => {
-        // Handle the successful response, you can update the state or perform any other actions here
-        // For example, you can close the add form and refresh the course list
-        handleCloseAddForm();
-        // Optionally, you can refresh the course list by making another GET request
-        axios
-          .get(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/coursesByInstitute/${collegeId}`)
-          .then((response) => {
-            setCourseList(response.data);
-          })
-          .catch((error) => {
-            console.error("Error fetching course data:", error);
-          });
-      })
-      .catch((error) => {
-        console.error("Error creating course:", error);
-        // Handle the error, show a message, or perform any other necessary actions
-      });
+    // Implement logic to add a new course with the data in addFormData
+    // Close the add dialog
+    handleCloseAddForm();
   };
 
   const handleDeleteClick = (courseId) => {
@@ -236,15 +211,15 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
                   ? `Edit Course: ${selectedCourse.courseName}`
                   : "Add New Course"}
               </h3>
-              <form onSubmit={selectedCourse ? handleEditFormSubmit : handleAddFormSubmit}>
+              <form onSubmit={handleEditFormSubmit}>
                 <TextField
                   label="Course Name"
                   fullWidth
                   id="courseName"
                   margin="normal"
                   variant="outlined"
-                  value={selectedCourse ? editFormData.courseName : addFormData.courseName}
-                  onChange={selectedCourse ? handleEditFormInputChange : handleAddFormInputChange}
+                  value={editFormData.courseName}
+                  onChange={handleEditFormInputChange}
                 />
                 <TextField
                   label="Duration (in years)"
@@ -252,8 +227,8 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
                   id="courseDuration"
                   margin="normal"
                   variant="outlined"
-                  value={selectedCourse ? editFormData.courseDuration : addFormData.courseDuration}
-                  onChange={selectedCourse ? handleEditFormInputChange : handleAddFormInputChange}
+                  value={editFormData.courseDuration}
+                  onChange={handleEditFormInputChange}
                 />
                 <TextField
                   label="Description"
@@ -261,11 +236,49 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
                   id="courseDescription"
                   margin="normal"
                   variant="outlined"
-                  value={selectedCourse ? editFormData.courseDescription : addFormData.courseDescription}
-                  onChange={selectedCourse ? handleEditFormInputChange : handleAddFormInputChange}
+                  value={editFormData.courseDescription}
+                  onChange={handleEditFormInputChange}
                 />
                 <Button variant="contained" color="primary" type="submit">
                   Save
+                </Button>
+              </form>
+            </DialogContent>
+          </Dialog>
+
+          <Dialog open={addFormOpen} onClose={handleCloseAddForm}>
+            <DialogContent>
+              <h3>Add New Course</h3>
+              <form onSubmit={handleAddFormSubmit}>
+                <TextField
+                  label="Course Name"
+                  fullWidth
+                  id="courseName"
+                  margin="normal"
+                  variant="outlined"
+                  value={addFormData.courseName}
+                  onChange={handleAddFormInputChange}
+                />
+                <TextField
+                  label="Duration (in years)"
+                  fullWidth
+                  id="courseDuration"
+                  margin="normal"
+                  variant="outlined"
+                  value={addFormData.courseDuration}
+                  onChange={handleAddFormInputChange}
+                />
+                <TextField
+                  label="Description"
+                  fullWidth
+                  id="courseDescription"
+                  margin="normal"
+                  variant="outlined"
+                  value={addFormData.courseDescription}
+                  onChange={handleAddFormInputChange}
+                />
+                <Button variant="contained" color="primary" type="submit">
+                  Add
                 </Button>
               </form>
             </DialogContent>
