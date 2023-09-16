@@ -8,8 +8,8 @@ com/examly/springapp/model/CourseModel.class
 com/examly/springapp/controller/AuthController.class
 com/examly/springapp/service/InstituteService.class
 com/examly/springapp/controller/AdmissionController.class
-com/examly/springapp/service/InstituteServiceImpl.class
 com/examly/springapp/service/UserServiceImpl.class
+com/examly/springapp/service/InstituteServiceImpl.class
 com/examly/springapp/service/AdmissionService.class
 com/examly/springapp/controller/AdminController.class
 com/examly/springapp/repository/UserRepository.class
