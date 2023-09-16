@@ -26,7 +26,7 @@ public class AdmissionController {
         this.courseService = courseService;
         this.instituteService = instituteService;
     }
-   
+
 
     // Add an admission
     @PostMapping("/addAdmission")
@@ -98,36 +98,36 @@ public class AdmissionController {
     }
 
 
-@GetMapping("/viewAdmissionByUserId/{userId}")
-public ResponseEntity<List<Map<String, Object>>> viewAdmissionsByUserId(@PathVariable int userId) {
-    List<AdmissionModel> admissions = admissionService.getAdmissionsByUserId(userId);
-    List<Map<String, Object>> admissionDetailsList = new ArrayList<>();
+    @GetMapping("/viewAdmissionByUserId/{userId}")
+    public ResponseEntity<List<Map<String, Object>>> viewAdmissionsByUserId(@PathVariable int userId) {
+        List<AdmissionModel> admissions = admissionService.getAdmissionsByUserId(userId);
+        List<Map<String, Object>> admissionDetailsList = new ArrayList<>();
 
-    for (AdmissionModel admission : admissions) {
-        Map<String, Object> admissionDetails = new HashMap<>();
-        admissionDetails.put("admissionId", admission.getAdmissionId());
-        admissionDetails.put("courseId", admission.getCourseId());
-        admissionDetails.put("instituteId", admission.getInstituteId());
-        admissionDetails.put("status", admission.getStatus());
-        admissionDetails.put("studentId", admission.getStudentId());
-        admissionDetails.put("userId", admission.getUserId());
+        for (AdmissionModel admission : admissions) {
+            Map<String, Object> admissionDetails = new HashMap<>();
+            admissionDetails.put("admissionId", admission.getAdmissionId());
+            admissionDetails.put("courseId", admission.getCourseId());
+            admissionDetails.put("instituteId", admission.getInstituteId());
+            admissionDetails.put("status", admission.getStatus());
+            admissionDetails.put("studentId", admission.getStudentId());
+            admissionDetails.put("userId", admission.getUserId());
 
-        // Fetch and add additional details
-        String courseName = courseService.getCourseNameById(admission.getCourseId());
-        String instituteName = instituteService.getInstituteNameById(admission.getInstituteId());
+            // Fetch and add additional details
+            String courseName = courseService.getCourseNameById(admission.getCourseId());
+            String instituteName = instituteService.getInstituteNameById(admission.getInstituteId());
 
-        admissionDetails.put("courseName", courseName);
-        admissionDetails.put("instituteName", instituteName);
+            admissionDetails.put("courseName", courseName);
+            admissionDetails.put("instituteName", instituteName);
 
-        admissionDetailsList.add(admissionDetails);
+            admissionDetailsList.add(admissionDetails);
+        }
+
+        if (!admissionDetailsList.isEmpty()) {
+            return ResponseEntity.ok(admissionDetailsList);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
-
-    if (!admissionDetailsList.isEmpty()) {
-        return ResponseEntity.ok(admissionDetailsList);
-    } else {
-        return ResponseEntity.notFound().build();
-    }
-}
 
 }
 

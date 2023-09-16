@@ -20,7 +20,7 @@ public class UserModel {
     private String userRole;
 
     public UserModel(){
-        
+
     }
 
     public Long getuserId() {

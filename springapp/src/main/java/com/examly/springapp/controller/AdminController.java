@@ -35,7 +35,7 @@ public class AdminController {
 
     @Autowired
     public AdminController(StudentService studentService, CourseService courseService,
-            InstituteService instituteService) {
+                           InstituteService instituteService) {
         this.studentService = studentService;
         this.courseService = courseService;
         this.instituteService = instituteService;
@@ -56,7 +56,7 @@ public class AdminController {
 
     @PutMapping("/editStudent/{studentId}")
     public ResponseEntity<StudentModel> editStudent(@PathVariable int studentId,
-            @RequestBody StudentModel updatedStudent) {
+                                                    @RequestBody StudentModel updatedStudent) {
         StudentModel student = studentService.updateStudent(studentId, updatedStudent);
         if (student != null) {
             return ResponseEntity.ok(student);
@@ -76,7 +76,7 @@ public class AdminController {
         List<StudentModel> students = studentService.getAllStudents();
         return ResponseEntity.ok(students);
     }
-  
+
 
 
 
@@ -90,7 +90,7 @@ public class AdminController {
     public ResponseEntity<StudentModel> createOrUpdateStudent(@PathVariable Long userId, @RequestBody StudentModel studentData) {
         // Check if a student with the given user ID exists
         StudentModel existingStudent = studentService.getStudentByUserId(userId);
-    
+
         if (existingStudent != null) {
             // A student with the same user ID already exists, update the existing student's details
             existingStudent.setStudentName(studentData.getStudentName());
@@ -101,20 +101,20 @@ public class AdminController {
             existingStudent.setHSC(studentData.getHSC());
             existingStudent.setDiploma(studentData.getDiploma());
             existingStudent.setEligibility(studentData.getEligibility());
-    
+
             // Save the updated student
             StudentModel updatedStudent = studentService.updateStudent(existingStudent.getStudentId(), existingStudent);
-    
+
             return new ResponseEntity<>(updatedStudent, HttpStatus.OK);
         } else {
             // No student with the same user ID exists, create a new student record with the provided userId
             studentData.setUserId(userId); // Set the userId directly in the studentData
             StudentModel createdStudent = studentService.createStudent(studentData);
-    
+
             return new ResponseEntity<>(createdStudent, HttpStatus.CREATED);
         }
     }
-    
+
 
 
 
@@ -177,7 +177,7 @@ public class AdminController {
         }
     }
 
-    
+
 
 
 
@@ -191,9 +191,9 @@ public class AdminController {
         return ResponseEntity.ok(createdInstitute);
     }
 
-    
 
-    
+
+
     @GetMapping("/viewInstitute/{instituteId}")
     public ResponseEntity<InstituteModel> viewInstitute(@PathVariable int instituteId) {
         Optional<InstituteModel> institute = instituteService.getInstituteById(instituteId);
@@ -201,7 +201,7 @@ public class AdminController {
     }
     @PutMapping("/editInstitute/{instituteId}")
     public ResponseEntity<InstituteModel> editInstitute(@PathVariable int instituteId,
-            @RequestBody InstituteModel updatedInstitute) {
+                                                        @RequestBody InstituteModel updatedInstitute) {
         InstituteModel institute = instituteService.updateInstitute(instituteId, updatedInstitute);
         if (institute != null) {
             return ResponseEntity.ok(institute);
@@ -223,34 +223,34 @@ public class AdminController {
     }
 
 
-      //Note this is for MASS INSERTING OF DATA .
-      @PostMapping("/addInstitutes") 
-       public  ResponseEntity<List<InstituteModel>> addInstitute(@RequestBody List<InstituteModel> institutes) { 
-         List<InstituteModel> createdInstitutes  = new ArrayList<>();
-      
-      for (InstituteModel institute : institutes)
-       { InstituteModel   createdInstitute = instituteService.createInstitute(institute); 
-     createdInstitutes.add(createdInstitute); 
-     }
-    
-       return ResponseEntity.ok(createdInstitutes); 
-      }
-     
-    
+    //Note this is for MASS INSERTING OF DATA .
+    @PostMapping("/addInstitutes")
+    public  ResponseEntity<List<InstituteModel>> addInstitute(@RequestBody List<InstituteModel> institutes) {
+        List<InstituteModel> createdInstitutes  = new ArrayList<>();
+
+        for (InstituteModel institute : institutes)
+        { InstituteModel   createdInstitute = instituteService.createInstitute(institute);
+            createdInstitutes.add(createdInstitute);
+        }
+
+        return ResponseEntity.ok(createdInstitutes);
+    }
+
+
     @PostMapping("/addCourses")
     public ResponseEntity<List<CourseModel>> addCourses(@RequestBody List<CourseModel> courses) {
         List<CourseModel> createdCourses = new ArrayList<>();
-    
+
         for (CourseModel course : courses) {
             CourseModel createdCourse = courseService.createCourse(course);
             createdCourses.add(createdCourse);
         }
-    
+
         return ResponseEntity.ok(createdCourses);
     }
-  
-    
-    
+
+
+
 
 
 

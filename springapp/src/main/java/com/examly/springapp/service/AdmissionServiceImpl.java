@@ -39,13 +39,13 @@ public class AdmissionServiceImpl implements AdmissionService {
             updatedAdmission.setAdmissionId(admissionId);
             return admissionRepository.save(updatedAdmission);
         } else {
-            return null; 
+            return null;
         }
     }
     @Override
-public List<AdmissionModel> getAdmissionsByUserId(int userId) {
-    return admissionRepository.findByUserId(userId);
-}
+    public List<AdmissionModel> getAdmissionsByUserId(int userId) {
+        return admissionRepository.findByUserId(userId);
+    }
 
 
 

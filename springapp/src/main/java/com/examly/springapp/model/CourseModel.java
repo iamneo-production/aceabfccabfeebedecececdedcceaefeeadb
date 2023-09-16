@@ -9,16 +9,16 @@ public class CourseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int courseId;
-    
+
     private String courseName;
     private String courseDescription;
     private int courseDuration;
-    
+
     // Institute ID as a foreign key
     @ManyToOne
     @JoinColumn(name = "institute_id")
     private InstituteModel institute;
-    
+
     // Constructors...
 
     // Default constructor
