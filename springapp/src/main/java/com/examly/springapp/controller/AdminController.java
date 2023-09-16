@@ -16,6 +16,11 @@ import com.examly.springapp.service.StudentService;
 import com.examly.springapp.model.UserModel;
 import com.examly.springapp.service.UserService;
 
+
+
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -247,6 +252,24 @@ public class AdminController {
         }
 
         return ResponseEntity.ok(createdCourses);
+    }
+    @Autowired
+    public AdminController(CourseRepository courseRepository, InstituteRepository instituteRepository) {
+        this.courseRepository = courseRepository;
+        this.instituteRepository = instituteRepository;
+    }
+
+    @PostMapping("/addCourseNew/{instituteId}")
+    public CourseModel addCourse(@PathVariable Long instituteId, @RequestBody CourseModel courseModel) {
+        // Find the InstituteModel by the given instituteId
+        InstituteModel institute = instituteRepository.findById(instituteId)
+                .orElseThrow(() -> new IllegalArgumentException("Institute with ID " + instituteId + " not found"));
+
+        // Set the InstituteModel for the course
+        courseModel.setInstitute(institute);
+
+        // Save the course to the database
+        return courseRepository.save(courseModel);
     }
 
 
