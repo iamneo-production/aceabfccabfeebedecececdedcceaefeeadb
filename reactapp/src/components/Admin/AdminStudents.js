@@ -64,7 +64,7 @@ const AdminStudents = () => {
     if (editStudentId !== null) {
       // Handle edit logic here (update the existing student)
       axios
-        .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addAdmissionNew/${formData.userId}`, formData)
+        .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${formData.userId}`, formData)
         .then(() => {
           // Refresh the students data after editing
           fetchStudentsData();
