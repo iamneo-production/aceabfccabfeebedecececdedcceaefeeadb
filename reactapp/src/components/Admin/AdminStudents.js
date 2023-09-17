@@ -85,9 +85,10 @@ const AdminStudents = () => {
           console.error('Error editing student:', error);
         });
     } else {
+      formData.userId = null;
       // Handle form submission logic here (e.g., adding a new student)
       axios
-        .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${formData.userId}`, formData)
+        .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudent`, formData)
         .then(() => {
           // Refresh the students data after adding
           fetchStudentsData();
