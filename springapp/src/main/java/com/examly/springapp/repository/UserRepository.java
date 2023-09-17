@@ -12,6 +12,8 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
     Optional<UserModel> findByEmailAndPasswordAndUserRole(String email, String password, String userRole);
 
     Optional<UserModel> findByEmail(String email);
+    Long countBy();
+
 
 
 
