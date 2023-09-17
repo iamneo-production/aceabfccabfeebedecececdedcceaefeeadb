@@ -109,7 +109,7 @@ export default function SignUp() {
       .post(apiEndpoint, signUpData)
       .then((response) => {
         console.log(response.data); // Handle success
-        navigate(`/`);
+        navigate(`/Login`);
       })
       .catch((error) => {
         console.error(error); // Handle error
