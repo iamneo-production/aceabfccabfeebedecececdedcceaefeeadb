@@ -25,6 +25,7 @@ const AdminStudents = () => {
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
   const [editStudentId, setEditStudentId] = useState(null);
+  
   const handleDeleteClick =(studentId)=>{
    axios
    .delete(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteStudent/${studentId}`).then((response)=>{
@@ -86,7 +87,7 @@ const AdminStudents = () => {
     } else {
       // Handle form submission logic here (e.g., adding a new student)
       axios
-        .post('https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addAdmissionNew', formData)
+        .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${formData.userId}`, formData)
         .then(() => {
           // Refresh the students data after adding
           fetchStudentsData();
