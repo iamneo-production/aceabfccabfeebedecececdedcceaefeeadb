@@ -1,6 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import Footer from '../Footer';
-import { Button, Dialog, DialogContent, DialogTitle, Grid, TextField, Typography, Radio, RadioGroup, FormControlLabel } from '@mui/material';
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  TextField,
+  Typography,
+  FormControl,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+} from '@mui/material';
 import AdminAppBar from '../AdminAppBar';
 import { useParams } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
@@ -12,10 +24,10 @@ const AdminStudents = () => {
   const [formData, setFormData] = useState({
     studentId: '',
     studentName: '',
-    studentDOB: '', // Changed to date input type
+    studentDOB: '',
     address: '',
     mobile: '',
-    eligibility: 'Eligible', // Changed to radio buttons
+    eligibility: 'Eligible', // Default value
     userId: params.userId,
     sslc: '',
     hsc: '',
@@ -85,7 +97,7 @@ const AdminStudents = () => {
       formData.userId = null;
       // Handle form submission logic here (e.g., adding a new student)
       axios
-        .post(`https://8080-aceabfccabfeebedececececdedcceaefeeadb.premiumproject.examly.io/admin/addStudent`, formData)
+        .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudent`, formData)
         .then(() => {
           // Refresh the students data after adding
           fetchStudentsData();
@@ -98,10 +110,10 @@ const AdminStudents = () => {
     setFormData({
       studentId: '',
       studentName: '',
-      studentDOB: '', // Changed to date input type
+      studentDOB: '',
       address: '',
       mobile: '',
-      eligibility: 'Eligible', // Reset to Eligible
+      eligibility: 'Eligible', // Reset to default value
       userId: params.userId,
       sslc: '',
       hsc: '',
@@ -129,7 +141,7 @@ const AdminStudents = () => {
       <Typography variant="h4" gutterBottom>
         Students
       </Typography>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <TextField
           label="Search"
           fullWidth
@@ -138,7 +150,7 @@ const AdminStudents = () => {
           variant="outlined"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          style={{ width: '50%' }}
+          style={{ width: '50%', margin: '0 auto', marginBottom: '20px' }}
         />
         <Button
           variant="contained"
@@ -147,10 +159,10 @@ const AdminStudents = () => {
             setFormData({
               studentId: '',
               studentName: '',
-              studentDOB: '', // Changed to date input type
+              studentDOB: '',
               address: '',
               mobile: '',
-              eligibility: 'Eligible', // Default to Eligible
+              eligibility: 'Eligible', // Default value
               userId: params.userId,
               sslc: '',
               hsc: '',
@@ -240,7 +252,7 @@ const AdminStudents = () => {
                   id="studentDOB"
                   margin="normal"
                   variant="outlined"
-                  type="date" // Changed to date input type
+                  type="date"
                   value={formData.studentDOB}
                   onChange={handleInputChange}
                 />
@@ -268,25 +280,26 @@ const AdminStudents = () => {
                 />
               </Grid>
               <Grid item xs={4}>
-                <RadioGroup
-                  aria-label="Eligibility"
-                  id="eligibility"
-                  name="eligibility"
-                  value={formData.eligibility}
-                  onChange={handleInputChange}
-                  row
-                >
-                  <FormControlLabel
-                    value="Eligible"
-                    control={<Radio />}
-                    label="Eligible"
-                  />
-                  <FormControlLabel
-                    value="Not Eligible"
-                    control={<Radio />}
-                    label="Not Eligible"
-                  />
-                </RadioGroup>
+                <FormControl component="fieldset">
+                  <Typography variant="subtitle1">Eligibility</Typography>
+                  <RadioGroup
+                    id="eligibility"
+                    value={formData.eligibility}
+                    onChange={handleInputChange}
+                    row
+                  >
+                    <FormControlLabel
+                      value="Eligible"
+                      control={<Radio />}
+                      label="Eligible"
+                    />
+                    <FormControlLabel
+                      value="Not Eligible"
+                      control={<Radio />}
+                      label="Not Eligible"
+                    />
+                  </RadioGroup>
+                </FormControl>
               </Grid>
               <Grid item xs={4}>
                 <TextField
@@ -376,7 +389,7 @@ const AdminStudents = () => {
                   id="studentDOB"
                   margin="normal"
                   variant="outlined"
-                  type="date" // Changed to date input type
+                  type="date" 
                   value={formData.studentDOB}
                   onChange={handleInputChange}
                 />
@@ -404,25 +417,26 @@ const AdminStudents = () => {
                 />
               </Grid>
               <Grid item xs={4}>
-                <RadioGroup
-                  aria-label="Eligibility"
-                  id="eligibility"
-                  name="eligibility"
-                  value={formData.eligibility}
-                  onChange={handleInputChange}
-                  row
-                >
-                  <FormControlLabel
-                    value="Eligible"
-                    control={<Radio />}
-                    label="Eligible"
-                  />
-                  <FormControlLabel
-                    value="Not Eligible"
-                    control={<Radio />}
-                    label="Not Eligible"
-                  />
-                </RadioGroup>
+                <FormControl component="fieldset">
+                  <Typography variant="subtitle1">Eligibility</Typography>
+                  <RadioGroup
+                    id="eligibility"
+                    value={formData.eligibility}
+                    onChange={handleInputChange}
+                    row
+                  >
+                    <FormControlLabel
+                      value="Eligible"
+                      control={<Radio />}
+                      label="Eligible"
+                    />
+                    <FormControlLabel
+                      value="Not Eligible"
+                      control={<Radio />}
+                      label="Not Eligible"
+                    />
+                  </RadioGroup>
+                </FormControl>
               </Grid>
               <Grid item xs={4}>
                 <TextField
