@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Footer from '../Footer';
-import { Button, Dialog, DialogContent, DialogTitle, Grid, TextField, Typography ,Radio,FormControlLabel,RadioGroup } from '@mui/material';
+import { Button, Dialog, DialogContent, DialogTitle, Grid, TextField, Typography, Radio, RadioGroup, FormControlLabel } from '@mui/material';
 import AdminAppBar from '../AdminAppBar';
 import { useParams } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
@@ -15,8 +15,7 @@ const AdminStudents = () => {
     studentDOB: '',
     address: '',
     mobile: '',
-    eligibility: '',
-    userId: params.userId, // Use the userId from params
+    eligibility: 'Eligible', // Default to Eligible
     sslc: '',
     hsc: '',
     diploma: '',
@@ -25,16 +24,14 @@ const AdminStudents = () => {
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
   const [editStudentId, setEditStudentId] = useState(null);
-  
-  const handleDeleteClick =(studentId)=>{
-   axios
-   .delete(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteStudent/${studentId}`).then((response)=>{
-    fetchStudentsData();
 
-
-   }) 
-
-  }
+  const handleDeleteClick = (studentId) => {
+    axios
+      .delete(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteStudent/${studentId}`)
+      .then((response) => {
+        fetchStudentsData();
+      });
+  };
 
   const fetchStudentsData = () => {
     axios
@@ -47,7 +44,6 @@ const AdminStudents = () => {
           address: student.address,
           mobile: student.mobile,
           eligibility: student.eligibility,
-          userId: student.userId,
           sslc: student.sslc,
           hsc: student.hsc,
           diploma: student.diploma,
@@ -56,7 +52,6 @@ const AdminStudents = () => {
         setStudents(studentData);
       })
       .catch((error) => {
-
         console.error('Error fetching students data:', error);
       });
   };
@@ -88,7 +83,7 @@ const AdminStudents = () => {
       formData.userId = null;
       // Handle form submission logic here (e.g., adding a new student)
       axios
-        .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudent`, formData)
+        .post(`https://8080-aceabfccabfeebedececececdedcceaefeeadb.premiumproject.examly.io/admin/addStudent`, formData)
         .then(() => {
           // Refresh the students data after adding
           fetchStudentsData();
@@ -104,8 +99,7 @@ const AdminStudents = () => {
       studentDOB: '',
       address: '',
       mobile: '',
-      eligibility: '',
-      userId: params.userId,
+      eligibility: 'Eligible', // Reset to Eligible
       sslc: '',
       hsc: '',
       diploma: '',
@@ -132,7 +126,7 @@ const AdminStudents = () => {
       <Typography variant="h4" gutterBottom>
         Students
       </Typography>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
         <TextField
           label="Search"
           fullWidth
@@ -141,7 +135,7 @@ const AdminStudents = () => {
           variant="outlined"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          style={{ width: '50%', margin: '0 auto', marginBottom: '20px' }}
+          style={{ width: '50%' }}
         />
         <Button
           variant="contained"
@@ -153,7 +147,7 @@ const AdminStudents = () => {
               studentDOB: '',
               address: '',
               mobile: '',
-              eligibility: '',
+              eligibility: 'Eligible', // Default to Eligible
               userId: params.userId,
               sslc: '',
               hsc: '',
@@ -179,7 +173,6 @@ const AdminStudents = () => {
           { field: 'address', headerName: 'Address', flex: 1 },
           { field: 'mobile', headerName: 'Mobile Number', flex: 1 },
           { field: 'eligibility', headerName: 'Eligibility', flex: 1 },
-          
           { field: 'sslc', headerName: 'SSLC', flex: 1 },
           { field: 'hsc', headerName: 'HSC', flex: 1 },
           { field: 'diploma', headerName: 'Diploma', flex: 1 },
@@ -197,7 +190,7 @@ const AdminStudents = () => {
                 >
                   Edit
                 </Button>
-                <Button variant="outlined" color="secondary" onClick={()=>handleDeleteClick(params.row.studentId)}>
+                <Button variant="outlined" color="secondary" onClick={() => handleDeleteClick(params.row.studentId)}>
                   Delete
                 </Button>
               </>
@@ -270,17 +263,26 @@ const AdminStudents = () => {
                 />
               </Grid>
               <Grid item xs={4}>
-                <TextField
-                  label="Eligibility"
-                  fullWidth
+                <RadioGroup
+                  aria-label="Eligibility"
                   id="eligibility"
-                  margin="normal"
-                  variant="outlined"
+                  name="eligibility"
                   value={formData.eligibility}
                   onChange={handleInputChange}
-                />
+                  row
+                >
+                  <FormControlLabel
+                    value="Eligible"
+                    control={<Radio />}
+                    label="Eligible"
+                  />
+                  <FormControlLabel
+                    value="Not Eligible"
+                    control={<Radio />}
+                    label="Not Eligible"
+                  />
+                </RadioGroup>
               </Grid>
-             
               <Grid item xs={4}>
                 <TextField
                   label="SSLC"
@@ -359,7 +361,6 @@ const AdminStudents = () => {
                   variant="outlined"
                   value={formData.studentDOB}
                   onChange={handleInputChange}
-                  type='date'
                 />
               </Grid>
               <Grid item xs={4}>
@@ -387,14 +388,11 @@ const AdminStudents = () => {
               <Grid item xs={4}>
                 <RadioGroup
                   aria-label="Eligibility"
+                  id="eligibility"
                   name="eligibility"
                   value={formData.eligibility}
-                  onChange={(e) => {
-                    setFormData({
-                      ...formData,
-                      eligibility: e.target.value,
-                    });
-                  }}
+                  onChange={handleInputChange}
+                  row
                 >
                   <FormControlLabel
                     value="Eligible"
@@ -408,7 +406,6 @@ const AdminStudents = () => {
                   />
                 </RadioGroup>
               </Grid>
-            
               <Grid item xs={4}>
                 <TextField
                   label="SSLC"
