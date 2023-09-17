@@ -7,13 +7,29 @@ import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 
 const AdminStudents = () => {
-  const [initialStudents, setInitialStudents] = useState([]);
+  const params = useParams();
+  const [students, setStudents] = useState([]);
+  const [formData, setFormData] = useState({
+    studentId: '',
+    studentName: '',
+    studentDOB: '',
+    address: '',
+    mobile: '',
+    eligibility: '',
+    userId: params.userId, // Use the userId from params
+    sslc: '',
+    hsc: '',
+    diploma: '',
+  });
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isDialogOpen, setDialogOpen] = useState(false);
+  const [isEditDialogOpen, setEditDialogOpen] = useState(false);
+  const [editStudentId, setEditStudentId] = useState(null);
 
   const fetchStudentsData = () => {
     axios
       .get('https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/student')
       .then((response) => {
-        // Assuming the API returns an array of student data
         const studentData = response.data.map((student) => ({
           studentId: student.studentId,
           studentName: student.studentName,
@@ -23,42 +39,20 @@ const AdminStudents = () => {
           eligibility: student.eligibility,
           userId: student.userId,
           sslc: student.sslc,
-          hsc:student.hsc,
+          hsc: student.hsc,
           diploma: student.diploma,
         }));
-  
-        // Set the students state with the fetched data
+
         setStudents(studentData);
       })
       .catch((error) => {
         console.error('Error fetching students data:', error);
       });
   };
-  
-
 
   useEffect(() => {
     fetchStudentsData();
   }, []);
-
-  const params = useParams();
-  const [students, setStudents] = useState(initialStudents);
-  const [formData, setFormData] = useState({
-    studentId: '',
-    studentName: '',
-    studentDOB: '',
-    address: '',
-    mobile: '',
-    eligibility: '',
-    userId: '',
-    sslc: '',
-    hsc: '',
-    diploma: '',
-  });
-  const [searchQuery, setSearchQuery] = useState('');
-  const [isDialogOpen, setDialogOpen] = useState(false);
-  const [isEditDialogOpen, setEditDialogOpen] = useState(false);
-  const [editStudentId, setEditStudentId] = useState(null);
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -69,16 +63,27 @@ const AdminStudents = () => {
     e.preventDefault();
     if (editStudentId !== null) {
       // Handle edit logic here (update the existing student)
-      const updatedStudents = students.map((student) =>
-        student.studentId === editStudentId ? { ...formData, studentId: editStudentId } : student
-      );
-      setStudents(updatedStudents);
-      setEditStudentId(null);
+      axios
+        .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addAdmissionNew/${formData.userId}`, formData)
+        .then(() => {
+          // Refresh the students data after editing
+          fetchStudentsData();
+          setEditStudentId(null);
+        })
+        .catch((error) => {
+          console.error('Error editing student:', error);
+        });
     } else {
       // Handle form submission logic here (e.g., adding a new student)
-      // You can generate a unique ID for the new student and update the 'students' state
-      const newStudent = { ...formData, studentId: students.length + 1 };
-      setStudents([...students, newStudent]);
+      axios
+        .post('https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addAdmissionNew', formData)
+        .then(() => {
+          // Refresh the students data after adding
+          fetchStudentsData();
+        })
+        .catch((error) => {
+          console.error('Error adding student:', error);
+        });
     }
     // Reset the form data after submission
     setFormData({
@@ -88,7 +93,7 @@ const AdminStudents = () => {
       address: '',
       mobile: '',
       eligibility: '',
-      userId: '',
+      userId: params.userId,
       sslc: '',
       hsc: '',
       diploma: '',
@@ -96,9 +101,6 @@ const AdminStudents = () => {
     // Close the dialog
     setDialogOpen(false);
     setEditDialogOpen(false);
-
-    // Log the form data
-    console.log(formData);
   };
 
   const handleEditClick = (studentId) => {
@@ -140,7 +142,7 @@ const AdminStudents = () => {
               address: '',
               mobile: '',
               eligibility: '',
-              userId: '',
+              userId: params.userId,
               sslc: '',
               hsc: '',
               diploma: '',
@@ -275,6 +277,7 @@ const AdminStudents = () => {
                   variant="outlined"
                   value={formData.userId}
                   onChange={handleInputChange}
+                  disabled
                 />
               </Grid>
               <Grid item xs={4}>
@@ -399,6 +402,7 @@ const AdminStudents = () => {
                   variant="outlined"
                   value={formData.userId}
                   onChange={handleInputChange}
+                  disabled
                 />
               </Grid>
               <Grid item xs={4}>
