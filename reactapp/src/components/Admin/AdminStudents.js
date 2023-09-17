@@ -179,7 +179,7 @@ const AdminStudents = () => {
           { field: 'address', headerName: 'Address', flex: 1 },
           { field: 'mobile', headerName: 'Mobile Number', flex: 1 },
           { field: 'eligibility', headerName: 'Eligibility', flex: 1 },
-          { field: 'userId', headerName: 'User ID', flex: 1 },
+          
           { field: 'sslc', headerName: 'SSLC', flex: 1 },
           { field: 'hsc', headerName: 'HSC', flex: 1 },
           { field: 'diploma', headerName: 'Diploma', flex: 1 },
@@ -280,18 +280,7 @@ const AdminStudents = () => {
                   onChange={handleInputChange}
                 />
               </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="User ID"
-                  fullWidth
-                  id="userId"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.userId}
-                  onChange={handleInputChange}
-                  disabled
-                />
-              </Grid>
+             
               <Grid item xs={4}>
                 <TextField
                   label="SSLC"
@@ -405,18 +394,7 @@ const AdminStudents = () => {
                   onChange={handleInputChange}
                 />
               </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="User ID"
-                  fullWidth
-                  id="userId"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.userId}
-                  onChange={handleInputChange}
-                  disabled
-                />
-              </Grid>
+           
               <Grid item xs={4}>
                 <TextField
                   label="SSLC"
