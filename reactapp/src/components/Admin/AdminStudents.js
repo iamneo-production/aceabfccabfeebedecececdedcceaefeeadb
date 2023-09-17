@@ -39,9 +39,11 @@ const AdminStudents = () => {
     hsc: '',
     diploma: '',
   });
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isDialogOpen, setDialogOpen] = useState(false);
+  const [isEditDialogOpen, setEditDialogOpen] = useState(false);
+  const [editStudentId, setEditStudentId] = useState(null);
 
-  // Other state variables...
-  
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
@@ -49,9 +51,20 @@ const AdminStudents = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    
-    // Handle form submission logic...
-    
+    if (editStudentId !== null) {
+      // Handle edit logic here (update the existing student)
+      const updatedStudents = students.map((student) =>
+        student.studentId === editStudentId ? { ...formData, studentId: editStudentId } : student
+      );
+      setStudents(updatedStudents);
+      setEditStudentId(null);
+    } else {
+      // Handle form submission logic here (e.g., adding a new student)
+      // You can generate a unique ID for the new student and update the 'students' state
+      const newStudent = { ...formData, studentId: students.length + 1 };
+      setStudents([...students, newStudent]);
+    }
+    // Reset the form data after submission
     setFormData({
       studentId: '',
       studentName: '',
@@ -64,9 +77,6 @@ const AdminStudents = () => {
       hsc: '',
       diploma: '',
     });
-
-    // Other form submission logic...
-
     // Close the dialog
     setDialogOpen(false);
     setEditDialogOpen(false);
@@ -76,8 +86,10 @@ const AdminStudents = () => {
   };
 
   const handleEditClick = (studentId) => {
+    // Find the student to edit based on studentId
     const studentToEdit = students.find((student) => student.studentId === studentId);
     if (studentToEdit) {
+      // Set the form data with the student's details
       setFormData({ ...studentToEdit });
       setEditStudentId(studentId);
       setEditDialogOpen(true);
@@ -129,7 +141,6 @@ const AdminStudents = () => {
           const rowValues = Object.values(student).join('').toLowerCase();
           return rowValues.includes(searchQuery.toLowerCase());
         })}
-
         columns={[
           { field: 'studentId', headerName: 'Student ID', flex: 1 },
           { field: 'studentName', headerName: 'Student Name', flex: 1 },
