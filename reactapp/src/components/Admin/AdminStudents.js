@@ -25,6 +25,11 @@ const AdminStudents = () => {
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
   const [editStudentId, setEditStudentId] = useState(null);
+  const handleDeleteClick =(studentId)=>{
+   axios
+   .delete("https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/deleteStudent") deleteStudent/{studentId}
+
+  }
 
   const fetchStudentsData = () => {
     axios
@@ -46,6 +51,7 @@ const AdminStudents = () => {
         setStudents(studentData);
       })
       .catch((error) => {
+
         console.error('Error fetching students data:', error);
       });
   };
@@ -185,7 +191,7 @@ const AdminStudents = () => {
                 >
                   Edit
                 </Button>
-                <Button variant="outlined" color="secondary">
+                <Button variant="outlined" color="secondary" onClick={()=>handleDeleteClick(params.row.studentId)}>
                   Delete
                 </Button>
               </>
