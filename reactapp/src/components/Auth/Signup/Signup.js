@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Select, InputLabel, MenuItem, FormControl } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link , useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const defaultTheme = createTheme();
@@ -35,7 +35,8 @@ export default function SignUp() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
   const handleInputChange = (event) => {
     const fieldName = event.target.name;
     switch (fieldName) {
@@ -96,23 +97,24 @@ export default function SignUp() {
       signUpData[key] = value;
     }
 
-        // Make an Axios API call based on the selected role
-        // if*signUpData.userRole === "admin" apiEndpoint = "https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/user/add"
-         
-        // const apiEndpoint = signUpData.userRole === 'admin' ? '/auth/admin/signup' : '/auth/user/signup';
-        const apiEndpoint = 'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/user/signup'
-        axios
-          .post(apiEndpoint, signUpData)
-          .then((response) => {
-            console.log(response.data); // Handle success
-            navigate(`/`);
-          })
-          .catch((error) => {
-            console.error(error); // Handle error
-          });
-      };
+    // Determine the API endpoint based on the selected role
+    let apiEndpoint = '';
+    if (signUpData.userRole === 'admin') {
+      apiEndpoint = 'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/signup';
+    } else if (signUpData.userRole === 'user') {
+      apiEndpoint = 'https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/user/signup';
+    }
 
- 
+    axios
+      .post(apiEndpoint, signUpData)
+      .then((response) => {
+        console.log(response.data); // Handle success
+        navigate(`/`);
+      })
+      .catch((error) => {
+        console.error(error); // Handle error
+      });
+  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -168,17 +170,16 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="username"
-                label="Enter Username"
-                id="username"
-                
-                error={userNameError}
-                helperText={userNameError ? 'Please enter a username' : ''}
-                onChange={handleInputChange}
-              />
+                <TextField
+                  required
+                  fullWidth
+                  name="username"
+                  label="Enter Username"
+                  id="username"
+                  error={userNameError}
+                  helperText={userNameError ? 'Please enter a username' : ''}
+                  onChange={handleInputChange}
+                />
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -243,5 +244,3 @@ export default function SignUp() {
     </ThemeProvider>
   );
 }
-
-
