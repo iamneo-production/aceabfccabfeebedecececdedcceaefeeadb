@@ -71,68 +71,36 @@ const AdminUniversityList = () => {
     setEditDialogOpen(true);
   };
 
-  // const handleDeleteClick = (card, e) => {
-  //   e.stopPropagation();
-  //   console.log("Delete College ID:", card.collegeId); // Log the college ID
-  //   // Define the API endpoint URL for deleting
-  //   const deleteApiUrl = `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteInstitute/${card.collegeId}`;
-
-  //   // Make a DELETE request to remove the institute
-  //   axios
-  //     .delete(deleteApiUrl)
-  //     .then((response) => {
-  //       // Handle success (e.g., show a success message)
-  //       console.log("Institute deleted successfully!", response.data);
-  //       setFilteredCards((prevDetails) =>
-  //         prevDetails.filter((item) => item.collegeId !== card.collegeId)
-  //       );
-
-  //       // Optionally, you can refresh the institute list here if needed
-  //     })
-  //     .catch((error) => {
-  //       // Handle errors (e.g., show an error message)
-  //       console.error("Error deleting institute:", error);
-  //     });
-
-  //   // Close the dialog after deleting
-  //   setEditDialogOpen(false);
-  // };
-
-
-
-
-  const handleDeleteClick = async (card, e) => {
+  const handleDeleteClick = (card, e) => {
     e.stopPropagation();
-    console.log("Delete College ID:", card.collegeId);
-  
-    try {
-      const deleteApiUrl = `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteInstitute/${card.collegeId}`;
-      const response = await axios.delete(deleteApiUrl);
-  
-      if (response.status === 200) {
-        // Handle success
-        console.log("Institute deleted successfully!");
-  
-        // Update the card details and filtered cards
-        setCardDetails((prevDetails) =>
-          prevDetails.filter((item) => item.collegeId !== card.collegeId)
-        );
+    console.log("Delete College ID:", card.collegeId); // Log the college ID
+    // Define the API endpoint URL for deleting
+    const deleteApiUrl = `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteInstitute/${card.collegeId}`;
+
+    // Make a DELETE request to remove the institute
+    axios
+      .delete(deleteApiUrl)
+      .then((response) => {
+        // Handle success (e.g., show a success message)
+        console.log("Institute deleted successfully!", response.data);
         setFilteredCards((prevDetails) =>
           prevDetails.filter((item) => item.collegeId !== card.collegeId)
         );
-  
-        toast.success("Institute deleted successfully!");
-      } else if (response.status === 500) {
-        // Handle the case where courses need to be deleted first
-        toast.error("Cannot delete institute without deleting courses.");
-      }
-    } catch (error) {
-      // Handle other errors
-      console.error("Error deleting institute:", error);
-      toast.error("Error deleting institute: " + error.response?.data?.message);
-    }
+
+        // Optionally, you can refresh the institute list here if needed
+      })
+      .catch((error) => {
+        // Handle errors (e.g., show an error message)
+        console.error("Error deleting institute:", error);
+      });
+
+    // Close the dialog after deleting
+    setEditDialogOpen(false);
   };
-  
+
+
+
+
 
   const handleEditSave = () => {
     // Define the API endpoint URL for editing
