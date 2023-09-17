@@ -22,9 +22,9 @@ const AdminAppBar = (props) => {
             <Button id= "adminInstitute" color="inherit" onClick={() => navigate(`/AdminHomePage/UniversityList/${props.id}`)}>
               Institute
             </Button>
-            <Button id= "adminCourse" color="inherit" onClick={() => navigate(`/AdminHomePage/Courses/${props.id}`)}>
+            {/* <Button id= "adminCourse" color="inherit" onClick={() => navigate(`/AdminHomePage/Courses/${props.id}`)}>
               Course
-            </Button>
+            </Button> */}
             <Button id="adminStudents" color="inherit" onClick={() => navigate(`/AdminHomePage/Students/${props.id}`)}>
               Students
             </Button>
