@@ -13,13 +13,29 @@ const AdminStudents = () => {
     axios
       .get('https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/student')
       .then((response) => {
-        const studentData = response.data;
-        setInitialStudents(studentData);
+        // Assuming the API returns an array of student data
+        const studentData = response.data.map((student) => ({
+          studentId: student.studentId,
+          studentName: student.studentName,
+          studentDOB: student.studentDOB,
+          address: student.address,
+          mobile: student.mobile,
+          eligibility: student.eligibility,
+          userId: student.userId,
+          sslc: student.sslc,
+          hsc:student.hsc,
+          diploma: student.diploma,
+        }));
+  
+        // Set the students state with the fetched data
+        setStudents(studentData);
       })
       .catch((error) => {
         console.error('Error fetching students data:', error);
       });
   };
+  
+
 
   useEffect(() => {
     fetchStudentsData();
