@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Footer from '../Footer';
-import { Button, Dialog, DialogContent, DialogTitle, Grid, TextField, Typography ,RadioGroup,formControlLabel,Radio } from '@mui/material';
+import { Button, Dialog, DialogContent, DialogTitle, Grid, TextField, Typography ,RadioGroup,FormControlLabel,Radio } from '@mui/material';
 import AdminAppBar from '../AdminAppBar';
 import { useParams } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
@@ -455,6 +455,117 @@ const AdminStudents = () => {
       <Dialog open={isEditDialogOpen} onClose={() => setEditDialogOpen(false)}>
         <DialogTitle>Edit Student</DialogTitle>
         <DialogContent>
+        <form onSubmit={handleFormSubmit}>
+            <Grid container spacing={2}>
+              <Grid item xs={4}>
+                <TextField
+                  label="Student Name"
+                  fullWidth
+                  id="studentName"
+                  margin="normal"
+                  variant="outlined"
+                  value={formData.studentName}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <TextField
+                  label="Date of Birth"
+                  fullWidth
+                  id="studentDOB"
+                  margin="normal"
+                  variant="outlined"
+                  type="date"
+                  value={formData.studentDOB}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <TextField
+                  label="Address"
+                  fullWidth
+                  id="address"
+                  margin="normal"
+                  variant="outlined"
+                  value={formData.address}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <TextField
+                  label="Mobile"
+                  fullWidth
+                  id="mobile"
+                  margin="normal"
+                  variant="outlined"
+                  value={formData.mobile}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <TextField
+                  label="SSLC Marks"
+                  fullWidth
+                  id="SSLC"
+                  margin="normal"
+                  variant="outlined"
+                  value={formData.sslc}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <TextField
+                  label="HSC Marks"
+                  fullWidth
+                  id="HSC"
+                  margin="normal"
+                  variant="outlined"
+                  value={formData.hsc}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <TextField
+                  label="Diploma Marks"
+                  fullWidth
+                  id="Diploma"
+                  margin="normal"
+                  variant="outlined"
+                  value={formData.diploma}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <RadioGroup
+                  aria-label="Eligibility"
+                  name="eligibility"
+                  value={formData.eligibility}
+                  onChange={(e) => {
+                    setFormData({
+                      ...formData,
+                      eligibility: e.target.value,
+                    });
+                  }}
+                >
+                  <FormControlLabel
+                    value="Eligible"
+                    control={<Radio />}
+                    label="Eligible"
+                  />
+                  <FormControlLabel
+                    value="Not Eligible"
+                    control={<Radio />}
+                    label="Not Eligible"
+                  />
+                </RadioGroup>
+              </Grid>
+            </Grid>
+            <Button variant="contained" color="primary" type="submit">
+              Save
+            </Button>
+          </form>
+
+          {/*
           <form onSubmit={handleFormSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={4}>
@@ -573,6 +684,7 @@ const AdminStudents = () => {
               Save
             </Button>
           </form>
+                */}
         </DialogContent>
       </Dialog>
       <Footer />
