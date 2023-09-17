@@ -1,25 +1,19 @@
-import React, { useState ,useEffect} from 'react';
-import Footer from '../Footer'
-
-import {Button,Dialog,DialogContent,DialogTitle,Grid,   TextField,  Typography,} from '@mui/material';
-import AdminAppBar from '../AdminAppBar'
-import { useParams } from 'react-router-dom'
-import { DataGrid } from '@mui/x-data-grid'; // Import the DataGrid component
+import React, { useState, useEffect } from 'react';
+import Footer from '../Footer';
+import { Button, Dialog, DialogContent, DialogTitle, Grid, TextField, Typography } from '@mui/material';
+import AdminAppBar from '../AdminAppBar';
+import { useParams } from 'react-router-dom';
+import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 
 const AdminStudents = () => {
-  
-const [initialStudents,setInitialStudents] = useState([])
+  const [initialStudents, setInitialStudents] = useState([]);
 
- 
   const fetchStudentsData = () => {
     axios
       .get('https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/student')
       .then((response) => {
-        // Assuming the API returns an array of student data
         const studentData = response.data;
-
-        // Set the students state with the fetched data
         setInitialStudents(studentData);
       })
       .catch((error) => {
@@ -27,39 +21,27 @@ const [initialStudents,setInitialStudents] = useState([])
       });
   };
 
-  // Use the useEffect hook to fetch data when the component mounts
   useEffect(() => {
     fetchStudentsData();
-  }, []); 
+  }, []);
 
-  const params = useParams()
+  const params = useParams();
   const [students, setStudents] = useState(initialStudents);
   const [formData, setFormData] = useState({
-    id: '',
-    firstName: '',
-    lastName: '',
-    gender: '',
-    fatherName: '',
-    phoneNumber1: '',
-    phoneNumber2: '',
-    motherName: '',
-    houseNo: '',
-    streetName: '',
-    areaName: '',
-    pinCode: '',
-    state: '',
-    nationality: '',
-    email: '',
-    age: '',
-    sslcMarks: '',
-    courseName: '',
-    universityName: '',
+    studentId: '',
+    studentName: '',
+    studentDOB: '',
+    address: '',
+    mobile: '',
+    eligibility: '',
+    userId: '',
+    sslc: '',
+    hsc: '',
+    diploma: '',
   });
-  const [searchQuery, setSearchQuery] = useState('');
-  const [isDialogOpen, setDialogOpen] = useState(false);
-  const [isEditDialogOpen, setEditDialogOpen] = useState(false);
-  const [editStudentId, setEditStudentId] = useState(null);
 
+  // Other state variables...
+  
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
@@ -67,41 +49,24 @@ const [initialStudents,setInitialStudents] = useState([])
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    if (editStudentId !== null) {
-      // Handle edit logic here (update the existing student)
-      const updatedStudents = students.map((student) =>
-        student.id === editStudentId ? { ...formData, id: editStudentId } : student
-      );
-      setStudents(updatedStudents);
-      setEditStudentId(null);
-    } else {
-      // Handle form submission logic here (e.g., adding a new student)
-      // You can generate a unique ID for the new student and update the 'students' state
-      const newStudent = { ...formData, id: students.length + 1 };
-      setStudents([...students, newStudent]);
-    }
-    // Reset the form data after submission
+    
+    // Handle form submission logic...
+    
     setFormData({
-      id: '',
-      firstName: '',
-      lastName: '',
-      gender: '',
-      fatherName: '',
-      phoneNumber1: '',
-      phoneNumber2: '',
-      motherName: '',
-      houseNo: '',
-      streetName: '',
-      areaName: '',
-      pinCode: '',
-      state: '',
-      nationality: '',
-      email: '',
-      age: '',
-      sslcMarks: '',
-      courseName: '',
-      universityName: '',
+      studentId: '',
+      studentName: '',
+      studentDOB: '',
+      address: '',
+      mobile: '',
+      eligibility: '',
+      userId: '',
+      sslc: '',
+      hsc: '',
+      diploma: '',
     });
+
+    // Other form submission logic...
+
     // Close the dialog
     setDialogOpen(false);
     setEditDialogOpen(false);
@@ -110,12 +75,9 @@ const [initialStudents,setInitialStudents] = useState([])
     console.log(formData);
   };
 
-
   const handleEditClick = (studentId) => {
-    // Find the student to edit based on studentId
-    const studentToEdit = students.find((student) => student.id === studentId);
+    const studentToEdit = students.find((student) => student.studentId === studentId);
     if (studentToEdit) {
-      // Set the form data with the student's details
       setFormData({ ...studentToEdit });
       setEditStudentId(studentId);
       setEditDialogOpen(true);
@@ -137,32 +99,23 @@ const [initialStudents,setInitialStudents] = useState([])
           variant="outlined"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          style={{ width: '50%', margin: '0 auto', marginBttom: '20px' }}
+          style={{ width: '50%', margin: '0 auto', marginBottom: '20px' }}
         />
         <Button
           variant="contained"
           color="primary"
           onClick={() => {
             setFormData({
-              id: '',
-              firstName: '',
-              lastName: '',
-              gender: '',
-              fatherName: '',
-              phoneNumber1: '',
-              phoneNumber2: '',
-              motherName: '',
-              houseNo: '',
-              streetName: '',
-              areaName: '',
-              pinCode: '',
-              state: '',
-              nationality: '',
-              email: '',
-              age: '',
-              sslcMarks: '',
-              courseName: '',
-              universityName: '',
+              studentId: '',
+              studentName: '',
+              studentDOB: '',
+              address: '',
+              mobile: '',
+              eligibility: '',
+              userId: '',
+              sslc: '',
+              hsc: '',
+              diploma: '',
             });
             setDialogOpen(true);
           }}
@@ -171,21 +124,23 @@ const [initialStudents,setInitialStudents] = useState([])
         </Button>
       </div>
 
-
       <DataGrid
         rows={students.filter((student) => {
-
           const rowValues = Object.values(student).join('').toLowerCase();
           return rowValues.includes(searchQuery.toLowerCase());
         })}
 
         columns={[
-          { field: 'id', headerName: 'ID', flex: 1 },
-          { field: 'firstName', headerName: 'First Name', flex: 1 },
-          { field: 'lastName', headerName: 'Last Name', flex: 1 },
-          { field: 'courseName', headerName: 'Enrolled Course', flex: 1 },
-          { field: 'universityName', headerName: 'University', flex: 1 },
-          { field: 'phoneNumber1', headerName: 'Mobile Number', flex: 1 },
+          { field: 'studentId', headerName: 'Student ID', flex: 1 },
+          { field: 'studentName', headerName: 'Student Name', flex: 1 },
+          { field: 'studentDOB', headerName: 'Date of Birth', flex: 1 },
+          { field: 'address', headerName: 'Address', flex: 1 },
+          { field: 'mobile', headerName: 'Mobile Number', flex: 1 },
+          { field: 'eligibility', headerName: 'Eligibility', flex: 1 },
+          { field: 'userId', headerName: 'User ID', flex: 1 },
+          { field: 'sslc', headerName: 'SSLC', flex: 1 },
+          { field: 'hsc', headerName: 'HSC', flex: 1 },
+          { field: 'diploma', headerName: 'Diploma', flex: 1 },
           {
             field: 'actions',
             headerName: 'Actions',
@@ -196,7 +151,7 @@ const [initialStudents,setInitialStudents] = useState([])
                 <Button
                   variant="outlined"
                   color="primary"
-                  onClick={() => handleEditClick(params.row.id)}
+                  onClick={() => handleEditClick(params.row.studentId)}
                 >
                   Edit
                 </Button>
@@ -211,7 +166,6 @@ const [initialStudents,setInitialStudents] = useState([])
         pageSize={10}
       />
 
-
       {/* Add Student Dialog */}
       <Dialog open={isDialogOpen} onClose={() => setDialogOpen(false)}>
         <DialogTitle>Add Student</DialogTitle>
@@ -220,199 +174,111 @@ const [initialStudents,setInitialStudents] = useState([])
             <Grid container spacing={2}>
               <Grid item xs={4}>
                 <TextField
-                  label="First Name"
+                  label="Student ID"
                   fullWidth
-                  id="firstName"
+                  id="studentId"
                   margin="normal"
                   variant="outlined"
-                  value={formData.firstName}
+                  value={formData.studentId}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Last Name"
+                  label="Student Name"
                   fullWidth
-                  id="lastName"
+                  id="studentName"
                   margin="normal"
                   variant="outlined"
-                  value={formData.lastName}
+                  value={formData.studentName}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Gender"
+                  label="Date of Birth"
                   fullWidth
-                  id="gender"
+                  id="studentDOB"
                   margin="normal"
                   variant="outlined"
-                  value={formData.gender}
+                  value={formData.studentDOB}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Father's Name"
+                  label="Address"
                   fullWidth
-                  id="fatherName"
+                  id="address"
                   margin="normal"
                   variant="outlined"
-                  value={formData.fatherName}
+                  value={formData.address}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Phone Number 1"
+                  label="Mobile Number"
                   fullWidth
-                  id="phoneNumber1"
+                  id="mobile"
                   margin="normal"
                   variant="outlined"
-                  value={formData.phoneNumber1}
+                  value={formData.mobile}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Phone Number 2"
+                  label="Eligibility"
                   fullWidth
-                  id="phoneNumber2"
+                  id="eligibility"
                   margin="normal"
                   variant="outlined"
-                  value={formData.phoneNumber2}
+                  value={formData.eligibility}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Mother's Name"
+                  label="User ID"
                   fullWidth
-                  id="motherName"
+                  id="userId"
                   margin="normal"
                   variant="outlined"
-                  value={formData.motherName}
+                  value={formData.userId}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="House No"
+                  label="SSLC"
                   fullWidth
-                  id="houseNo"
+                  id="sslc"
                   margin="normal"
                   variant="outlined"
-                  value={formData.houseNo}
+                  value={formData.sslc}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Street Name"
+                  label="HSC"
                   fullWidth
-                  id="streetName"
+                  id="hsc"
                   margin="normal"
                   variant="outlined"
-                  value={formData.streetName}
+                  value={formData.hsc}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Area Name"
+                  label="Diploma"
                   fullWidth
-                  id="areaName"
+                  id="diploma"
                   margin="normal"
                   variant="outlined"
-                  value={formData.areaName}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="Pin Code"
-                  fullWidth
-                  id="pinCode"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.pinCode}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="State"
-                  fullWidth
-                  id="state"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.state}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="Nationality"
-                  fullWidth
-                  id="nationality"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.nationality}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="Email"
-                  fullWidth
-                  id="email"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="Age"
-                  fullWidth
-                  id="age"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.age}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="SSLC/HSC Marks"
-                  fullWidth
-                  id="sslcMarks"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.sslcMarks}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="Enrolled Course"
-                  fullWidth
-                  id="courseName"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.courseName}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="University"
-                  fullWidth
-                  id="universityName"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.universityName}
+                  value={formData.diploma}
                   onChange={handleInputChange}
                 />
               </Grid>
@@ -432,199 +298,111 @@ const [initialStudents,setInitialStudents] = useState([])
             <Grid container spacing={2}>
               <Grid item xs={4}>
                 <TextField
-                  label="First Name"
+                  label="Student ID"
                   fullWidth
-                  id="firstName"
+                  id="studentId"
                   margin="normal"
                   variant="outlined"
-                  value={formData.firstName}
+                  value={formData.studentId}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Last Name"
+                  label="Student Name"
                   fullWidth
-                  id="lastName"
+                  id="studentName"
                   margin="normal"
                   variant="outlined"
-                  value={formData.lastName}
+                  value={formData.studentName}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Gender"
+                  label="Date of Birth"
                   fullWidth
-                  id="gender"
+                  id="studentDOB"
                   margin="normal"
                   variant="outlined"
-                  value={formData.gender}
+                  value={formData.studentDOB}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Father's Name"
+                  label="Address"
                   fullWidth
-                  id="fatherName"
+                  id="address"
                   margin="normal"
                   variant="outlined"
-                  value={formData.fatherName}
+                  value={formData.address}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Phone Number 1"
+                  label="Mobile Number"
                   fullWidth
-                  id="phoneNumber1"
+                  id="mobile"
                   margin="normal"
                   variant="outlined"
-                  value={formData.phoneNumber1}
+                  value={formData.mobile}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Phone Number 2"
+                  label="Eligibility"
                   fullWidth
-                  id="phoneNumber2"
+                  id="eligibility"
                   margin="normal"
                   variant="outlined"
-                  value={formData.phoneNumber2}
+                  value={formData.eligibility}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Mother's Name"
+                  label="User ID"
                   fullWidth
-                  id="motherName"
+                  id="userId"
                   margin="normal"
                   variant="outlined"
-                  value={formData.motherName}
+                  value={formData.userId}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="House No"
+                  label="SSLC"
                   fullWidth
-                  id="houseNo"
+                  id="sslc"
                   margin="normal"
                   variant="outlined"
-                  value={formData.houseNo}
+                  value={formData.sslc}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Street Name"
+                  label="HSC"
                   fullWidth
-                  id="streetName"
+                  id="hsc"
                   margin="normal"
                   variant="outlined"
-                  value={formData.streetName}
+                  value={formData.hsc}
                   onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  label="Area Name"
+                  label="Diploma"
                   fullWidth
-                  id="areaName"
+                  id="diploma"
                   margin="normal"
                   variant="outlined"
-                  value={formData.areaName}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="Pin Code"
-                  fullWidth
-                  id="pinCode"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.pinCode}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="State"
-                  fullWidth
-                  id="state"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.state}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="Nationality"
-                  fullWidth
-                  id="nationality"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.nationality}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="Email"
-                  fullWidth
-                  id="email"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="Age"
-                  fullWidth
-                  id="age"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.age}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="SSLC/HSC Marks"
-                  fullWidth
-                  id="sslcMarks"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.sslcMarks}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="Enrolled Course"
-                  fullWidth
-                  id="courseName"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.courseName}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="University"
-                  fullWidth
-                  id="universityName"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.universityName}
+                  value={formData.diploma}
                   onChange={handleInputChange}
                 />
               </Grid>
