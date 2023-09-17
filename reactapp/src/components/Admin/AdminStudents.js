@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Footer from '../Footer';
-import { Button, Dialog, DialogContent, DialogTitle, Grid, TextField, Typography } from '@mui/material';
+import { Button, Dialog, DialogContent, DialogTitle, Grid, TextField, Typography ,Radio,FormControlLabel,RadioGroup } from '@mui/material';
 import AdminAppBar from '../AdminAppBar';
 import { useParams } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
@@ -359,6 +359,7 @@ const AdminStudents = () => {
                   variant="outlined"
                   value={formData.studentDOB}
                   onChange={handleInputChange}
+                  type='date'
                 />
               </Grid>
               <Grid item xs={4}>
@@ -384,17 +385,30 @@ const AdminStudents = () => {
                 />
               </Grid>
               <Grid item xs={4}>
-                <TextField
-                  label="Eligibility"
-                  fullWidth
-                  id="eligibility"
-                  margin="normal"
-                  variant="outlined"
+                <RadioGroup
+                  aria-label="Eligibility"
+                  name="eligibility"
                   value={formData.eligibility}
-                  onChange={handleInputChange}
-                />
+                  onChange={(e) => {
+                    setFormData({
+                      ...formData,
+                      eligibility: e.target.value,
+                    });
+                  }}
+                >
+                  <FormControlLabel
+                    value="Eligible"
+                    control={<Radio />}
+                    label="Eligible"
+                  />
+                  <FormControlLabel
+                    value="Not Eligible"
+                    control={<Radio />}
+                    label="Not Eligible"
+                  />
+                </RadioGroup>
               </Grid>
-           
+            
               <Grid item xs={4}>
                 <TextField
                   label="SSLC"
