@@ -27,7 +27,7 @@ const AdminStudents = () => {
   const [editStudentId, setEditStudentId] = useState(null);
   const handleDeleteClick =(studentId)=>{
    axios
-   .delete(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/deleteStudent/${studentId}`).then((response)=>{
+   .delete(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteStudent/${studentId}`).then((response)=>{
     fetchStudentsData();
 
 
