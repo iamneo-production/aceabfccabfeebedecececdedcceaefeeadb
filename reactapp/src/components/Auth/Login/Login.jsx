@@ -17,6 +17,8 @@ import Footer from '../../Footer';
 import MenuItem from '@mui/material/MenuItem'; // Import MenuItem
 import Select from '@mui/material/Select'; // Import Select
 import axios from 'axios'; // Import axios for making API requests
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const defaultTheme = createTheme();
 
@@ -60,18 +62,12 @@ const Login = () => {
           console.log(response.data.userId);
           // Set the userId based on the response
           let userId =response.data.userId
-          if(userId=="Not Found")  alert("User not Found")
-          else { 
-            
+          if(userId === "Not Found") {
+            toast.error("User not found");
+          } else { 
             userId = response.data.userId;
             navigate(`/AdminHomePage/UniversityList/${userId}`);
-
           }
-          
-          
-
-          
-          
         })
         .catch((error) => {
           console.error(error); // Handle error
@@ -84,18 +80,14 @@ const Login = () => {
         .post(apiEndpoint, formData)
         .then((response) => {
           console.log(response.data.userId);
-          if(response.data.userId=="Not Found")  alert("User not Found")
-          else{
+          if(response.data.userId === "Not Found") {
+            toast.error("Incorrect Credentials!");
+          } else {
             navigate(`/HomePage/UniversityList/${response.data.userId}`);
-
           }
-          // Set the userId based o`n the response
-          
-          
         })
         .catch((error) => {
           console.error(error); // Handle error
-
         });
     }
   };
@@ -200,6 +192,7 @@ const Login = () => {
           </Box>
         </Container>
         <Footer />
+        <ToastContainer />
       </ThemeProvider>
     </BackgroundWrapper>
   );
