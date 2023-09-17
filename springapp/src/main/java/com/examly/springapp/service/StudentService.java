@@ -12,6 +12,9 @@ public interface StudentService {
     void deleteStudent(int studentId);
     StudentModel getStudentByUserId(Long userId);
     StudentModel createOrUpdateStudent(StudentModel studentData, Long userId);
+    
+
+
 
 
 }

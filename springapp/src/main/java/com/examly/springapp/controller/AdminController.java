@@ -123,6 +123,48 @@ public class AdminController {
         }
     }
 
+    @PostMapping("/createOrUpdateStudentByStudentId/{studentId}")
+    public ResponseEntity<StudentModel> createOrUpdateStudentByStudentId(
+            @PathVariable int studentId,
+            @RequestBody StudentModel studentData) {
+        Optional<StudentModel> existingStudent = studentService.getStudentById(studentId);
+
+        if (existingStudent.isPresent()) {
+            // A student with the same studentId exists, update the existing student's details
+            StudentModel updatedStudent = studentService.updateStudent(studentId, studentData);
+
+            return new ResponseEntity<>(updatedStudent, HttpStatus.OK);
+        } else {
+            // No student with the same studentId exists, create a new student record
+            // Note: You may want to validate studentId uniqueness before creating a new student
+            // and handle any potential conflicts.
+            // Example: Check if a student with the provided studentId already exists.
+
+            // Set the studentId directly in the studentData
+            studentData.setStudentId(studentId);
+
+            StudentModel createdStudent = studentService.createStudent(studentData);
+
+            return new ResponseEntity<>(createdStudent, HttpStatus.CREATED);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // Course operations
     @PostMapping("/addCourse")
     public ResponseEntity<CourseModel> addCourse(@RequestBody CourseModel course) {

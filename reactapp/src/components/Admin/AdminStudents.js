@@ -1,18 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Footer from '../Footer';
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Grid,
-  TextField,
-  Typography,
-  FormControl,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-} from '@mui/material';
+import { Button, Dialog, DialogContent, DialogTitle, Grid, TextField, Typography } from '@mui/material';
 import AdminAppBar from '../AdminAppBar';
 import { useParams } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
@@ -27,8 +15,8 @@ const AdminStudents = () => {
     studentDOB: '',
     address: '',
     mobile: '',
-    eligibility: 'Eligible', // Default value
-    userId: params.userId,
+    eligibility: '',
+    userId: params.userId, // Use the userId from params
     sslc: '',
     hsc: '',
     diploma: '',
@@ -40,11 +28,13 @@ const AdminStudents = () => {
 
   const handleDeleteClick = (studentId) => {
     axios
-      .delete(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteStudent/${studentId}`)
-      .then((response) => {
+      .delete(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteStudent/${studentId}`).then((response) => {
         fetchStudentsData();
-      });
-  };
+
+
+      })
+
+  }
 
   const fetchStudentsData = () => {
     axios
@@ -66,6 +56,7 @@ const AdminStudents = () => {
         setStudents(studentData);
       })
       .catch((error) => {
+
         console.error('Error fetching students data:', error);
       });
   };
@@ -84,7 +75,7 @@ const AdminStudents = () => {
     if (editStudentId !== null) {
       // Handle edit logic here (update the existing student)
       axios
-        .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${formData.userId}`, formData)
+        .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/createOrUpdateStudentByStudentId/${formData.studentId}`, formData)
         .then(() => {
           // Refresh the students data after editing
           fetchStudentsData();
@@ -113,7 +104,7 @@ const AdminStudents = () => {
       studentDOB: '',
       address: '',
       mobile: '',
-      eligibility: 'Eligible', // Reset to default value
+      eligibility: '',
       userId: params.userId,
       sslc: '',
       hsc: '',
@@ -162,7 +153,7 @@ const AdminStudents = () => {
               studentDOB: '',
               address: '',
               mobile: '',
-              eligibility: 'Eligible', // Default value
+              eligibility: '',
               userId: params.userId,
               sslc: '',
               hsc: '',
@@ -188,7 +179,6 @@ const AdminStudents = () => {
           { field: 'address', headerName: 'Address', flex: 1 },
           { field: 'mobile', headerName: 'Mobile Number', flex: 1 },
           { field: 'eligibility', headerName: 'Eligibility', flex: 1 },
-          { field: 'userId', headerName: 'User ID', flex: 1 },
           { field: 'sslc', headerName: 'SSLC', flex: 1 },
           { field: 'hsc', headerName: 'HSC', flex: 1 },
           { field: 'diploma', headerName: 'Diploma', flex: 1 },
@@ -223,17 +213,7 @@ const AdminStudents = () => {
         <DialogContent>
           <form onSubmit={handleFormSubmit}>
             <Grid container spacing={2}>
-              <Grid item xs={4}>
-                <TextField
-                  label="Student ID"
-                  fullWidth
-                  id="studentId"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.studentId}
-                  onChange={handleInputChange}
-                />
-              </Grid>
+
               <Grid item xs={4}>
                 <TextField
                   label="Student Name"
@@ -252,9 +232,9 @@ const AdminStudents = () => {
                   id="studentDOB"
                   margin="normal"
                   variant="outlined"
-                  type="date"
                   value={formData.studentDOB}
                   onChange={handleInputChange}
+                  type="date"
                 />
               </Grid>
               <Grid item xs={4}>
@@ -280,39 +260,38 @@ const AdminStudents = () => {
                 />
               </Grid>
               <Grid item xs={4}>
-                <FormControl component="fieldset">
-                  <Typography variant="subtitle1">Eligibility</Typography>
-                  <RadioGroup
-                    id="eligibility"
-                    value={formData.eligibility}
-                    onChange={handleInputChange}
-                    row
-                  >
-                    <FormControlLabel
+                <div>
+                  <label>Eligibility:</label>
+                </div>
+                <div>
+                  <label>
+                    <input
+                      type="radio"
+                      id="eligibility"
+                      name="eligibility"
                       value="Eligible"
-                      control={<Radio />}
-                      label="Eligible"
+                      checked={formData.eligibility === "Eligible"}
+                      onChange={handleInputChange}
                     />
-                    <FormControlLabel
+                    Eligible
+                  </label>
+                </div>
+                <div>
+                  <label>
+                    <input
+                      type="radio"
+                      id="eligibility"
+                      name="eligibility"
                       value="Not Eligible"
-                      control={<Radio />}
-                      label="Not Eligible"
+                      checked={formData.eligibility === "Not Eligible"}
+                      onChange={handleInputChange}
                     />
-                  </RadioGroup>
-                </FormControl>
+                    Not Eligible
+                  </label>
+                </div>
               </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="User ID"
-                  fullWidth
-                  id="userId"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.userId}
-                  onChange={handleInputChange}
-                  disabled
-                />
-              </Grid>
+
+
               <Grid item xs={4}>
                 <TextField
                   label="SSLC"
@@ -360,17 +339,8 @@ const AdminStudents = () => {
         <DialogContent>
           <form onSubmit={handleFormSubmit}>
             <Grid container spacing={2}>
-              <Grid item xs={4}>
-                <TextField
-                  label="Student ID"
-                  fullWidth
-                  id="studentId"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.studentId}
-                  onChange={handleInputChange}
-                />
-              </Grid>
+
+
               <Grid item xs={4}>
                 <TextField
                   label="Student Name"
@@ -389,9 +359,9 @@ const AdminStudents = () => {
                   id="studentDOB"
                   margin="normal"
                   variant="outlined"
-                  type="date" 
                   value={formData.studentDOB}
                   onChange={handleInputChange}
+                  type="date"
                 />
               </Grid>
               <Grid item xs={4}>
@@ -417,39 +387,38 @@ const AdminStudents = () => {
                 />
               </Grid>
               <Grid item xs={4}>
-                <FormControl component="fieldset">
-                  <Typography variant="subtitle1">Eligibility</Typography>
-                  <RadioGroup
-                    id="eligibility"
-                    value={formData.eligibility}
-                    onChange={handleInputChange}
-                    row
-                  >
-                    <FormControlLabel
+                <div>
+                  <label>Eligibility:</label>
+                </div>
+                <div>
+                  <label>
+                    <input
+                      type="radio"
+                      id="eligibility"
+                      name="eligibility"
                       value="Eligible"
-                      control={<Radio />}
-                      label="Eligible"
+                      checked={formData.eligibility === "Eligible"}
+                      onChange={handleInputChange}
                     />
-                    <FormControlLabel
+                    Eligible
+                  </label>
+                </div>
+                <div>
+                  <label>
+                    <input
+                      type="radio"
+                      id="eligibility"
+                      name="eligibility"
                       value="Not Eligible"
-                      control={<Radio />}
-                      label="Not Eligible"
+                      checked={formData.eligibility === "Not Eligible"}
+                      onChange={handleInputChange}
                     />
-                  </RadioGroup>
-                </FormControl>
+                    Not Eligible
+                  </label>
+                </div>
               </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  label="User ID"
-                  fullWidth
-                  id="userId"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.userId}
-                  onChange={handleInputChange}
-                  disabled
-                />
-              </Grid>
+
+
               <Grid item xs={4}>
                 <TextField
                   label="SSLC"
