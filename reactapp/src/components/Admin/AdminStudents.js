@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import Footer from '../Footer'
 
-import {Button,Dialog,DialogContent,DialogTitle,Grid,Paper,Table, TableBody,TableCell,  TableContainer, TableHead,  TableRow,  TextField,  Typography,} from '@mui/material';
+import {Button,Dialog,DialogContent,DialogTitle,Grid,   TextField,  Typography,} from '@mui/material';
 import AdminAppBar from '../AdminAppBar'
 import { useParams } from 'react-router-dom'
 import { DataGrid } from '@mui/x-data-grid'; // Import the DataGrid component
+import axios from 'axios';
 
-
-const [students,setStudents] = useState([])
 const AdminStudents = () => {
+  
+const [initialStudents,setInitialStudents] = useState([])
 
-
-  // Generate an array of 50 random students
-  const initialStudents = [];
+ 
   const fetchStudentsData = () => {
     axios
       .get('https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/student')
@@ -21,7 +20,7 @@ const AdminStudents = () => {
         const studentData = response.data;
 
         // Set the students state with the fetched data
-        setStudents(studentData);
+        setInitialStudents(studentData);
       })
       .catch((error) => {
         console.error('Error fetching students data:', error);
