@@ -13,7 +13,7 @@ import axios from "axios";
 import RadioGroup from "@mui/material/RadioGroup";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ApplyForm = ({ collegeId, title, onClose }) => {
   const [courseList, setCourseList] = useState([]);
@@ -33,6 +33,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   });
 
   const { userId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -115,6 +116,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
           )
           .then((admissionResponse) => {
             console.log("Admission created successfully:", admissionResponse.data);
+            navigate(`/HomePage/RegisteredCourses/${userId}`)
           })
           .catch((admissionError) => {
             console.error("Error creating admission:", admissionError);
