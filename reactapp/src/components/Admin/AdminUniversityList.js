@@ -71,32 +71,74 @@ const AdminUniversityList = () => {
     setEditDialogOpen(true);
   };
 
+  // const handleDeleteClick = (card, e) => {
+  //   e.stopPropagation();
+  //   console.log("Delete College ID:", card.collegeId); // Log the college ID
+  //   // Define the API endpoint URL for deleting
+  //   const deleteApiUrl = `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteInstitute/${card.collegeId}`;
+
+  //   // Make a DELETE request to remove the institute
+  //   axios
+  //     .delete(deleteApiUrl)
+  //     .then((response) => {
+  //       // Handle success (e.g., show a success message)
+  //       console.log("Institute deleted successfully!", response.data);
+  //       setFilteredCards((prevDetails) =>
+  //         prevDetails.filter((item) => item.collegeId !== card.collegeId)
+  //       );
+
+  //       // Optionally, you can refresh the institute list here if needed
+  //     })
+  //     .catch((error) => {
+  //       // Handle errors (e.g., show an error message)
+  //       console.error("Error deleting institute:", error);
+  //     });
+
+  //   // Close the dialog after deleting
+  //   setEditDialogOpen(false);
+  // };
   const handleDeleteClick = (card, e) => {
     e.stopPropagation();
     console.log("Delete College ID:", card.collegeId); // Log the college ID
+  
     // Define the API endpoint URL for deleting
     const deleteApiUrl = `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteInstitute/${card.collegeId}`;
-
+  
     // Make a DELETE request to remove the institute
     axios
       .delete(deleteApiUrl)
       .then((response) => {
-        // Handle success (e.g., show a success message)
-        console.log("Institute deleted successfully!", response.data);
-        setFilteredCards((prevDetails) =>
-          prevDetails.filter((item) => item.collegeId !== card.collegeId)
-        );
+        if (response.status === 200) {
+          // Handle success (e.g., show a success message)
+          console.log("Institute deleted successfully!", response.data);
+          toast.success("Institute deleted successfully!");
+          
+          // Update the filtered cards (exclude the deleted one)
+          setFilteredCards((prevDetails) =>
+            prevDetails.filter((item) => item.collegeId !== card.collegeId)
+          );
+  
+          // Optionally, you can refresh the institute list here if needed
+        }  
+        if (response.status === 500) {
+          console.log(response.status)
 
-        // Optionally, you can refresh the institute list here if needed
+          // Handle the case where courses need to be deleted first
+         
+          toast.error("Cannot delete institute without deleting courses.");
+        }
       })
       .catch((error) => {
-        // Handle errors (e.g., show an error message)
-        console.error("Error deleting institute:", error);
+        toast.error("Cannot delete institute without deleting courses.");
+        // Handle other errors (e.g., show an error message)
+       
+       
       });
-
+  
     // Close the dialog after deleting
     setEditDialogOpen(false);
   };
+  
 
 
 
