@@ -157,6 +157,7 @@ const AdminStudents = () => {
           const rowValues = Object.values(student).join('').toLowerCase();
           return rowValues.includes(searchQuery.toLowerCase());
         })}
+        getRowId={(row) => row.studentId}
         columns={[
           { field: 'studentId', headerName: 'Student ID', flex: 1 },
           { field: 'studentName', headerName: 'Student Name', flex: 1 },
