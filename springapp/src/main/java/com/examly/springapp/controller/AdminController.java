@@ -29,14 +29,25 @@ public class AdminController {
     private final StudentService studentService;
     private final CourseService courseService;
     private final InstituteService instituteService;
+    private final UserService userService;
 
     @Autowired
     public AdminController(StudentService studentService, CourseService courseService,
-            InstituteService instituteService) {
+            InstituteService instituteService, UserService userService) {
         this.studentService = studentService;
         this.courseService = courseService;
         this.instituteService = instituteService;
+        this.userService = userService;
     }
+
+
+
+    @GetMapping("/getNewUserId")
+    public ResponseEntity<Long> getNewUserId() {
+        Long newUserId = userService.getNewUserId();
+        return ResponseEntity.ok(newUserId);
+    }
+
 
     // Student operations
     @PostMapping("/addStudent")
