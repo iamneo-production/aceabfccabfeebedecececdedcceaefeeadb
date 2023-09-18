@@ -114,11 +114,7 @@ const RegisteredCourses = () => {
 
     // Implement the logic to save the edited student details here
     // Make a POST request with editedStudentData to update the student details
-    /**
-     * @param((
-     
-     * ))
-     */
+      
 
     axios
       .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${params.userId}`, foo)
@@ -161,7 +157,7 @@ const RegisteredCourses = () => {
 
   return (
     <div style={containerStyle}>
-      <UserAppBar />
+      <UserAppBar id={params.userId} />
       <div style={contentStyle}>
         <Grid container spacing={3}>
           {registeredCourses.map((course) => (
