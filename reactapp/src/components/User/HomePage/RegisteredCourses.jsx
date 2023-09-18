@@ -39,6 +39,7 @@ const RegisteredCourses = () => {
     address: '',
     mobile: '',
     eligibility: 'Eligible',
+
   });
 
   // Separate state for SSLC, HSC, and Diploma
@@ -85,11 +86,11 @@ const RegisteredCourses = () => {
 
     // Update the respective state based on the id
     if (id === 'SSLC') {
-      setSSLC(parseInt(value));
+      setSSLC(value);
     } else if (id === 'HSC') {
-      setHSC(parseInt(value));
+      setHSC(value);
     } else if (id === 'Diploma') {
-      setDiploma(parseInt(value));
+      setDiploma(value);
     } else {
       setEditStudentData({
         ...editStudentData,
@@ -99,19 +100,22 @@ const RegisteredCourses = () => {
   };
 
   const handleSaveClick = () => {
-    // Construct the editedStudentData object with SSLC, HSC, and Diploma from states
+    // Construct the editedStudentData object with SSLC, HSC and Diploma from states
     const editedStudentData = {
       ...editStudentData,
       SSLC,
       HSC,
       Diploma,
     };
+    console.log(SSLC)
+    console.log(HSC)
+    console.log(Diploma)
     console.log(editedStudentData)
 
     // Implement the logic to save the edited student details here
     // Make a POST request with editedStudentData to update the student details
     axios
-      .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${params.userId}`, editedStudentData)
+      .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${params.userId}`, editStudentData)
       .then((response) => {
         console.log('Student details updated successfully:', response.data);
         // Close the form dialog
