@@ -174,13 +174,8 @@ const UniversityList = () => {
                 >
                   Search
                 </Button>
-                <Typography variant="h4">
-                  Total Students: <CountUp start={0} end={numberOfStudents} duration={2} separator="," />
-                </Typography>
-
-                <Typography variant="h4">
-                  Successful Admissions: <CountUp start={0} end={numberOfAdmission} duration={2} separator="," />
-                </Typography>
+               
+                  
               </Container>
             </Box>
           )}
