@@ -305,9 +305,9 @@ const RegisteredCourses = () => {
     studentDOB: '',
     address: '',
     mobile: '',
-    SSLC: '',
-    HSC: '',
-    Diploma: '',
+    SSLC: null,
+    HSC: null,
+    Diploma: null,
     eligibility: 'Eligible',
   });
 
