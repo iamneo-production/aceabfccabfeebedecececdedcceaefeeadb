@@ -336,7 +336,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
           </form>
         </DialogContent>
       </Dialog>
-      <Footer />
+  
     </div>
   );
 };
