@@ -58,19 +58,16 @@ const RegisteredCourses = () => {
           <Card key={course.admissionId} variant="outlined">
             <CardContent>
               <Typography variant="h6" component="div">
-                Course Name: {course.course.courseName}
+                Course Name: {course.course?.courseName || 'N/A'}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Duration: {course.duration}
+                Course Description: {course.course?.courseDescription || 'N/A'}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Description: {course.description}
+                Course Duration: {course.course?.courseDuration ? `${course.course.courseDuration} years` : 'N/A'}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Students: {course.studentsCount}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Timings: {course.timings}
+                Institute Name: {course.instituteName || 'N/A'}
               </Typography>
               <Button variant="contained" color="primary" onClick={handleViewActivityClick}>
                 View Activity
