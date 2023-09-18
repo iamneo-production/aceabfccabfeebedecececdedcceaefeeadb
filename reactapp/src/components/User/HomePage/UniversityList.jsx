@@ -106,16 +106,14 @@ const UniversityList = () => {
         const dataFromApi = response.data;
         console.log(response.data);
 
-        const formattedCardDetails = dataFromApi.map((courseWithAdmission) => ({
-          collegeId: courseWithAdmission.course.institute.instituteId,
-          title: courseWithAdmission.course.institute.instituteName,
-          description: courseWithAdmission.course.institute.instituteDescription,
-          imageURL: courseWithAdmission.course.institute.imageURL,
-          place: courseWithAdmission.course.institute.instituteAddress,
-          starRating: parseFloat(courseWithAdmission.course.institute.starRating),
-          enrolledStudents: courseWithAdmission.admissionCount, // Add this line
+        const formattedCardDetails = dataFromApi.map((institute) => ({
+          collegeId: institute.instituteId,
+          title: institute.instituteName,
+          description: institute.instituteDescription,
+          imageURL: institute.imageURL,
+          place: institute.instituteAddress,
+          starRating: parseFloat(institute.starRating), // Convert starRating to a float
         }));
-
 
         setCardDetails(formattedCardDetails);
         setFilteredCards(formattedCardDetails); // Initialize filteredCards with the formatted data
@@ -147,40 +145,40 @@ const UniversityList = () => {
       <main>
         {/* Hero unit */}
         <Box sx={{ bgcolor: 'background.paper', pb: 6 }}>
-          <Container sx={{ py: 8 }} maxWidth="md">
-            {/* Conditionally render the search bar */}
-
-            {selectedCard === null && (
-              <Box
-                sx={{
-                  bgcolor: 'background.paper',
-                  pt: 2,
-                  pb: 2,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <Container maxWidth="sm">
-                  <input
-                    type="text"
-                    placeholder="Search by name or place"
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                    style={{ width: '70%', padding: '10px' }}
-                  />
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleSearch}
-                    style={{ marginLeft: '10px' }}
-                  >
-                    Search
-                  </Button>
-
-
-                </Container>
-                <Grid container spacing={2}>
+        <Container sx={{ py: 8 }} maxWidth="md">
+          {/* Conditionally render the search bar */}
+          
+          {selectedCard === null && (
+            <Box
+              sx={{
+                bgcolor: 'background.paper',
+                pt: 2,
+                pb: 2,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Container maxWidth="sm">
+                <input
+                  type="text"
+                  placeholder="Search by name or place"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  style={{ width: '70%', padding: '10px' }}
+                />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSearch}
+                  style={{ marginLeft: '10px' }}
+                >
+                  Search
+                </Button>
+               
+                  
+              </Container>
+              <Grid container spacing={2}>
                   <Grid item xs={6}>
                     <Card sx={{ border: '1px solid #ccc', padding: '16px' }}>
                       <CardContent>
@@ -206,80 +204,77 @@ const UniversityList = () => {
                     </Card>
                   </Grid>
                 </Grid>
-              </Box>
+            </Box>
+            
+            
+            
 
-
-
-
-            )}
-            {loading ? (
-              <Typography>Loading...</Typography>
-            ) : selectedCard ? (
-              // Display selected card details and courses
-              <ApplyForm
-                collegeId={selectedCard.collegeId}
-                title={selectedCard.title}
-                onClose={handleCloseCardDetails}
-              />
-            ) : (
-              // Display grid of cards
-              <Grid container spacing={4}>
-                {filteredCards.map((card, index) => (
-                  <Grid
-                    item
-                    key={index}
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    id={`instituteGrid${index + 1}`}
+          )}
+          {loading ? (
+            <Typography>Loading...</Typography>
+          ) : selectedCard ? (
+            // Display selected card details and courses
+            <ApplyForm
+              collegeId={selectedCard.collegeId}
+              title={selectedCard.title}
+              onClose={handleCloseCardDetails}
+            />
+          ) : (
+            // Display grid of cards
+            <Grid container spacing={4}>
+              {filteredCards.map((card, index) => (
+                <Grid
+                  item
+                  key={index}
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  id={`instituteGrid${index + 1}`}
+                >
+                  <Card
+                    sx={{
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => handleCardClick(card)}
                   >
-                    <Card
+                    <CardMedia
+                      component="div"
                       sx={{
-                        height: '100%',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        cursor: 'pointer',
+                        // 16:9
+                        pt: '56.25%',
                       }}
-                      onClick={() => handleCardClick(card)}
-                    >
-                      <CardMedia
-                        component="div"
-                        sx={{
-                          // 16:9
-                          pt: '56.25%',
-                        }}
-                        image={card.imageURL}
-                      />
-                      <CardContent sx={{ flexGrow: 1 }}>
-                        <Typography gutterBottom variant="h5" component="h2">
-                          {card.title}
-                        </Typography>
-                        <Typography>{card.description}</Typography>
+                      image={card.imageURL}
+                    />
+                    <CardContent sx={{ flexGrow: 1 }}>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        {card.title}
+                      </Typography>
+                      <Typography>{card.description}</Typography>
 
-                        {/* Display place and star rating */}
-                        <Typography variant="subtitle1" color="text.secondary">
-                          Place: {card.place}
-                        </Typography>
-                        <Typography variant="subtitle1" color="text.secondary">
-                          Star Rating:
-                          <Rating
-                            name="star-rating"
-                            value={card.starRating}
-                            precision={0.5}
-                            emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-                            readOnly // To make it read-only
-                          />
-                        </Typography>
-                        <Typography variant="subtitle1" color="text.secondary">
-                          Enrolled Students: {card.enrolledStudents}
-                        </Typography>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                ))}
-              </Grid>
-            )}
-          </Container>
+                      {/* Display place and star rating */}
+                      <Typography variant="subtitle1" color="text.secondary">
+                        Place: {card.place}
+                      </Typography>
+                      <Typography variant="subtitle1" color="text.secondary">
+                        Star Rating:
+                        <Rating
+                          name="star-rating"
+                          value={card.starRating}
+                          precision={0.5}
+                          emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+                          readOnly // To make it read-only
+                        />
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          )}
+        </Container>
         </Box>
       </main>
       <Footer />
