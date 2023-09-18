@@ -8,6 +8,7 @@ import axios from 'axios';
 const RegisteredCourses = () => {
   const [registeredCourses, setRegisteredCourses] = useState([]);
   const [editStudentData, setEditStudentData] = useState(null);
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   const params = useParams();
   const [enrollFormOpen, setEnrollFormOpen] = useState(false);
 
@@ -21,6 +22,28 @@ const RegisteredCourses = () => {
       .catch((error) => {
         console.error('Error fetching student data:', error);
       });
+  };
+
+  const handleDeleteClick = (admissionId) => {
+    setDeleteConfirmation(true);
+    // Assuming you want a confirmation dialog before deletion
+  };
+
+  const handleConfirmDelete = (admissionId) => {
+    axios
+      .delete(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteAdmission/${admissionId}`)
+      .then((response) => {
+        console.log('Course deleted successfully');
+        setRegisteredCourses((prevCourses) => prevCourses.filter((course) => course.admissionId !== admissionId));
+        setDeleteConfirmation(false);
+      })
+      .catch((error) => {
+        console.error('Error deleting course:', error);
+      });
+  };
+
+  const handleCancelDelete = () => {
+    setDeleteConfirmation(false);
   };
 
   const handleSaveClick = () => {
@@ -71,6 +94,9 @@ const RegisteredCourses = () => {
               <Button variant="contained" color="primary" onClick={() => handleEditClick(course.userId)}>
                 Edit
               </Button>
+              <Button variant="contained" color="secondary" onClick={() => handleDeleteClick(course.admissionId)}>
+                Delete
+              </Button>
             </CardContent>
           </Card>
         ))}
@@ -110,6 +136,20 @@ const RegisteredCourses = () => {
             </form>
             <Button variant="contained" color="primary" onClick={handleSaveClick}>
               Save
+            </Button>
+          </DialogContent>
+        </Dialog>
+      )}
+      {deleteConfirmation && (
+        <Dialog open={deleteConfirmation} onClose={handleCancelDelete}>
+          <DialogContent>
+            <h3>Confirm Deletion</h3>
+            <p>Are you sure you want to delete this course?</p>
+            <Button variant="contained" color="primary" onClick={() => handleConfirmDelete(editStudentData.admissionId)}>
+              Confirm
+            </Button>
+            <Button variant="contained" color="secondary" onClick={handleCancelDelete}>
+              Cancel
             </Button>
           </DialogContent>
         </Dialog>
