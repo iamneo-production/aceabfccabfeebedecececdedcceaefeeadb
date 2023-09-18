@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import UserAppBar from '../../UserAppBar';
-import { Card, CardContent, Typography, Button } from '@mui/material';
+import { Card, CardContent, Typography, Button, Grid } from '@mui/material';
 import Footer from '../../Footer';
 import axios from 'axios';
 
@@ -59,36 +59,43 @@ const RegisteredCourses = () => {
     <div style={containerStyle}>
       <UserAppBar id={params.userId} />
       <div style={contentStyle}>
-        {registeredCourses.map((course) => (
-          <Card key={course.admissionId} variant="outlined">
-            <CardContent>
-              <Typography variant="h6" component="div">
-                Course Name: {course.course.courseName}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Duration: {course.course.courseDuration} years
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Description: {course.course.courseDescription}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Students: {course.course.studentsCount}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Timings: {course.course.timings}
-              </Typography>
-              <Button variant="contained" color="primary" onClick={handleViewActivityClick}>
-                View Activity
-              </Button>
-              <Button variant="contained" color="secondary" onClick={() => handleDeleteClick(course.admissionId)}>
-                Delete
-              </Button>
-              <Button variant="contained" color="default" onClick={() => handleEditClick(course)}>
-                Edit
-              </Button>
-            </CardContent>
-          </Card>
-        ))}
+        <Grid container spacing={2}>
+          {registeredCourses.map((item) => (
+            <Grid item xs={12} sm={6} md={4} key={item.admissionId}>
+              <Card variant="outlined">
+                <CardContent>
+                  <Typography variant="h6" component="div">
+                    Course Name: {item.course.courseName}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Duration: {item.course.courseDuration} years
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Description: {item.course.courseDescription}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Institute: {item.instituteName}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Students: {item.course.studentsCount}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Timings: {item.course.timings}
+                  </Typography>
+                  <Button variant="contained" color="primary" onClick={handleViewActivityClick}>
+                    View Activity
+                  </Button>
+                  <Button variant="contained" color="secondary" onClick={() => handleDeleteClick(course.admissionId)}>
+                    Delete
+                  </Button>
+                  <Button variant="contained" color="default" onClick={() => handleEditClick(course)}>
+                    Edit
+                  </Button>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
       </div>
       <Footer />
     </div>
