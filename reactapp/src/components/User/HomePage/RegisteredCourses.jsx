@@ -106,19 +106,20 @@ const RegisteredCourses = () => {
       HSC,
       Diploma,
     };
+    console.log(editedStudentData)
 
     // Implement the logic to save the edited student details here
     // Make a POST request with editedStudentData to update the student details
-    axios
-      .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${params.userId}`, editedStudentData)
-      .then((response) => {
-        console.log('Student details updated successfully:', response.data);
-        // Close the form dialog
-        setEnrollFormOpen(false);
-      })
-      .catch((error) => {
-        console.error('Error updating student details:', error);
-      });
+    // axios
+    //   .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${params.userId}`, editedStudentData)
+    //   .then((response) => {
+    //     console.log('Student details updated successfully:', response.data);
+    //     // Close the form dialog
+    //     setEnrollFormOpen(false);
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error updating student details:', error);
+    //   });
   };
 
   const handleDeleteClick = (admissionId) => {
