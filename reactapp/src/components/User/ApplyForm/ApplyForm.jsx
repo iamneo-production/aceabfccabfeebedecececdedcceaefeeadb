@@ -36,6 +36,8 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(formData)
+
     axios
       .get(
         `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/coursesByInstitute/${collegeId}`

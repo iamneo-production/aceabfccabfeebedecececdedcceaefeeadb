@@ -43,9 +43,9 @@ const RegisteredCourses = () => {
   });
 
   // Separate state for SSLC, HSC, and Diploma
-  const [SSLC, setSSLC] = useState(undefined);
-  const [HSC, setHSC] = useState(undefined);
-  const [Diploma, setDiploma] = useState(undefined);
+  const [SSLC, setSSLC] = useState("");
+  const [HSC, setHSC] = useState("");
+  const [Diploma, setDiploma] = useState("");
 
   const handleViewActivityClick = () => {
     console.log('View Activity button clicked');
@@ -66,9 +66,9 @@ const RegisteredCourses = () => {
         });
 
         // Set SSLC, HSC, and Diploma states separately
-        setSSLC(studentData.sslc || 0);
-        setHSC(studentData.hsc || 0);
-        setDiploma(studentData.diploma || 0);
+        setSSLC(studentData.sslc || "");
+        setHSC(studentData.hsc || "");
+        setDiploma(studentData.diploma || "");
 
         setEnrollFormOpen(true);
       })
