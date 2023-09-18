@@ -18,6 +18,9 @@ import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
 import Footer from '../../Footer'
 import axios from 'axios';
+import CountUp from 'react-countup';
+
+
 
 const defaultTheme = createTheme();
 const UniversityList = () => {
@@ -52,7 +55,24 @@ const UniversityList = () => {
   const handleCloseCardDetails = () => {
     setSelectedCard(null);
   };
-
+  useEffect(() => {
+    // Replace with your API endpoint to fetch the data
+    const apiUrl = 'YOUR_API_ENDPOINT';
+  
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        // Assuming your API returns an object with the number of students and successful admissions
+        const { students, admissions } = response.data;
+  
+        setNumberOfStudents(students);
+        setSuccessfulAdmissions(admissions);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+  
   useEffect(() => {
     // Define the API endpoint URL where your data is hosted
     const apiUrl =
@@ -89,6 +109,15 @@ const UniversityList = () => {
       <CssBaseline />
 
       <UserAppBar id={params.userId} />
+
+      <Typography variant="h4">
+  Total Students: <CountUp start={0} end={numberOfStudents} duration={2} separator="," />
+</Typography>
+
+<Typography variant="h4">
+  Successful Admissions: <CountUp start={0} end={successfulAdmissions} duration={2} separator="," />
+</Typography>
+
       <div style={{ textAlign: 'center', marginTop: '20px' }}>
           <h1 style={{ fontFamily: 'AdmitEasy', fontSize: '32px', color: 'darkblue' }}>
             Welcome to AdmitEasy
