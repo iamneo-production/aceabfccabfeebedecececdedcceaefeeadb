@@ -43,9 +43,9 @@ const RegisteredCourses = () => {
   });
 
   // Separate state for SSLC, HSC, and Diploma
-  const [SSLC, setSSLC] = useState(0);
-  const [HSC, setHSC] = useState(0);
-  const [Diploma, setDiploma] = useState(0);
+  const [SSLC, setSSLC] = useState(undefined);
+  const [HSC, setHSC] = useState(undefined);
+  const [Diploma, setDiploma] = useState(undefined);
 
   const handleViewActivityClick = () => {
     console.log('View Activity button clicked');
