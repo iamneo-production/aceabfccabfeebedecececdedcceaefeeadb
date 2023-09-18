@@ -42,10 +42,10 @@ const RegisteredCourses = () => {
     
   });
 
-  // Separate state for SSLC, HSC, and Diploma
-  const [SSLC, setSSLC] = useState("");
-  const [HSC, setHSC] = useState("");
-  const [Diploma, setDiploma] = useState("");
+  // Separate state for sslc, hsc, and diploma
+  const [sslc, setsslc] = useState("");
+  const [hsc, sethsc] = useState("");
+  const [diploma, setdiploma] = useState("");
 
   const handleViewActivityClick = () => {
     console.log('View Activity button clicked');
@@ -65,10 +65,10 @@ const RegisteredCourses = () => {
           eligibility: studentData.eligibility || 'Eligible',
         });
 
-        // Set SSLC, HSC, and Diploma states separately
-        setSSLC(studentData.sslc || "");
-        setHSC(studentData.hsc || "");
-        setDiploma(studentData.diploma || "");
+        // Set sslc, hsc, and diploma states separately
+        setsslc(studentData.sslc || "");
+        sethsc(studentData.hsc || "");
+        setdiploma(studentData.diploma || "");
 
         setEnrollFormOpen(true);
       })
@@ -85,12 +85,12 @@ const RegisteredCourses = () => {
     const { id, value } = e.target;
 
     // Update the respective state based on the id
-    if (id === 'SSLC') {
-      setSSLC(value);
-    } else if (id === 'HSC') {
-      setHSC(value);
-    } else if (id === 'Diploma') {
-      setDiploma(value);
+    if (id === 'sslc') {
+      setsslc(value);
+    } else if (id === 'hsc') {
+      sethsc(value);
+    } else if (id === 'diploma') {
+      setdiploma(value);
     } else {
       setEditStudentData({
         ...editStudentData,
@@ -100,16 +100,16 @@ const RegisteredCourses = () => {
   };
 
   const handleSaveClick = () => {
-    // Construct the editedStudentData object with SSLC, HSC and Diploma from states
+    // Construct the editedStudentData object with sslc, hsc and diploma from states
     const foo = {
       ...editStudentData,
-      SSLC,
-      HSC,
-      Diploma,
+      sslc,
+      hsc,
+      diploma,
     };
-    console.log(SSLC)
-    console.log(HSC)
-    console.log(Diploma)
+    console.log(sslc)
+    console.log(hsc)
+    console.log(diploma)
     console.log(foo)
 
     // Implement the logic to save the edited student details here
@@ -242,30 +242,30 @@ const RegisteredCourses = () => {
               onChange={handleInputChange}
             />
             <TextField
-              label="SSLC Marks"
+              label="sslc Marks"
               fullWidth
-              id="SSLC"
+              id="sslc"
               margin="normal"
               variant="outlined"
-              value={SSLC}
+              value={sslc}
               onChange={handleInputChange}
             />
             <TextField
-              label="HSC Marks"
+              label="hsc Marks"
               fullWidth
-              id="HSC"
+              id="hsc"
               margin="normal"
               variant="outlined"
-              value={HSC}
+              value={hsc}
               onChange={handleInputChange}
             />
             <TextField
-              label="Diploma Marks"
+              label="diploma Marks"
               fullWidth
-              id="Diploma"
+              id="diploma"
               margin="normal"
               variant="outlined"
-              value={Diploma}
+              value={diploma}
               onChange={handleInputChange}
             />
             <RadioGroup
