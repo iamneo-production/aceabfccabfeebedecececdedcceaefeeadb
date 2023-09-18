@@ -51,9 +51,10 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
 
   const handleEnrollClick = (course) => {
     setSelectedCourse(course);
+    console.log(userId)
 
     axios
-      .get(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/getStudent/${userId}`)
+      .get(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/getStudent/${userId}`)      
       .then((response) => {
         const studentData = response.data;
         setFormData({
