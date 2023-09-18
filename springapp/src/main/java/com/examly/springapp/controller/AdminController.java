@@ -3,6 +3,8 @@ package com.examly.springapp.controller;
 import com.examly.springapp.model.AdmissionModel;
 import com.examly.springapp.service.AdmissionService;
 
+import com.examly.springapp.model.CourseWithAdmissionsDTO;
+
 import com.examly.springapp.model.CourseModel;
 import com.examly.springapp.service.CourseService;
 
@@ -223,22 +225,35 @@ public class AdminController {
     //         return ResponseEntity.ok(courses);
     //     }
     // }
-  @GetMapping("/coursesByInstitute/{instituteId}")
-public ResponseEntity<List<CourseModel>> getCoursesWithAdmissionsByInstituteId(@PathVariable int instituteId) {
-    List<CourseModel> courses = courseService.getCoursesByInstituteInstituteId(instituteId);
-
-    for (CourseModel course : courses) {
-        int admissionCount = admissionService.getAdmissionCountByCourseId(course.getCourseId());
-        CourseModel newCourse = new CourseModel(course.getCourseId(), course.getCourseName(), admissionCount);
-        courses.add(newCourse);
+       
+    @GetMapping("/coursesByInstitute/{instituteId}")
+    public ResponseEntity<List<CourseWithAdmissionsDTO>> getCoursesWithAdmissionsByInstituteId(@PathVariable int instituteId) {
+        List<CourseModel> courses = courseService.getCoursesByInstituteInstituteId(instituteId);
+        List<CourseWithAdmissionsDTO> coursesWithAdmissions = new ArrayList<>();
+    
+        for (CourseModel course : courses) {
+            int admissionCount = admissionService.getAdmissionCountByCourseId(course.getCourseId());
+            coursesWithAdmissions.add(new CourseWithAdmissionsDTO(course, admissionCount));
+        }
+    
+        if (coursesWithAdmissions.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(coursesWithAdmissions);
+        }
     }
+    
 
-    if (courses.isEmpty()) {
-        return ResponseEntity.noContent().build();
-    } else {
-        return ResponseEntity.ok(courses);
-    }
-}
+
+
+
+
+
+
+
+
+
+   
     // Institute operations
     @PostMapping("/addInstitute")
     public ResponseEntity<InstituteModel> addInstitute(@RequestBody InstituteModel institute) {
