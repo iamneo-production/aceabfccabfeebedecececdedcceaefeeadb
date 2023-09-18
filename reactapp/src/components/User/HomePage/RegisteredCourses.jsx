@@ -109,10 +109,10 @@ const RegisteredCourses = () => {
                 Course Name: {course.course.courseName}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Duration: {course.course.courseDuration} years
+                Course Description: {course.course.courseDescription}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Description: {course.course.courseDescription}
+                Course Duration: {course.course.courseDuration} years
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 Institute Name: {course.instituteName}
@@ -238,10 +238,10 @@ const RegisteredCourses = () => {
                 </RadioGroup>
               </Grid>
             </Grid>
+            <Button variant="contained" color="primary" onClick={handleSaveClick}>
+              Save
+            </Button>
           </form>
-          <Button variant="contained" color="primary" onClick={handleSaveClick}>
-            Save
-          </Button>
         </DialogContent>
       </Dialog>
     </div>
