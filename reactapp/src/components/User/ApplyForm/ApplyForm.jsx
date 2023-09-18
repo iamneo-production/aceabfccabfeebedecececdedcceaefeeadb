@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -36,8 +35,6 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(formData)
-
     axios
       .get(
         `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/coursesByInstitute/${collegeId}`
@@ -53,7 +50,6 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
 
   const handleEnrollClick = (course) => {
     setSelectedCourse(course);
-    console.log(userId)
 
     axios
       .get(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/getStudent/${userId}`)      
@@ -90,7 +86,6 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   };
 
   const handleFormSubmit = (e) => {
-    console.log(formData)
     e.preventDefault();
     const enrollmentData = {
       studentName: formData.studentName,
@@ -102,7 +97,6 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
       diploma: formData.Diploma,
       eligibility: formData.eligibility,
     };
-    console.log(enrollmentData);
 
     axios
       .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${userId}`, enrollmentData)
