@@ -99,6 +99,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
       diploma: formData.Diploma,
       eligibility: formData.eligibility,
     };
+    console.log(enrollmentData);
 
     axios
       .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${userId}`, enrollmentData)
