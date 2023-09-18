@@ -31,6 +31,7 @@ const UniversityList = () => {
   const [selectedCard, setSelectedCard] = useState(null);
   const [cardDetails, setCardDetails] = useState(null);
   const [numberOfStudents, setNumberOfStudents] = useState(0);
+  const [numberOfAdmission,setNumberOfAdmission] = useState(0);
 const [successfulAdmissions, setSuccessfulAdmissions] = useState(0);
 
 
@@ -74,6 +75,22 @@ const [successfulAdmissions, setSuccessfulAdmissions] = useState(0);
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
+
+      axios
+      .get("https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/admissionsNumber")
+      .then((response) => {
+        // Assuming your API returns an object with the number of students and successful admissions
+        const admissions = response.data
+  
+        setNumberOfAdmission(admissions);
+       
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+
+
+
   }, []);
   
   useEffect(() => {

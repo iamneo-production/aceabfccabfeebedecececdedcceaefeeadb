@@ -17,8 +17,8 @@ import com.examly.springapp.service.UserService;
 
 
 
-import com.examly.repository.studentRepository;
-import com.examly.repository.admissionRepository;
+import com.examly.springapp.repository.StudentRepository;
+import com.examly.springapp.repository.AdmissionRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +46,8 @@ public class AdminController {
         this.courseService = courseService;
         this.instituteService = instituteService;
         this.userService = userService;
+        this.studentRepository = studentRepository;
+        this.admissionRepository = admissionRepository;
 
     }
 
