@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import java.util.*;
+import com.examly.springapp.model.CourseModel;
 
 import org.springframework.http.HttpStatus;
 
@@ -97,9 +98,10 @@ public class AdmissionController {
         return ResponseEntity.ok(admissions);
     }
 
-/*
+
+ /*   
+
     @GetMapping("/viewAdmissionByUserId/{userId}")
-    
     public ResponseEntity<List<Map<String, Object>>> viewAdmissionsByUserId(@PathVariable int userId) {
         List<AdmissionModel> admissions = admissionService.getAdmissionsByUserId(userId);
         List<Map<String, Object>> admissionDetailsList = new ArrayList<>();
@@ -131,58 +133,48 @@ public class AdmissionController {
     }
 
 }
+
 */
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-// Import other necessary packages
 
-@RestController
-public class AdmissionController {
+@GetMapping("/viewAdmissionByUserId/{userId}")
+public ResponseEntity<List<Map<String, Object>>> viewAdmissionsByUserId(@PathVariable int userId) {
+    List<AdmissionModel> admissions = admissionService.getAdmissionsByUserId(userId);
+    List<Map<String, Object>> admissionDetailsList = new ArrayList<>();
 
-    @Autowired
-    private AdmissionService admissionService;
+    for (AdmissionModel admission : admissions) {
+        Map<String, Object> admissionDetails = new HashMap<>();
+        admissionDetails.put("admissionId", admission.getAdmissionId());
+        admissionDetails.put("courseId", admission.getCourseId());
+        admissionDetails.put("instituteId", admission.getInstituteId());
+        admissionDetails.put("status", admission.getStatus());
+        admissionDetails.put("studentId", admission.getStudentId());
+        admissionDetails.put("userId", admission.getUserId());
 
-    @Autowired
-    private CourseService courseService; // Inject CourseService
+        // Fetch and add additional details
+        String courseName = courseService.getCourseNameById(admission.getCourseId());
+        String instituteName = instituteService.getInstituteNameById(admission.getInstituteId());
 
-    @GetMapping("/viewAdmissionByUserId/{userId}")
-    public ResponseEntity<List<Map<String, Object>>> viewAdmissionsByUserId(@PathVariable int userId) {
-        List<AdmissionModel> admissions = admissionService.getAdmissionsByUserId(userId);
-        List<Map<String, Object>> admissionDetailsList = new ArrayList<>();
-
-        for (AdmissionModel admission : admissions) {
-            Map<String, Object> admissionDetails = new HashMap<>();
-            admissionDetails.put("admissionId", admission.getAdmissionId());
-            admissionDetails.put("courseId", admission.getCourseId());
-            admissionDetails.put("instituteId", admission.getInstituteId());
-            admissionDetails.put("status", admission.getStatus());
-            admissionDetails.put("studentId", admission.getStudentId());
-            admissionDetails.put("userId", admission.getUserId());
-
-            // Fetch and add additional details
-            String courseName = courseService.getCourseNameById(admission.getCourseId());
-            String instituteName = instituteService.getInstituteNameById(admission.getInstituteId());
-
-            // Fetch duration and description from the course table
-            CourseModel course = courseService.getCourseById(admission.getCourseId());
-            if (course != null) {
-                admissionDetails.put("courseName", courseName);
-                admissionDetails.put("instituteName", instituteName);
-                admissionDetails.put("duration", course.getDuration());
-                admissionDetails.put("description", course.getDescription());
-            } else {
-                // Handle the case where the course is not found
-                // You can set default values or handle it according to your requirements.
-            }
-
-            admissionDetailsList.add(admissionDetails);
-        }
-
-        if (!admissionDetailsList.isEmpty()) {
-            return ResponseEntity.ok(admissionDetailsList);
+        // Fetch duration and description from the course table
+        CourseModel course = courseService.getCourseById(admission.getCourseId());
+        if (course != null) {
+            admissionDetails.put("courseName", courseName);
+            admissionDetails.put("instituteName", instituteName);
+            admissionDetails.put("duration", course.getDuration());
+            admissionDetails.put("description", course.getDescription());
         } else {
-            return ResponseEntity.notFound().build();
+            // Handle the case where the course is not found
+            // You can set default values or handle it according to your requirements.
         }
+
+        admissionDetailsList.add(admissionDetails);
     }
+
+    if (!admissionDetailsList.isEmpty()) {
+        return ResponseEntity.ok(admissionDetailsList);
+    } else {
+        return ResponseEntity.notFound().build();
+    }
+}
 }
