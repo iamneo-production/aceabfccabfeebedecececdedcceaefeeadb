@@ -1,22 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import UserAppBar from '../../UserAppBar';
-import { Card, CardContent, Typography, Button, Dialog, DialogContent, TextField, Grid, RadioGroup, Radio, FormControlLabel } from '@mui/material';
+import { Card, CardContent, Typography, Button, Grid, Dialog, DialogContent, TextField, RadioGroup, Radio, FormControlLabel } from '@mui/material';
 import Footer from '../../Footer';
 import axios from 'axios';
 
+const containerStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  minHeight: '100vh',
+};
+
+const contentStyle = {
+  flex: '1',
+  textAlign: 'left',
+};
+
 const RegisteredCourses = () => {
   const [registeredCourses, setRegisteredCourses] = useState([]);
-  const [editStudentData, setEditStudentData] = useState(null);
-  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   const params = useParams();
   const [enrollFormOpen, setEnrollFormOpen] = useState(false);
+  const [editStudentData, setEditStudentData] = useState({
+    studentName: '',
+    studentDOB: '',
+    address: '',
+    mobile: '',
+    SSLC: '',
+    HSC: '',
+    Diploma: '',
+    eligibility: 'Eligible',
+  });
 
-  const handleEditClick = (studentId) => {
+  const handleViewActivityClick = () => {
+    console.log('View Activity button clicked');
+  };
+
+  const handleEditClick = (admissionId) => {
+    // Fetch student data by admissionId and populate the form
     axios
-      .get(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/getStudent/${studentId}`)
+      .get(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/getStudentByAdmissionId/${admissionId}`)
       .then((response) => {
-        setEditStudentData(response.data);
+        const studentData = response.data;
+        setEditStudentData({
+          studentName: studentData.studentName || '',
+          studentDOB: studentData.studentDOB || '',
+          address: studentData.address || '',
+          mobile: studentData.mobile || '',
+          SSLC: studentData.sslc || '',
+          HSC: studentData.hsc || '',
+          Diploma: studentData.diploma || '',
+          eligibility: studentData.eligibility || 'Eligible',
+        });
         setEnrollFormOpen(true);
       })
       .catch((error) => {
@@ -24,42 +58,36 @@ const RegisteredCourses = () => {
       });
   };
 
-  const handleDeleteClick = (admissionId) => {
-    setDeleteConfirmation(true);
-    // Assuming you want a confirmation dialog before deletion
+  const handleCloseEnrollForm = () => {
+    setEnrollFormOpen(false);
   };
 
-  const handleConfirmDelete = (admissionId) => {
-    axios
-      .delete(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteAdmission/${admissionId}`)
-      .then((response) => {
-        console.log('Course deleted successfully');
-        setRegisteredCourses((prevCourses) => prevCourses.filter((course) => course.admissionId !== admissionId));
-        setDeleteConfirmation(false);
-      })
-      .catch((error) => {
-        console.error('Error deleting course:', error);
-      });
-  };
-
-  const handleCancelDelete = () => {
-    setDeleteConfirmation(false);
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setEditStudentData({
+      ...editStudentData,
+      [id]: value,
+    });
   };
 
   const handleSaveClick = () => {
+    // Implement the logic to save the edited student details here
+    // Make a POST request with editStudentData to update the student details
+    const admissionId = 1; // Replace with the actual admissionId
     axios
-      .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/updateStudent/${editStudentData.studentId}`, editStudentData)
+      .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/editStudent/${admissionId}`, editStudentData)
       .then((response) => {
-        console.log('Student data updated successfully:', response.data);
-        setEditStudentData(null);
+        console.log('Student details updated successfully:', response.data);
+        // Close the form dialog
         setEnrollFormOpen(false);
       })
       .catch((error) => {
-        console.error('Error updating student data:', error);
+        console.error('Error updating student details:', error);
       });
   };
 
   useEffect(() => {
+    // Fetch registered courses for the user
     axios
       .get(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/viewAdmissionByUserId/${params.userId}`)
       .then((response) => {
@@ -70,18 +98,10 @@ const RegisteredCourses = () => {
       });
   }, [params.userId]);
 
-  const handleInputChange = (e) => {
-    const { id, value } = e.target;
-    setEditStudentData({
-      ...editStudentData,
-      [id]: value,
-    });
-  };
-
   return (
-    <div>
+    <div style={containerStyle}>
       <UserAppBar id={params.userId} />
-      <div>
+      <div style={contentStyle}>
         {registeredCourses.map((course) => (
           <Card key={course.admissionId} variant="outlined">
             <CardContent>
@@ -91,69 +111,139 @@ const RegisteredCourses = () => {
               <Typography variant="body2" color="text.secondary">
                 Duration: {course.course.courseDuration} years
               </Typography>
-              <Button variant="contained" color="primary" onClick={() => handleEditClick(course.userId)}>
-                Edit
+              <Typography variant="body2" color="text.secondary">
+                Description: {course.course.courseDescription}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Institute Name: {course.instituteName}
+              </Typography>
+              <Button variant="contained" color="primary" onClick={handleViewActivityClick}>
+                View Activity
               </Button>
-              <Button variant="contained" color="secondary" onClick={() => handleDeleteClick(course.admissionId)}>
-                Delete
+              <Button variant="contained" color="secondary" onClick={() => handleEditClick(course.admissionId)}>
+                Edit
               </Button>
             </CardContent>
           </Card>
         ))}
       </div>
       <Footer />
-      {editStudentData && (
-        <Dialog open={enrollFormOpen} onClose={() => setEnrollFormOpen(false)}>
-          <DialogContent>
-            <h3>Edit Student Details</h3>
-            <form>
-              <Grid container spacing={2}>
-                <Grid item xs={4}>
-                  <TextField
-                    label="Student Name"
-                    fullWidth
-                    id="studentName"
-                    margin="normal"
-                    variant="outlined"
-                    value={editStudentData.studentName}
-                    onChange={handleInputChange}
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <TextField
-                    label="Date of Birth"
-                    fullWidth
-                    id="studentDOB"
-                    margin="normal"
-                    variant="outlined"
-                    type="date"
-                    value={editStudentData.studentDOB}
-                    onChange={handleInputChange}
-                  />
-                </Grid>
-                {/* Add more fields as needed */}
+
+      {/* Edit Student Details Form */}
+      <Dialog open={enrollFormOpen} onClose={handleCloseEnrollForm}>
+        <DialogContent>
+          <h3>Edit Student Details</h3>
+          <form>
+            <Grid container spacing={2}>
+              <Grid item xs={4}>
+                <TextField
+                  label="Student Name"
+                  fullWidth
+                  id="studentName"
+                  margin="normal"
+                  variant="outlined"
+                  value={editStudentData.studentName}
+                  onChange={handleInputChange}
+                />
               </Grid>
-            </form>
-            <Button variant="contained" color="primary" onClick={handleSaveClick}>
-              Save
-            </Button>
-          </DialogContent>
-        </Dialog>
-      )}
-      {deleteConfirmation && (
-        <Dialog open={deleteConfirmation} onClose={handleCancelDelete}>
-          <DialogContent>
-            <h3>Confirm Deletion</h3>
-            <p>Are you sure you want to delete this course?</p>
-            <Button variant="contained" color="primary" onClick={() => handleConfirmDelete(editStudentData.admissionId)}>
-              Confirm
-            </Button>
-            <Button variant="contained" color="secondary" onClick={handleCancelDelete}>
-              Cancel
-            </Button>
-          </DialogContent>
-        </Dialog>
-      )}
+              <Grid item xs={4}>
+                <TextField
+                  label="Date of Birth"
+                  fullWidth
+                  id="studentDOB"
+                  margin="normal"
+                  variant="outlined"
+                  type="date"
+                  value={editStudentData.studentDOB}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <TextField
+                  label="Address"
+                  fullWidth
+                  id="address"
+                  margin="normal"
+                  variant="outlined"
+                  value={editStudentData.address}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <TextField
+                  label="Mobile"
+                  fullWidth
+                  id="mobile"
+                  margin="normal"
+                  variant="outlined"
+                  value={editStudentData.mobile}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <TextField
+                  label="SSLC Marks"
+                  fullWidth
+                  id="SSLC"
+                  margin="normal"
+                  variant="outlined"
+                  value={editStudentData.SSLC}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <TextField
+                  label="HSC Marks"
+                  fullWidth
+                  id="HSC"
+                  margin="normal"
+                  variant="outlined"
+                  value={editStudentData.HSC}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <TextField
+                  label="Diploma Marks"
+                  fullWidth
+                  id="Diploma"
+                  margin="normal"
+                  variant="outlined"
+                  value={editStudentData.Diploma}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <RadioGroup
+                  aria-label="Eligibility"
+                  name="eligibility"
+                  value={editStudentData.eligibility}
+                  onChange={(e) => {
+                    setEditStudentData({
+                      ...editStudentData,
+                      eligibility: e.target.value,
+                    });
+                  }}
+                >
+                  <FormControlLabel
+                    value="Eligible"
+                    control={<Radio />}
+                    label="Eligible"
+                  />
+                  <FormControlLabel
+                    value="Not Eligible"
+                    control={<Radio />}
+                    label="Not Eligible"
+                  />
+                </RadioGroup>
+              </Grid>
+            </Grid>
+          </form>
+          <Button variant="contained" color="primary" onClick={handleSaveClick}>
+            Save
+          </Button>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
