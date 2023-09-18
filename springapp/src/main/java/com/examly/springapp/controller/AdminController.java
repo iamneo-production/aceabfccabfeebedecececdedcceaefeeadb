@@ -223,22 +223,22 @@ public class AdminController {
     //         return ResponseEntity.ok(courses);
     //     }
     // }
-    @GetMapping("/coursesByInstitute/{instituteId}")
-    public ResponseEntity<List<CourseModel>> getCoursesWithAdmissionsByInstituteId(@PathVariable int instituteId) {
-        List<CourseModel> courses = courseService.getCoursesByInstituteInstituteId(instituteId);
+  @GetMapping("/coursesByInstitute/{instituteId}")
+public ResponseEntity<List<CourseModel>> getCoursesWithAdmissionsByInstituteId(@PathVariable int instituteId) {
+    List<CourseModel> courses = courseService.getCoursesByInstituteInstituteId(instituteId);
 
-        for (CourseModel course : courses) {
-            int admissionCount = admissionService.getAdmissionCountByCourseId(course.getCourseId());
-            course.put("admissionCount",admissionCount);
-        }
-
-        if (courses.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.ok(courses);
-        }
+    for (CourseModel course : courses) {
+        int admissionCount = admissionService.getAdmissionCountByCourseId(course.getCourseId());
+        CourseModel newCourse = new CourseModel(course.getCourseId(), course.getCourseName(), admissionCount);
+        courses.add(newCourse);
     }
 
+    if (courses.isEmpty()) {
+        return ResponseEntity.noContent().build();
+    } else {
+        return ResponseEntity.ok(courses);
+    }
+}
     // Institute operations
     @PostMapping("/addInstitute")
     public ResponseEntity<InstituteModel> addInstitute(@RequestBody InstituteModel institute) {
