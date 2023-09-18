@@ -178,11 +178,33 @@ const UniversityList = () => {
                
                   
               </Container>
-              
-              
+              <Grid container spacing={2}>
+                  <Grid item xs={6}>
+                    <Card sx={{ border: '1px solid #ccc', padding: '16px' }}>
+                      <CardContent>
+                        <Typography variant="h4" gutterBottom>
+                          Total Students
+                        </Typography>
+                        <Typography variant="h4" color="primary">
+                          <CountUp start={0} end={numberOfStudents} duration={2} separator="," />
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Card sx={{ border: '1px solid #ccc', padding: '16px' }}>
+                      <CardContent>
+                        <Typography variant="h4" gutterBottom>
+                          Successful Admissions
+                        </Typography>
+                        <Typography variant="h4" color="primary">
+                          <CountUp start={0} end={numberOfAdmission} duration={2} separator="," />
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                </Grid>
             </Box>
-            <Container>
-              </Container>
             
             
             
