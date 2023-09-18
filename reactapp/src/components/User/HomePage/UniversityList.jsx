@@ -144,7 +144,7 @@ const UniversityList = () => {
 
       <main>
         {/* Hero unit */}
-        <Box sx={{ bgcolor: 'background.paper', pb: 6 }}></Box>
+        <Box sx={{ bgcolor: 'background.paper', pb: 6 }}>
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* Conditionally render the search bar */}
           
@@ -178,7 +178,15 @@ const UniversityList = () => {
                
                   
               </Container>
+              
+              
             </Box>
+            <Container>
+              </Container>
+            
+            
+            
+
           )}
           {loading ? (
             <Typography>Loading...</Typography>
@@ -245,6 +253,7 @@ const UniversityList = () => {
             </Grid>
           )}
         </Container>
+        </Box>
       </main>
       <Footer />
     </ThemeProvider>
