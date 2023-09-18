@@ -64,5 +64,9 @@ public class AdmissionServiceImpl implements AdmissionService {
     public StudentModel getStudentByUserId(Long userId) {
         return studentService.getStudentByUserId(userId);
     }
+    @Override
+    public int getAdmissionCountByCourseId(int courseId) {
+        return admissionRepository.countByCourseId(courseId);
+    }
     // Implement custom service methods if needed
 }

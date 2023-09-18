@@ -37,17 +37,19 @@ public class AdminController {
     private final UserService userService;
     private final StudentRepository studentRepository;
     private final AdmissionRepository admissionRepository;
+    private final AdmissionService admissionService;
 
 
     @Autowired
     public AdminController(StudentService studentService, CourseService courseService,
-            InstituteService instituteService, UserService userService , AdmissionRepository admissionRepository,StudentRepository studentRepository) {
+            InstituteService instituteService, UserService userService , AdmissionRepository admissionRepository,StudentRepository studentRepository ,AdmissionService admissionService) {
         this.studentService = studentService;
         this.courseService = courseService;
         this.instituteService = instituteService;
         this.userService = userService;
         this.studentRepository = studentRepository;
         this.admissionRepository = admissionRepository;
+        this.admissionService = admissionService;
 
     }
 
@@ -211,9 +213,24 @@ public class AdminController {
         return ResponseEntity.ok(courses);
     }
 
+    // @GetMapping("/coursesByInstitute/{instituteId}")
+    // public ResponseEntity<List<CourseModel>> getCoursesByInstituteId(@PathVariable int instituteId) {
+    //     List<CourseModel> courses = courseService.getCoursesByInstituteInstituteId(instituteId);
+
+    //     if (courses.isEmpty()) {
+    //         return ResponseEntity.noContent().build();
+    //     } else {
+    //         return ResponseEntity.ok(courses);
+    //     }
+    // }
     @GetMapping("/coursesByInstitute/{instituteId}")
-    public ResponseEntity<List<CourseModel>> getCoursesByInstituteId(@PathVariable int instituteId) {
+    public ResponseEntity<List<CourseModel>> getCoursesWithAdmissionsByInstituteId(@PathVariable int instituteId) {
         List<CourseModel> courses = courseService.getCoursesByInstituteInstituteId(instituteId);
+
+        for (CourseModel course : courses) {
+            int admissionCount = admissionService.getAdmissionCountByCourseId(course.getCourseId());
+            course.put("admissionCount",admissionCount);
+        }
 
         if (courses.isEmpty()) {
             return ResponseEntity.noContent().build();
