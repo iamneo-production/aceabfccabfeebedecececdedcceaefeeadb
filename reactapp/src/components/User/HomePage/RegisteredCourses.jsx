@@ -1,7 +1,19 @@
 // import React, { useState, useEffect } from 'react';
 // import { useParams } from 'react-router-dom';
 // import UserAppBar from '../../UserAppBar';
-// import { Card, CardContent, Typography, Button, Grid, Dialog, DialogContent, TextField, RadioGroup, Radio, FormControlLabel } from '@mui/material';
+// import {
+//   Card,
+//   CardContent,
+//   Typography,
+//   Button,
+//   Grid,
+//   Dialog,
+//   DialogContent,
+//   TextField,
+//   RadioGroup,
+//   Radio,
+//   FormControlLabel,
+// } from '@mui/material';
 // import Footer from '../../Footer';
 // import axios from 'axios';
 
@@ -25,9 +37,9 @@
 //     studentDOB: '',
 //     address: '',
 //     mobile: '',
-//     SSLC: '',
-//     HSC: '',
-//     Diploma: '',
+//     SSLC: null,
+//     HSC: null,
+//     Diploma: null,
 //     eligibility: 'Eligible',
 //   });
 
@@ -46,9 +58,9 @@
 //           studentDOB: studentData.studentDOB || '',
 //           address: studentData.address || '',
 //           mobile: studentData.mobile || '',
-//           SSLC: studentData.sslc || '',
-//           HSC: studentData.hsc || '',
-//           Diploma: studentData.diploma || '',
+//           SSLC: studentData.sslc.toString() || '', // Ensure SSLC is converted to a string
+//           HSC: studentData.hsc.toString() || '', // Ensure HSC is converted to a string
+//           Diploma: studentData.diploma.toString() || '', // Ensure Diploma is converted to a string
 //           eligibility: studentData.eligibility || 'Eligible',
 //         });
 //         setEnrollFormOpen(true);
@@ -71,10 +83,18 @@
 //   };
 
 //   const handleSaveClick = () => {
+//     // Convert SSLC, HSC, and Diploma to integers
+//     const editedStudentData = {
+//       ...editStudentData,
+//       SSLC: parseInt(editStudentData.SSLC),
+//       HSC: parseInt(editStudentData.HSC),
+//       Diploma: parseInt(editStudentData.Diploma),
+//     };
+
 //     // Implement the logic to save the edited student details here
-//     // Make a POST request with editStudentData to update the student details
+//     // Make a POST request with editedStudentData to update the student details
 //     axios
-//       .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${params.userId}`, editStudentData)
+//       .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${params.userId}`, editedStudentData)
 //       .then((response) => {
 //         console.log('Student details updated successfully:', response.data);
 //         // Close the form dialog
@@ -242,16 +262,8 @@
 //                     });
 //                   }}
 //                 >
-//                   <FormControlLabel
-//                     value="Eligible"
-//                     control={<Radio />}
-//                     label="Eligible"
-//                   />
-//                   <FormControlLabel
-//                     value="Not Eligible"
-//                     control={<Radio />}
-//                     label="Not Eligible"
-//                   />
+//                   <FormControlLabel value="Eligible" control={<Radio />} label="Eligible" />
+//                   <FormControlLabel value="Not Eligible" control={<Radio />} label="Not Eligible" />
 //                 </RadioGroup>
 //               </Grid>
 //             </Grid>
@@ -305,9 +317,9 @@ const RegisteredCourses = () => {
     studentDOB: '',
     address: '',
     mobile: '',
-    SSLC: null,
-    HSC: null,
-    Diploma: null,
+    SSLC: 0,
+    HSC: 0,
+    Diploma: 0,
     eligibility: 'Eligible',
   });
 
@@ -326,9 +338,9 @@ const RegisteredCourses = () => {
           studentDOB: studentData.studentDOB || '',
           address: studentData.address || '',
           mobile: studentData.mobile || '',
-          SSLC: studentData.sslc.toString() || '', // Ensure SSLC is converted to a string
-          HSC: studentData.hsc.toString() || '', // Ensure HSC is converted to a string
-          Diploma: studentData.diploma.toString() || '', // Ensure Diploma is converted to a string
+          SSLC: studentData.sslc.toString() || '',
+          HSC: studentData.hsc.toString() || '',
+          Diploma: studentData.diploma.toString() || '',
           eligibility: studentData.eligibility || 'Eligible',
         });
         setEnrollFormOpen(true);
@@ -354,9 +366,9 @@ const RegisteredCourses = () => {
     // Convert SSLC, HSC, and Diploma to integers
     const editedStudentData = {
       ...editStudentData,
-      SSLC: parseInt(editStudentData.SSLC),
-      HSC: parseInt(editStudentData.HSC),
-      Diploma: parseInt(editStudentData.Diploma),
+      SSLC: parseInt(editStudentData.SSLC, 10),
+      HSC: parseInt(editStudentData.HSC, 10),
+      Diploma: parseInt(editStudentData.Diploma, 10),
     };
 
     // Implement the logic to save the edited student details here
@@ -546,3 +558,4 @@ const RegisteredCourses = () => {
 };
 
 export default RegisteredCourses;
+
