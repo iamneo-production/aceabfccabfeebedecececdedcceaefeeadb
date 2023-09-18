@@ -266,7 +266,6 @@
 // };
 
 // export default RegisteredCourses;
-
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import UserAppBar from '../../UserAppBar';
@@ -327,9 +326,9 @@ const RegisteredCourses = () => {
           studentDOB: studentData.studentDOB || '',
           address: studentData.address || '',
           mobile: studentData.mobile || '',
-          SSLC: studentData.sslc || '',
-          HSC: studentData.hsc || '',
-          Diploma: studentData.diploma || '',
+          SSLC: studentData.sslc.toString() || '', // Ensure SSLC is converted to a string
+          HSC: studentData.hsc.toString() || '', // Ensure HSC is converted to a string
+          Diploma: studentData.diploma.toString() || '', // Ensure Diploma is converted to a string
           eligibility: studentData.eligibility || 'Eligible',
         });
         setEnrollFormOpen(true);
@@ -352,10 +351,18 @@ const RegisteredCourses = () => {
   };
 
   const handleSaveClick = () => {
+    // Convert SSLC, HSC, and Diploma to integers
+    const editedStudentData = {
+      ...editStudentData,
+      SSLC: parseInt(editStudentData.SSLC),
+      HSC: parseInt(editStudentData.HSC),
+      Diploma: parseInt(editStudentData.Diploma),
+    };
+
     // Implement the logic to save the edited student details here
-    // Make a POST request with editStudentData to update the student details
+    // Make a POST request with editedStudentData to update the student details
     axios
-      .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${params.userId}`, editStudentData)
+      .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${params.userId}`, editedStudentData)
       .then((response) => {
         console.log('Student details updated successfully:', response.data);
         // Close the form dialog
@@ -539,4 +546,3 @@ const RegisteredCourses = () => {
 };
 
 export default RegisteredCourses;
-
