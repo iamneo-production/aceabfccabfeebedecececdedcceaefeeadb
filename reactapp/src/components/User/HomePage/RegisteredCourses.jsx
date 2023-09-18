@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import UserAppBar from '../../UserAppBar';
 import { Card, CardContent, Typography, Button } from '@mui/material';
 import Footer from '../../Footer';
-import axios from 'axios'; // Import Axios
+import axios from 'axios';
 
 const containerStyle = {
   display: 'flex',
@@ -24,8 +24,13 @@ const RegisteredCourses = () => {
     console.log("View Activity button clicked");
   };
 
+  const handleEditClick = (course) => {
+    // Implement the logic to edit the course here
+    console.log("Edit clicked for course:", course);
+  };
+
   const handleDeleteClick = (admissionId) => {
-    // You should implement the logic to delete the course here
+    // Implement the logic to delete the course here
     axios
       .delete(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteAdmission/${admissionId}`)
       .then((response) => {
@@ -58,25 +63,28 @@ const RegisteredCourses = () => {
           <Card key={course.admissionId} variant="outlined">
             <CardContent>
               <Typography variant="h6" component="div">
-                Course Name: {course.courseName}
+                Course Name: {course.course.courseName}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Duration: {course.duration}
+                Duration: {course.course.courseDuration} years
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Description: {course.description}
+                Description: {course.course.courseDescription}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Students: {course.studentsCount}
+                Students: {course.course.studentsCount}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Timings: {course.timings}
+                Timings: {course.course.timings}
               </Typography>
               <Button variant="contained" color="primary" onClick={handleViewActivityClick}>
                 View Activity
               </Button>
               <Button variant="contained" color="secondary" onClick={() => handleDeleteClick(course.admissionId)}>
                 Delete
+              </Button>
+              <Button variant="contained" color="default" onClick={() => handleEditClick(course)}>
+                Edit
               </Button>
             </CardContent>
           </Card>
