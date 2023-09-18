@@ -1,41 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import UserAppBar from '../../UserAppBar';
-import { Card, CardContent, Typography, Button } from '@mui/material';
+import { Card, CardContent, Typography, Button, Dialog, DialogContent, TextField, Grid, RadioGroup, Radio, FormControlLabel } from '@mui/material';
 import Footer from '../../Footer';
-import axios from 'axios'; // Import Axios
-
-const containerStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  minHeight: '100vh',
-};
-
-const contentStyle = {
-  flex: '1',
-  textAlign: 'left',
-};
+import axios from 'axios';
 
 const RegisteredCourses = () => {
   const [registeredCourses, setRegisteredCourses] = useState([]);
+  const [editStudentData, setEditStudentData] = useState(null);
   const params = useParams();
+  const [enrollFormOpen, setEnrollFormOpen] = useState(false);
 
-  const handleViewActivityClick = () => {
-    console.log("View Activity button clicked");
-  };
-
-  const handleDeleteClick = (admissionId) => {
-    // You should implement the logic to delete the course here
+  const handleEditClick = (studentId) => {
     axios
-      .delete(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteAdmission/${admissionId}`)
+      .get(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/getStudent/${studentId}`)
       .then((response) => {
-        // Assuming the server responds with a success message
-        console.log("Course deleted successfully");
-        // Remove the deleted course from the state
-        setRegisteredCourses((prevCourses) => prevCourses.filter((course) => course.admissionId !== admissionId));
+        setEditStudentData(response.data);
+        setEnrollFormOpen(true);
       })
       .catch((error) => {
-        console.error("Error deleting course:", error);
+        console.error('Error fetching student data:', error);
+      });
+  };
+
+  const handleSaveClick = () => {
+    axios
+      .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/updateStudent/${editStudentData.studentId}`, editStudentData)
+      .then((response) => {
+        console.log('Student data updated successfully:', response.data);
+        setEditStudentData(null);
+        setEnrollFormOpen(false);
+      })
+      .catch((error) => {
+        console.error('Error updating student data:', error);
       });
   };
 
@@ -46,40 +43,77 @@ const RegisteredCourses = () => {
         setRegisteredCourses(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching registered courses:", error);
+        console.error('Error fetching registered courses:', error);
       });
   }, [params.userId]);
 
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setEditStudentData({
+      ...editStudentData,
+      [id]: value,
+    });
+  };
+
   return (
-    <div style={containerStyle}>
+    <div>
       <UserAppBar id={params.userId} />
-      <div style={contentStyle}>
+      <div>
         {registeredCourses.map((course) => (
           <Card key={course.admissionId} variant="outlined">
             <CardContent>
               <Typography variant="h6" component="div">
-                Course Name: {course.course?.courseName || 'N/A'}
+                Course Name: {course.course.courseName}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Course Description: {course.course?.courseDescription || 'N/A'}
+                Duration: {course.course.courseDuration} years
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Course Duration: {course.course?.courseDuration ? `${course.course.courseDuration} years` : 'N/A'}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Institute Name: {course.instituteName || 'N/A'}
-              </Typography>
-              <Button variant="contained" color="primary" onClick={handleViewActivityClick}>
-                View Activity
-              </Button>
-              <Button variant="contained" color="secondary" onClick={() => handleDeleteClick(course.admissionId)}>
-                Delete
+              <Button variant="contained" color="primary" onClick={() => handleEditClick(course.userId)}>
+                Edit
               </Button>
             </CardContent>
           </Card>
         ))}
       </div>
       <Footer />
+      {editStudentData && (
+        <Dialog open={enrollFormOpen} onClose={() => setEnrollFormOpen(false)}>
+          <DialogContent>
+            <h3>Edit Student Details</h3>
+            <form>
+              <Grid container spacing={2}>
+                <Grid item xs={4}>
+                  <TextField
+                    label="Student Name"
+                    fullWidth
+                    id="studentName"
+                    margin="normal"
+                    variant="outlined"
+                    value={editStudentData.studentName}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <TextField
+                    label="Date of Birth"
+                    fullWidth
+                    id="studentDOB"
+                    margin="normal"
+                    variant="outlined"
+                    type="date"
+                    value={editStudentData.studentDOB}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+                {/* Add more fields as needed */}
+              </Grid>
+            </form>
+            <Button variant="contained" color="primary" onClick={handleSaveClick}>
+              Save
+            </Button>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 };
