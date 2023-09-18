@@ -88,6 +88,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   };
 
   const handleFormSubmit = (e) => {
+    console.log(formData)
     e.preventDefault();
     const enrollmentData = {
       studentName: formData.studentName,

@@ -39,7 +39,7 @@ const RegisteredCourses = () => {
     address: '',
     mobile: '',
     eligibility: 'Eligible',
-
+    
   });
 
   // Separate state for SSLC, HSC, and Diploma
@@ -101,7 +101,7 @@ const RegisteredCourses = () => {
 
   const handleSaveClick = () => {
     // Construct the editedStudentData object with SSLC, HSC and Diploma from states
-    const editedStudentData = {
+    const foo = {
       ...editStudentData,
       SSLC,
       HSC,
@@ -110,12 +110,12 @@ const RegisteredCourses = () => {
     console.log(SSLC)
     console.log(HSC)
     console.log(Diploma)
-    console.log(editedStudentData)
+    console.log(foo)
 
     // Implement the logic to save the edited student details here
     // Make a POST request with editedStudentData to update the student details
     axios
-      .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${params.userId}`, editStudentData)
+      .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${params.userId}`, foo)
       .then((response) => {
         console.log('Student details updated successfully:', response.data);
         // Close the form dialog
