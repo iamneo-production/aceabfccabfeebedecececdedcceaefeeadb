@@ -137,7 +137,6 @@ public class AdmissionController {
 */
 
 
-
 @GetMapping("/viewAdmissionByUserId/{userId}")
 public ResponseEntity<List<Map<String, Object>>> viewAdmissionsByUserId(@PathVariable int userId) {
     List<AdmissionModel> admissions = admissionService.getAdmissionsByUserId(userId);
@@ -156,18 +155,16 @@ public ResponseEntity<List<Map<String, Object>>> viewAdmissionsByUserId(@PathVar
         String courseName = courseService.getCourseNameById(admission.getCourseId());
         String instituteName = instituteService.getInstituteNameById(admission.getInstituteId());
 
-        // Fetch duration and description from the course table
-        CourseModel course = courseService.getCourseById(admission.getCourseId());
-        if (course != null) {
-            admissionDetails.put("courseName", courseName);
+        // Fetch course details using getCourseById
+        Optional<CourseModel> courseOptional = courseService.getCourseById(admission.getCourseId());
+        if (courseOptional.isPresent()) {
+            CourseModel course = courseOptional.get();
+            admissionDetails.put("course",course);
+          
             admissionDetails.put("instituteName", instituteName);
-            admissionDetails.put("duration", course.getDuration());
-            admissionDetails.put("description", course.getDescription());
-        } else {
-            // Handle the case where the course is not found
-            // You can set default values or handle it according to your requirements.
+            
+            
         }
-
         admissionDetailsList.add(admissionDetails);
     }
 
@@ -177,4 +174,5 @@ public ResponseEntity<List<Map<String, Object>>> viewAdmissionsByUserId(@PathVar
         return ResponseEntity.notFound().build();
     }
 }
+
 }
