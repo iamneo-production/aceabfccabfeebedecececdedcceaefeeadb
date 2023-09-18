@@ -38,7 +38,7 @@ const RegisteredCourses = () => {
   const handleEditClick = (admissionId) => {
     // Fetch student data by admissionId and populate the form
     axios
-      .get(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/getStudentByAdmissionId/${admissionId}`)
+      .get(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/getStudent/${params.userId}`)
       .then((response) => {
         const studentData = response.data;
         setEditStudentData({
@@ -73,9 +73,8 @@ const RegisteredCourses = () => {
   const handleSaveClick = () => {
     // Implement the logic to save the edited student details here
     // Make a POST request with editStudentData to update the student details
-    const admissionId = 1; // Replace with the actual admissionId
     axios
-      .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/editStudent/${admissionId}`, editStudentData)
+      .post(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addStudentNew/${params.userId}`, editStudentData)
       .then((response) => {
         console.log('Student details updated successfully:', response.data);
         // Close the form dialog
@@ -83,6 +82,21 @@ const RegisteredCourses = () => {
       })
       .catch((error) => {
         console.error('Error updating student details:', error);
+      });
+  };
+
+  const handleDeleteClick = (admissionId) => {
+    // Implement the logic to delete the course here
+    axios
+      .delete(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteAdmission/${admissionId}`)
+      .then((response) => {
+        // Assuming the server responds with a success message
+        console.log('Course deleted successfully');
+        // Remove the deleted course from the state
+        setRegisteredCourses((prevCourses) => prevCourses.filter((course) => course.admissionId !== admissionId));
+      })
+      .catch((error) => {
+        console.error('Error deleting course:', error);
       });
   };
 
@@ -122,6 +136,9 @@ const RegisteredCourses = () => {
               </Button>
               <Button variant="contained" color="secondary" onClick={() => handleEditClick(course.admissionId)}>
                 Edit
+              </Button>
+              <Button variant="contained" color="error" onClick={() => handleDeleteClick(course.admissionId)}>
+                Delete
               </Button>
             </CardContent>
           </Card>
