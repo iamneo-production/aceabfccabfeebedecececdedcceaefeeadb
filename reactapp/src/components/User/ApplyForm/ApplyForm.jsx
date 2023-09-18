@@ -79,7 +79,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
   const handleSearchChange = (e) => {
     const query = e.target.value.toLowerCase();
     const filtered = courseList.filter((course) =>
-      course.courseName.toLowerCase().includes(query)
+      course.course.courseName.toLowerCase().includes(query)
     );
     setFilteredCourses(filtered);
     setSearchQuery(query);
@@ -103,7 +103,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
       .then((response) => {
         console.log("Enrollment successful:", response.data);
         const admissionData = {
-          courseId: selectedCourse.courseId,
+          courseId: selectedCourse.course.courseId,
           instituteId: collegeId,
           status: "enrolled",
         };
@@ -166,33 +166,36 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
         </Typography>
       ) : (
         <Grid container spacing={2}>
-          {filteredCourses.map((course) => (
-            <Grid key={course.courseId} item xs={12}>
+          {filteredCourses.map((courseData) => (
+            <Grid key={courseData.course.courseId} item xs={12}>
               <Card style={{ width: "100%" }}>
                 <CardContent style={{ textAlign: "left" }}>
                   <Typography variant="h6" component="div">
-                    Course Name: {course.courseName}
+                    Course Name: {courseData.course.courseName}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Duration: {course.courseDuration} years
+                    Duration: {courseData.course.courseDuration} years
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Description: {course.courseDescription}
+                    Description: {courseData.course.courseDescription}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Institute Name: {course.institute.instituteName}
+                    Institute Name: {courseData.course.institute.instituteName}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Institute Address: {course.institute.instituteAddress}
+                    Institute Address: {courseData.course.institute.instituteAddress}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Mobile: {course.institute.mobile}
+                    Mobile: {courseData.course.institute.mobile}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Email: {course.institute.email}
+                    Email: {courseData.course.institute.email}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Star Rating: {course.institute.starRating}
+                    Star Rating: {courseData.course.institute.starRating}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Enrolled Students: {courseData.admissionCount}
                   </Typography>
                 </CardContent>
                 <div
@@ -205,7 +208,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => handleEnrollClick(course)}
+                    onClick={() => handleEnrollClick(courseData)}
                   >
                     Enroll Now
                   </Button>
@@ -218,7 +221,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
 
       <Dialog open={enrollFormOpen} onClose={handleCloseEnrollForm}>
         <DialogContent>
-          <h3>Enrollment Form for {selectedCourse?.courseName}</h3>
+          <h3>Enrollment Form for {selectedCourse?.course.courseName}</h3>
           <form onSubmit={handleFormSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={4}>
@@ -330,7 +333,6 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
           </form>
         </DialogContent>
       </Dialog>
-  
     </div>
   );
 };
