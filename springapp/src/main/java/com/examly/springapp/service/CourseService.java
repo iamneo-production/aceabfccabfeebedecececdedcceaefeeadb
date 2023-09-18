@@ -10,6 +10,7 @@ public interface CourseService {
     List<CourseModel> getAllCourses();
     String getCourseNameById(int courseId);
     CourseModel createCourseWithInstitute(int instituteId, CourseModel course);
+   
 
 
     List<CourseModel> getCoursesByInstituteInstituteId(int instituteId);
