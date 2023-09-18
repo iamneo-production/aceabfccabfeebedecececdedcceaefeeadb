@@ -15,6 +15,11 @@ import com.examly.springapp.service.StudentService;
 import com.examly.springapp.model.UserModel;
 import com.examly.springapp.service.UserService;
 
+
+
+import com.examly.repository.studentRepository;
+import com.examly.repository.admissionRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +35,18 @@ public class AdminController {
     private final CourseService courseService;
     private final InstituteService instituteService;
     private final UserService userService;
+    private final StudentRepository studentRepository;
+    private final AdmissionRepository admissionRepository;
+
 
     @Autowired
     public AdminController(StudentService studentService, CourseService courseService,
-            InstituteService instituteService, UserService userService) {
+            InstituteService instituteService, UserService userService , AdmissionRepository admissionRepository,StudentRepository studentRepository) {
         this.studentService = studentService;
         this.courseService = courseService;
         this.instituteService = instituteService;
         this.userService = userService;
+
     }
 
 
@@ -286,6 +295,8 @@ public class AdminController {
         }
     }
 
+
+@Autowired
 
 
 //Rendering number of students and admissions
