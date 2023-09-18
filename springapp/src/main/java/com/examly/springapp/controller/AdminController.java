@@ -311,7 +311,7 @@ public long countStudents() {
 
 @GetMapping("/admissionsNumber")
 public long countAdmissions() {
-    return studentRepository.count();
+    return admissionRepository.count();
 }
 
 }

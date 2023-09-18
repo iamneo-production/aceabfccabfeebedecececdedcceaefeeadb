@@ -31,8 +31,8 @@ const UniversityList = () => {
   const [selectedCard, setSelectedCard] = useState(null);
   const [cardDetails, setCardDetails] = useState(null);
   const [numberOfStudents, setNumberOfStudents] = useState(0);
-  const [numberOfAdmission,setNumberOfAdmission] = useState(0);
-const [successfulAdmissions, setSuccessfulAdmissions] = useState(0);
+  const [numberOfAdmission, setNumberOfAdmission] = useState(0);
+  const [successfulAdmissions, setSuccessfulAdmissions] = useState(0);
 
 
   const handleSearchChange = (e) => {
@@ -61,29 +61,29 @@ const [successfulAdmissions, setSuccessfulAdmissions] = useState(0);
   };
   useEffect(() => {
     // Replace with your API endpoint to fetch the data
-  
-  
+
+
     axios
       .get("https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/studentsNumber")
       .then((response) => {
         // Assuming your API returns an object with the number of students and successful admissions
         const students = response.data
-  
+
         setNumberOfStudents(students);
-       
+
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
 
-      axios
+    axios
       .get("https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/admissionsNumber")
       .then((response) => {
         // Assuming your API returns an object with the number of students and successful admissions
         const admissions = response.data
-  
+
         setNumberOfAdmission(admissions);
-       
+
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
@@ -92,7 +92,7 @@ const [successfulAdmissions, setSuccessfulAdmissions] = useState(0);
 
 
   }, []);
-  
+
   useEffect(() => {
     // Define the API endpoint URL where your data is hosted
     const apiUrl =
@@ -130,23 +130,18 @@ const [successfulAdmissions, setSuccessfulAdmissions] = useState(0);
 
       <UserAppBar id={params.userId} />
 
-      <Typography variant="h4">
-  Total Students: <CountUp start={0} end={numberOfStudents} duration={2} separator="," />
-</Typography>
 
-<Typography variant="h4">
-  Successful Admissions: <CountUp start={0} end={successfulAdmissions} duration={2} separator="," />
-</Typography>
 
       <div style={{ textAlign: 'center', marginTop: '20px' }}>
-          <h1 style={{ fontFamily: 'AdmitEasy', fontSize: '32px', color: 'darkblue' }}>
-            Welcome to AdmitEasy
-          </h1>
-          <p style={{ fontSize: '18px', color: 'gray' }}>
-            Making your admission process easier than ever.
-          </p>
-        </div>
-        
+        <h1 style={{ fontFamily: 'AdmitEasy', fontSize: '32px', color: 'darkblue' }}>
+          Welcome to AdmitEasy
+        </h1>
+        <p style={{ fontSize: '18px', color: 'gray' }}>
+          Making your admission process easier than ever.
+        </p>
+
+      </div>
+
       <main>
         {/* Hero unit */}
         <Box sx={{ bgcolor: 'background.paper', pb: 6 }}></Box>
@@ -179,6 +174,13 @@ const [successfulAdmissions, setSuccessfulAdmissions] = useState(0);
                 >
                   Search
                 </Button>
+                <Typography variant="h4">
+                  Total Students: <CountUp start={0} end={numberOfStudents} duration={2} separator="," />
+                </Typography>
+
+                <Typography variant="h4">
+                  Successful Admissions: <CountUp start={0} end={numberOfAdmission} duration={2} separator="," />
+                </Typography>
               </Container>
             </Box>
           )}
@@ -225,13 +227,13 @@ const [successfulAdmissions, setSuccessfulAdmissions] = useState(0);
                         {card.title}
                       </Typography>
                       <Typography>{card.description}</Typography>
-                      
+
                       {/* Display place and star rating */}
                       <Typography variant="subtitle1" color="text.secondary">
                         Place: {card.place}
                       </Typography>
                       <Typography variant="subtitle1" color="text.secondary">
-                        Star Rating: 
+                        Star Rating:
                         <Rating
                           name="star-rating"
                           value={card.starRating}
@@ -248,7 +250,7 @@ const [successfulAdmissions, setSuccessfulAdmissions] = useState(0);
           )}
         </Container>
       </main>
-                      <Footer/>
+      <Footer />
     </ThemeProvider>
   );
 };
