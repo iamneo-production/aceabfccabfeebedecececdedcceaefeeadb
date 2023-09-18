@@ -30,6 +30,9 @@ const UniversityList = () => {
   const [loading, setLoading] = useState(true);
   const [selectedCard, setSelectedCard] = useState(null);
   const [cardDetails, setCardDetails] = useState(null);
+  const [numberOfStudents, setNumberOfStudents] = useState(0);
+const [successfulAdmissions, setSuccessfulAdmissions] = useState(0);
+
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -60,7 +63,7 @@ const UniversityList = () => {
     const apiUrl = 'YOUR_API_ENDPOINT';
   
     axios
-      .get(apiUrl)
+      .get(https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/studentsNumber)
       .then((response) => {
         // Assuming your API returns an object with the number of students and successful admissions
         const { students, admissions } = response.data;

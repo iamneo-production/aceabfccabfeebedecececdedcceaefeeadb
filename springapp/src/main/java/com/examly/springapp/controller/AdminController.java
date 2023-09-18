@@ -286,4 +286,19 @@ public class AdminController {
         }
     }
 
+
+
+//Rendering number of students and admissions
+@GetMapping("/studentsNumber")
+public long countStudents() {
+    return studentRepository.count();
+}
+
+
+
+@GetMapping("/admissionsNumber")
+public long countAdmissions() {
+    return studentRepository.count();
+}
+
 }
