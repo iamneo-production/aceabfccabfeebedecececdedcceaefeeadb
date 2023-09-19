@@ -197,7 +197,7 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
         {filteredCourses.map((course) => (
           <Grid key={course.course.courseId} item xs={12}>
            
-            <Card><CardActionArea>
+            <Card>
             
               <CardContent
                 style={{

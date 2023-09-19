@@ -188,7 +188,7 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
             md={4}
             lg={3}
           >
-            <Card><CardActionArea>
+            <Card>
               
               <CardContent>
                 <Typography variant="h6" component="div">

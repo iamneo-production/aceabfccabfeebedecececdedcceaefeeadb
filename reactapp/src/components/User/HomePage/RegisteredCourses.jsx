@@ -164,7 +164,7 @@ const RegisteredCourses = () => {
         <Grid container spacing={3}>
           {registeredCourses.map((course) => (
             <Grid key={course.admissionId} item xs={12} sm={6} md={4} lg={3}>
-              <Card><CardActionArea>
+              <Card>
                 
                 <CardContent>
                   <Typography variant="h6" gutterBottom>
