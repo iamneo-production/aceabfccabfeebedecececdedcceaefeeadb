@@ -214,7 +214,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                     Enroll Now
                   </Button>
                 </div>
-                </CardActionArea>
+              
               </Card>
             </Grid>
           ))}
