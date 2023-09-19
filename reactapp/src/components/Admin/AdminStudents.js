@@ -236,6 +236,9 @@ const AdminStudents = () => {
                   value={formData.studentDOB}
                   onChange={handleInputChange}
                   type="date"
+                  InputLabelProps={{ shrink: true }}
+
+                  
                 />
               </Grid>
               <Grid item xs={4}>
@@ -363,6 +366,8 @@ const AdminStudents = () => {
                   value={formData.studentDOB}
                   onChange={handleInputChange}
                   type="date"
+                  InputLabelProps={{ shrink: true }}
+
                 />
               </Grid>
               <Grid item xs={4}>

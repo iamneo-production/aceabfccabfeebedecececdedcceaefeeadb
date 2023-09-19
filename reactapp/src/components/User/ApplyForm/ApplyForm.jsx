@@ -245,6 +245,8 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
                   type="date"
                   value={formData.studentDOB}
                   onChange={handleInputChange}
+                  InputLabelProps={{ shrink: true }}
+
                 />
               </Grid>
               <Grid item xs={4}>

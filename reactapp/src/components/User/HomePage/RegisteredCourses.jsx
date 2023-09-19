@@ -224,6 +224,8 @@ const RegisteredCourses = () => {
               type="date"
               value={editStudentData.studentDOB}
               onChange={handleInputChange}
+              InputLabelProps={{ shrink: true }}
+
             />
             <TextField
               label="Address"
