@@ -14,6 +14,8 @@ import {
   RadioGroup,
   Radio,
   FormControlLabel,
+  CardMedia,
+  CardActionArea,
 } from '@mui/material';
 import Footer from '../../Footer';
 import axios from 'axios';
@@ -163,6 +165,7 @@ const RegisteredCourses = () => {
           {registeredCourses.map((course) => (
             <Grid key={course.admissionId} item xs={12} sm={6} md={4} lg={3}>
               <Card>
+                <CardActionArea>
                 <CardContent>
                   <Typography variant="h6" gutterBottom>
                     {course.course.courseName}
@@ -197,6 +200,7 @@ const RegisteredCourses = () => {
                     Delete
                   </Button>
                 </CardContent>
+                </CardActionArea>
               </Card>
             </Grid>
           ))}

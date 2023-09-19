@@ -23,6 +23,7 @@ import Footer from "../Footer";
 import axios from "axios";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { CardActionArea } from "@mui/material";
 
 
 const defaultTheme = createTheme();
@@ -348,6 +349,7 @@ const AdminUniversityList = () => {
                     }}
                     onClick={() => handleCardClick(card)}
                   >
+                    <CardActionArea>
                     <CardMedia
                       component="div"
                       sx={{
@@ -404,6 +406,7 @@ const AdminUniversityList = () => {
                         </Button>
                       </Box>
                     </CardContent>
+                    </CardActionArea>
                   </Card>
                 </Grid>
               ))}

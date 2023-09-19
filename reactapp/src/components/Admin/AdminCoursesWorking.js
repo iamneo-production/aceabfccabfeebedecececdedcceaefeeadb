@@ -7,6 +7,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
+import { CardActionArea } from "@mui/material";
 
 const AdminCourses = ({ collegeId, title, onClose }) => {
   const courseList = [
@@ -188,6 +189,7 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
             lg={3}
           >
             <Card>
+              <CardActionArea>
               <CardContent>
                 <Typography variant="h6" component="div">
                   Course Name: {course.courseName}
@@ -219,6 +221,7 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
                   Delete
                 </Button>
               </CardContent>
+              </CardActionArea>
             </Card>
           </Grid>
         ))}
