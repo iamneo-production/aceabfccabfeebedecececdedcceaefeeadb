@@ -198,7 +198,7 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
           <Grid key={course.course.courseId} item xs={12}>
            
             <Card>
-            
+            <CardActionArea>
               <CardContent
                 style={{
                   display: "flex",
@@ -240,7 +240,7 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
                   </Button>
                 </div>
               </CardContent>
-              
+              </CardActionArea>
             </Card>
           </Grid>
         ))}
