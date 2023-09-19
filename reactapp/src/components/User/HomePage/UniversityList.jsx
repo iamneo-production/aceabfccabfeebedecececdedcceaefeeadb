@@ -120,6 +120,36 @@ const UniversityList = () => {
       <main>
         <Box sx={{ bgcolor: 'background.paper', pb: 6 }}>
           <Container sx={{ py: 8 }} maxWidth="md">
+            {/* Stylish Cards for Total Students and Successful Admissions */}
+            {selectedCard === null && (
+              <Grid container spacing={2} sx={{ mt: 4 }}>
+                <Grid item xs={6}>
+                  <Card sx={{ backgroundColor: '#f3f3f3' }}>
+                    <CardContent>
+                      <Typography variant="h5" color="primary" gutterBottom>
+                        Total Students
+                      </Typography>
+                      <Typography variant="h4" color="primary">
+                        <CountUp start={0} end={numberOfStudents} duration={2} separator="," />
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid item xs={6}>
+                  <Card sx={{ backgroundColor: '#f3f3f3' }}>
+                    <CardContent>
+                      <Typography variant="h5" color="success" gutterBottom>
+                        Successful Admissions
+                      </Typography>
+                      <Typography variant="h4" color="success">
+                        <CountUp start={0} end={numberOfAdmission} duration={2} separator="," />
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </Grid>
+            )}
+
             {selectedCard === null && (
               <Box
                 sx={{
@@ -151,6 +181,7 @@ const UniversityList = () => {
                 </Container>
               </Box>
             )}
+
             {loading ? (
               <Typography>Loading...</Typography>
             ) : selectedCard ? (
@@ -209,35 +240,6 @@ const UniversityList = () => {
                     </Card>
                   </Grid>
                 ))}
-              </Grid>
-            )}
-            {/* Stylish Cards for Total Students and Successful Admissions */}
-            {selectedCard === null && (
-              <Grid container spacing={2} sx={{ mt: 4 }}>
-                <Grid item xs={6}>
-                  <Card sx={{ backgroundColor: '#f3f3f3' }}>
-                    <CardContent>
-                      <Typography variant="h5" color="primary" gutterBottom>
-                        Total Students
-                      </Typography>
-                      <Typography variant="h4" color="primary">
-                        <CountUp start={0} end={numberOfStudents} duration={2} separator="," />
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid item xs={6}>
-                  <Card sx={{ backgroundColor: '#f3f3f3' }}>
-                    <CardContent>
-                      <Typography variant="h5" color="success" gutterBottom>
-                        Successful Admissions
-                      </Typography>
-                      <Typography variant="h4" color="success">
-                        <CountUp start={0} end={numberOfAdmission} duration={2} separator="," />
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
               </Grid>
             )}
           </Container>
