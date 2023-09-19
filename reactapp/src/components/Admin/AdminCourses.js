@@ -68,7 +68,8 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
 
   const handleEditClick = (course) => {
     setSelectedCourse(course);
-    setEditFormData({ ...course });
+    // Set the edit form data based on the selected course
+    setEditFormData({ ...course.course });
     setEditFormOpen(true);
   };
 
@@ -200,7 +201,6 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
         </Grid>
       </Grid>
 
-      {/* Always render the "Add Course" button */}
       <Button
         variant="contained"
         color="primary"
@@ -244,7 +244,7 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
                     marginTop: "auto",
                     display: "flex",
                     justifyContent: "space-between",
-                    paddingTop: "10px", // Add padding between buttons
+                    paddingTop: "10px",
                   }}
                 >
                   <Button
