@@ -11,5 +11,4 @@ public interface UserService {
     Optional<UserModel> getUserByEmailAndPassword(String email, String password);
     Optional<UserModel> getAdminByEmailAndPassword(String email, String password);
     Optional<UserModel> getUserByEmail(String email);
-    Long getNewUserId();
 }

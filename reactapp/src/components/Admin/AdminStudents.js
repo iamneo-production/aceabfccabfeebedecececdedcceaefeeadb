@@ -192,6 +192,7 @@ const AdminStudents = () => {
                 <Button
                   variant="outlined"
                   color="primary"
+                  
                   onClick={() => handleEditClick(params.row.studentId)}
                 >
                   Edit

@@ -39,12 +39,4 @@ public class UserServiceImpl implements UserService {
     public List<UserModel> getAllUsers() {
         return userRepository.findAll();
     }
-    @Override
-    public Long getNewUserId() {
-        // Use the custom repository method to get the count
-        Long count = userRepository.countBy();
-
-        // Calculate the new user ID as the count + 1
-        return count + 1;
-    }
 }
