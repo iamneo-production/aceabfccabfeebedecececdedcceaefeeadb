@@ -349,7 +349,7 @@ const AdminUniversityList = () => {
                     }}
                     onClick={() => handleCardClick(card)}
                   >
-                    <CardActionArea>
+                    
                     <CardMedia
                       component="div"
                       sx={{
@@ -406,7 +406,7 @@ const AdminUniversityList = () => {
                         </Button>
                       </Box>
                     </CardContent>
-                    </CardActionArea>
+                    
                   </Card>
                 </Grid>
               ))}

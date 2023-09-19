@@ -125,7 +125,7 @@ const UniversityList = () => {
               <Grid container spacing={2} sx={{ mt: 4 }}>
                 <Grid item xs={6}>
                   <Card sx={{ backgroundColor: '#f3f3f3' }}>
-                  <CardActionArea>
+                  
                     <CardContent>
                       <Typography variant="h5" color="primary" gutterBottom>
                         Total Students
@@ -146,7 +146,7 @@ const UniversityList = () => {
                         <CountUp start={0} end={numberOfAdmission} duration={2} separator="," />
                       </Typography>
                     </CardContent>
-                    </CardActionArea/>
+                    
                   </Card>
                 </Grid>
               </Grid>
@@ -204,6 +204,7 @@ const UniversityList = () => {
                     id={`instituteGrid${index + 1}`}
                   >
                     <Card
+                    
                       sx={{
                         height: '100%',
                         display: 'flex',
@@ -239,7 +240,9 @@ const UniversityList = () => {
                           />
                         </Typography>
                       </CardContent>
+                      
                     </Card>
+                    
                   </Grid>
                 ))}
               </Grid>
