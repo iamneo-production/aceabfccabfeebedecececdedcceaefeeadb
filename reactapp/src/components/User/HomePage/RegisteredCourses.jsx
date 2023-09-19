@@ -159,49 +159,50 @@ const RegisteredCourses = () => {
     <div style={containerStyle}>
       <UserAppBar id={params.userId} />
       <div style={contentStyle}>
-        <Grid container spacing={3}>
-          {registeredCourses.map((course) => (
-            <Grid key={course.admissionId} item xs={12} sm={6} md={4} lg={3}>
-              <Card>
-               
-                <CardContent>
-                  <Typography variant="h6" gutterBottom>
-                    {course.course.courseName}
-                  </Typography>
-                  {/* <Typography variant="body2" color="textSecondary">
-                    Institute: {course.course.institute.instituteName}
-                  </Typography> */}
-                  <Typography variant="body2" color="textSecondary">
-                    Duration: {course.course.courseDuration} years
-                  </Typography>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleViewActivityClick}
-                    style={{ marginRight: '8px' }}
-                  >
-                    View Activity
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleEditClick(course.admissionId)}
-                    style={{ marginRight: '8px' }}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={() => handleDeleteClick(course.admissionId)}
-                  >
-                    Delete
-                  </Button>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+      <Grid container spacing={3}>
+  {registeredCourses.map((course) => (
+    <Grid key={course.admissionId} item xs={12} sm={6} md={4} lg={3}>
+      <Card>
+        <CardContent>
+          <Typography variant="h6" gutterBottom>
+            {course.course.courseName}
+          </Typography>
+          <Typography variant="body2" color="textSecondary">
+            Institute: {course.course.institute ? course.course.institute.instituteName : 'N/A'}
+          </Typography>
+          <Typography variant="body2" color="textSecondary">
+            Duration: {course.course.courseDuration} years
+          </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleViewActivityClick}
+            style={{ marginRight: '8px' }}
+          >
+            View Activity
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleEditClick(course.admissionId)}
+            style={{ marginRight: '8px' }}
+          >
+            Edit
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => handleDeleteClick(course.admissionId)}
+          >
+            Delete
+          </Button>
+        </CardContent>
+      </Card>
+    </Grid>
+  ))}
+</Grid>
+
+    
       </div>
       <Dialog open={enrollFormOpen} onClose={handleCloseEnrollForm}>
         <DialogContent>
