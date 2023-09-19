@@ -13,8 +13,8 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
   const [courseList, setCourseList] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(null);
-  const [addFormOpen, setAddFormOpen] = useState(false);
-  const [editFormOpen, setEditFormOpen] = useState(false);
+  const [addFormOpen, setAddFormOpen] = useState(false); // State for the add course form
+  const [editFormOpen, setEditFormOpen] = useState(false); // State for the edit course form
   const [editFormData, setEditFormData] = useState({
     courseId: null,
     courseName: "",
@@ -28,13 +28,14 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
   });
 
   useEffect(() => {
+    // Fetch the course list from your API
     axios
       .get(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/coursesByInstitute/${collegeId}`)
       .then((response) => {
         setCourseList(response.data);
       })
       .catch((error) => {
-        console.log("Error fetching course data:", error);
+        console.error("Error fetching course data:", error);
       });
   }, [collegeId]);
 
@@ -48,7 +49,11 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
   };
 
   const handleAddClick = () => {
-    setAddFormData({});
+    setAddFormData({
+      courseName: "",
+      courseDuration: "",
+      courseDescription: "",
+    });
 
     setAddFormOpen(true);
   };
@@ -63,12 +68,7 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
 
   const handleEditClick = (course) => {
     setSelectedCourse(course);
-    setEditFormData({
-      courseId: course.courseId,
-      courseName: course.courseName,
-      courseDuration: course.courseDuration,
-      courseDescription: course.courseDescription,
-    });
+    setEditFormData({ ...course });
     setEditFormOpen(true);
   };
 
@@ -90,31 +90,38 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
 
   const handleEditFormSubmit = (e) => {
     e.preventDefault();
+    // Send a PUT request to update the course data
     axios
       .put(
-        `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/editCourse/${selectedCourse.courseId}`,
+        `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/editCourse/${selectedCourse.course.courseId}`,
         editFormData
       )
       .then((response) => {
         if (response.status === 200) {
+          // Successfully updated the course
+          // You can update the course list or perform any necessary actions here
           const updatedCourseList = courseList.map((course) =>
-            course.courseId === selectedCourse.courseId
-              ? response.data
+            course.course.courseId === selectedCourse.course.courseId
+              ? { ...course, course: { ...course.course, ...editFormData } }
               : course
           );
           setCourseList(updatedCourseList);
           handleCloseEditForm();
         } else {
-          console.log("Error updating course:");
+          // Handle other status codes (e.g., 400 for bad request)
+          // You can display an error message or take other actions as needed
         }
       })
       .catch((error) => {
-        console.log("Error updating course:");
+        console.error("Error updating course:", error);
+        // Handle the error and display an error message
+        // You can also take other actions as needed
       });
   };
 
   const handleAddFormSubmit = (e) => {
     e.preventDefault();
+    // Send a POST request to add a new course
     axios
       .post(
         `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addCourseNew/${collegeId}`,
@@ -122,48 +129,60 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
       )
       .then((response) => {
         if (response.status === 201) {
+          // Successfully added the course
+          // You can update the course list or perform any necessary actions here
           setCourseList([...courseList, response.data]);
           handleCloseAddForm();
         } else {
-          console.log("Error adding course:");
+          // Handle other status codes (e.g., 400 for bad request)
+          // You can display an error message or take other actions as needed
         }
       })
       .catch((error) => {
-        console.log("Error adding course:", error);
+        console.error("Error adding course:", error);
+        // Handle the error and display an error message
+        // You can also take other actions as needed
       });
   };
 
   const handleDeleteClick = (courseId) => {
+    // Send a DELETE request to delete the course
     axios
       .delete(
         `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteCourse/${courseId}`
       )
       .then((response) => {
         if (response.status === 204) {
+          // Successfully deleted the course
+          // You can update the course list or perform any necessary actions here
           const updatedCourseList = courseList.filter(
-            (course) => course.courseId !== courseId
+            (course) => course.course.courseId !== courseId
           );
           setCourseList(updatedCourseList);
         } else {
-          console.log("Error deleting course:");
+          // Handle other status codes (e.g., 404 for not found)
+          // You can display an error message or take other actions as needed
         }
       })
       .catch((error) => {
-        console.log("Error deleting course:", error);
+        console.error("Error deleting course:", error);
+        // Handle the error and display an error message
+        // You can also take other actions as needed
       });
   };
 
+  // Filter courses based on the search query
   const filteredCourses = Array.isArray(courseList)
     ? courseList.filter((course) => {
         if (searchQuery.trim() === "") {
-          return true;
+          return true; // Show all courses if the search query is empty
         }
 
         const query = searchQuery.toLowerCase();
         return (
-          course.courseName.toLowerCase().includes(query) ||
-          course.courseDuration.toString().toLowerCase().includes(query) ||
-          course.courseDescription.toLowerCase().includes(query)
+          course.course.courseName.toLowerCase().includes(query) ||
+          course.course.courseDuration.toString().toLowerCase().includes(query) ||
+          course.course.courseDescription.toLowerCase().includes(query)
         );
       })
     : [];
@@ -181,6 +200,7 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
         </Grid>
       </Grid>
 
+      {/* Always render the "Add Course" button */}
       <Button
         variant="contained"
         color="primary"
@@ -224,13 +244,13 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
                     marginTop: "auto",
                     display: "flex",
                     justifyContent: "space-between",
-                    padding: "10px 0",
+                    paddingTop: "10px", // Add padding between buttons
                   }}
                 >
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => handleEditClick(course.course)}
+                    onClick={() => handleEditClick(course)}
                   >
                     Edit
                   </Button>
@@ -252,7 +272,7 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
         <DialogContent>
           <h3>
             {selectedCourse
-              ? `Edit Course: ${selectedCourse.courseName}`
+              ? `Edit Course: ${selectedCourse.course.courseName}`
               : "Add New Course"}
           </h3>
           <form onSubmit={handleEditFormSubmit}>
