@@ -167,46 +167,53 @@ const AdminStudents = () => {
       </div>
 
       <DataGrid
-        rows={students.filter((student) => {
-          const rowValues = Object.values(student).join('').toLowerCase();
-          return rowValues.includes(searchQuery.toLowerCase());
-        })}
-        getRowId={(row) => row.studentId}
-        columns={[
-          { field: 'studentId', headerName: 'Student ID', flex: 1 },
-          { field: 'studentName', headerName: 'Student Name', flex: 1 },
-          { field: 'studentDOB', headerName: 'Date of Birth', flex: 1 },
-          { field: 'address', headerName: 'Address', flex: 1 },
-          { field: 'mobile', headerName: 'Mobile Number', flex: 1 },
-          { field: 'eligibility', headerName: 'Eligibility', flex: 1 },
-          { field: 'sslc', headerName: 'SSLC', flex: 1 },
-          { field: 'hsc', headerName: 'HSC', flex: 1 },
-          { field: 'diploma', headerName: 'Diploma', flex: 1 },
-          {
-            field: 'actions',
-            headerName: 'Actions',
-            sortable: false,
-            flex: 1,
-            renderCell: (params) => (
-              <>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  
-                  onClick={() => handleEditClick(params.row.studentId)}
-                >
-                  Edit
-                </Button>
-                <Button variant="outlined" color="secondary" onClick={() => handleDeleteClick(params.row.studentId)}>
-                  Delete
-                </Button>
-              </>
-            ),
-          },
-        ]}
-        autoHeight
-        pageSize={10}
-      />
+  rows={students.filter((student) => {
+    const rowValues = Object.values(student).join('').toLowerCase();
+    return rowValues.includes(searchQuery.toLowerCase());
+  })}
+  getRowId={(row) => row.studentId}
+  columns={[
+    { field: 'studentId', headerName: 'Student ID', flex: 1 },
+    { field: 'studentName', headerName: 'Student Name', flex: 1 },
+    { field: 'studentDOB', headerName: 'Date of Birth', flex: 1 },
+    { field: 'address', headerName: 'Address', flex: 1 },
+    { field: 'mobile', headerName: 'Mobile Number', flex: 1 },
+    { field: 'eligibility', headerName: 'Eligibility', flex: 1 },
+    { field: 'sslc', headerName: 'SSLC', flex: 1 },
+    { field: 'hsc', headerName: 'HSC', flex: 1 },
+    { field: 'diploma', headerName: 'Diploma', flex: 1 },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      sortable: false,
+      flex: 1,
+      renderCell: (params) => (
+        <>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => handleEditClick(params.row.studentId)}
+          >
+            Edit
+          </Button>
+          <Button variant="outlined" color="secondary" onClick={() => handleDeleteClick(params.row.studentId)}>
+            Delete
+          </Button>
+        </>
+      ),
+    },
+  ]}
+  autoHeight
+  pageSize={10}
+  sx={{
+    '@media (max-width: 600px)': {
+      '& .MuiDataGrid-cell, & .MuiDataGrid-colCell, & .MuiDataGrid-row, & .MuiDataGrid-footer, & .MuiDataGrid-footerContainer': {
+        fontSize: '0.8rem',
+      },
+    },
+  }}
+/>
+
 
       {/* Add Student Dialog */}
       <Dialog open={isDialogOpen} onClose={() => setDialogOpen(false)}>
