@@ -169,7 +169,7 @@ const ApplyForm = ({ collegeId, title, onClose }) => {
           {filteredCourses.map((courseData) => (
             <Grid key={courseData.course.courseId} item xs={12}>
               <Card style={{ width: "100%" }}>
-              <CardActionArea>
+         
                 <CardContent style={{ textAlign: "left" }}>
                   <Typography variant="h6" component="div">
                     Course Name: {courseData.course.courseName}

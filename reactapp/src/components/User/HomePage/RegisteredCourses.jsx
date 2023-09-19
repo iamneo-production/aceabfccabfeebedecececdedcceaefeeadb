@@ -168,9 +168,9 @@ const RegisteredCourses = () => {
                   <Typography variant="h6" gutterBottom>
                     {course.course.courseName}
                   </Typography>
-                  <Typography variant="body2" color="textSecondary">
+                  {/* <Typography variant="body2" color="textSecondary">
                     Institute: {course.course.institute.instituteName}
-                  </Typography>
+                  </Typography> */}
                   <Typography variant="body2" color="textSecondary">
                     Duration: {course.course.courseDuration} years
                   </Typography>
