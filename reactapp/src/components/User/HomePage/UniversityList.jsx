@@ -1,10 +1,10 @@
-
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia'; // Import CardMedia
+import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CssBaseline from '@mui/material/CssBaseline';
+
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -212,7 +212,6 @@ const UniversityList = () => {
                 ))}
               </Grid>
             )}
-            {/* Stylish Cards for Total Students and Successful Admissions */}
             {selectedCard === null && (
               <Grid container spacing={2} sx={{ mt: 4 }}>
                 <Grid item xs={6}>
@@ -250,4 +249,3 @@ const UniversityList = () => {
 };
 
 export default UniversityList;
-
