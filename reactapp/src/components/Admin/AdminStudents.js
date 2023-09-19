@@ -167,52 +167,64 @@ const AdminStudents = () => {
       </div>
 
       <DataGrid
-  rows={students.filter((student) => {
-    const rowValues = Object.values(student).join('').toLowerCase();
-    return rowValues.includes(searchQuery.toLowerCase());
-  })}
-  getRowId={(row) => row.studentId}
-  columns={[
-    { field: 'studentId', headerName: 'Student ID', flex: 1 },
-    { field: 'studentName', headerName: 'Student Name', flex: 1 },
-    { field: 'studentDOB', headerName: 'Date of Birth', flex: 1 },
-    { field: 'address', headerName: 'Address', flex: 1 },
-    { field: 'mobile', headerName: 'Mobile Number', flex: 1 },
-    { field: 'eligibility', headerName: 'Eligibility', flex: 1 },
-    { field: 'sslc', headerName: 'SSLC', flex: 1 },
-    { field: 'hsc', headerName: 'HSC', flex: 1 },
-    { field: 'diploma', headerName: 'Diploma', flex: 1 },
-    {
-      field: 'actions',
-      headerName: 'Actions',
-      sortable: false,
-      flex: 1,
-      renderCell: (params) => (
-        <>
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={() => handleEditClick(params.row.studentId)}
-          >
-            Edit
-          </Button>
-          <Button variant="outlined" color="secondary" onClick={() => handleDeleteClick(params.row.studentId)}>
-            Delete
-          </Button>
-        </>
-      ),
-    },
-  ]}
-  autoHeight
-  pageSize={10}
-  sx={{
-    '@media (max-width: 600px)': {
-      '& .MuiDataGrid-cell, & .MuiDataGrid-colCell, & .MuiDataGrid-row, & .MuiDataGrid-footer, & .MuiDataGrid-footerContainer': {
-        fontSize: '0.8rem',
-      },
-    },
-  }}
-/>
+        rows={students.filter((student) => {
+          const rowValues = Object.values(student).join('').toLowerCase();
+          return rowValues.includes(searchQuery.toLowerCase());
+        })}
+        getRowId={(row) => row.studentId}
+        columns={[
+          { field: 'studentId', headerName: 'Student ID', flex: 1 },
+          { field: 'studentName', headerName: 'Student Name', flex: 1 },
+          { field: 'studentDOB', headerName: 'Date of Birth', flex: 1 },
+          { field: 'address', headerName: 'Address', flex: 1 },
+          { field: 'mobile', headerName: 'Mobile Number', flex: 1 },
+          { field: 'eligibility', headerName: 'Eligibility', flex: 1 },
+          { field: 'sslc', headerName: 'SSLC', flex: 1 },
+          { field: 'hsc', headerName: 'HSC', flex: 1 },
+          { field: 'diploma', headerName: 'Diploma', flex: 1 },
+          {
+            field: 'actions',
+            headerName: 'Actions',
+            sortable: false,
+            flex: 1,
+            renderCell: (params) => (
+              <>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => handleEditClick(params.row.studentId)}
+                >
+                  Edit
+                </Button>
+                <Button variant="outlined" color="secondary" onClick={() => handleDeleteClick(params.row.studentId)}>
+                  Delete
+                </Button>
+              </>
+            ),
+          },
+        ]}
+        autoHeight
+        pageSize={10}
+        sx={{
+          '& .MuiDataGrid-colCell': {
+            fontSize: '1rem', // Adjust column header font size
+          },
+          '& .MuiDataGrid-cell': {
+            fontSize: '0.9rem', // Adjust cell font size
+          },
+          '@media (max-width: 600px)': {
+            '& .MuiDataGrid-root': {
+              fontSize: '0.8rem', // Adjust overall font size for smaller screens
+            },
+            '& .MuiDataGrid-colCell': {
+              padding: '8px', // Adjust column header padding
+            },
+            '& .MuiDataGrid-cell': {
+              padding: '8px', // Adjust cell padding
+            },
+          },
+        }}
+      />
 
 
       {/* Add Student Dialog */}
