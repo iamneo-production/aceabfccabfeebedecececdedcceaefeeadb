@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -14,8 +13,8 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
   const [courseList, setCourseList] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(null);
-  const [addFormOpen, setAddFormOpen] = useState(false); // State for the add course form
-  const [editFormOpen, setEditFormOpen] = useState(false); // State for the edit course form
+  const [addFormOpen, setAddFormOpen] = useState(false);
+  const [editFormOpen, setEditFormOpen] = useState(false);
   const [editFormData, setEditFormData] = useState({
     courseId: null,
     courseName: "",
@@ -29,14 +28,13 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
   });
 
   useEffect(() => {
-    // Fetch the course list from your API
     axios
       .get(`https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/coursesByInstitute/${collegeId}`)
       .then((response) => {
         setCourseList(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching course data:", error);
+        console.log("Error fetching course data:", error);
       });
   }, [collegeId]);
 
@@ -65,7 +63,12 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
 
   const handleEditClick = (course) => {
     setSelectedCourse(course);
-    setEditFormData({ ...course });
+    setEditFormData({
+      courseId: course.courseId,
+      courseName: course.courseName,
+      courseDuration: course.courseDuration,
+      courseDescription: course.courseDescription,
+    });
     setEditFormOpen(true);
   };
 
@@ -87,11 +90,6 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
 
   const handleEditFormSubmit = (e) => {
     e.preventDefault();
-    // Implement logic to update the course details with the edited data
-    // You can filter the courseList to find the course by courseId and update it
-    // Close the edit dialog
-
-    // Send a PUT request to update the course data
     axios
       .put(
         `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/editCourse/${selectedCourse.courseId}`,
@@ -99,8 +97,6 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
       )
       .then((response) => {
         if (response.status === 200) {
-          // Successfully updated the course
-          // You can update the course list or perform any necessary actions here
           const updatedCourseList = courseList.map((course) =>
             course.courseId === selectedCourse.courseId
               ? response.data
@@ -109,23 +105,16 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
           setCourseList(updatedCourseList);
           handleCloseEditForm();
         } else {
-          // Handle other status codes (e.g., 400 for bad request)
-          // You can display an error message or take other actions as needed
+          console.log("Error updating course:");
         }
       })
       .catch((error) => {
-        console.error("Error updating course:", error);
-        // Handle the error and display an error message
-        // You can also take other actions as needed
+        console.log("Error updating course:");
       });
   };
 
   const handleAddFormSubmit = (e) => {
     e.preventDefault();
-    // Implement logic to add a new course with the data in addFormData
-    // Close the add dialog
-
-    // Send a POST request to add a new course
     axios
       .post(
         `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/addCourseNew/${collegeId}`,
@@ -133,56 +122,41 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
       )
       .then((response) => {
         if (response.status === 201) {
-          // Successfully added the course
-          // You can update the course list or perform any necessary actions here
           setCourseList([...courseList, response.data]);
           handleCloseAddForm();
         } else {
-          // Handle other status codes (e.g., 400 for bad request)
-          // You can display an error message or take other actions as needed
+          console.log("Error adding course:");
         }
       })
       .catch((error) => {
-        console.error("Error adding course:", error);
-        // Handle the error and display an error message
-        // You can also take other actions as needed
+        console.log("Error adding course:", error);
       });
   };
 
   const handleDeleteClick = (courseId) => {
-    // Implement the logic to delete the course with the given courseId
-    // You can filter the courseList to remove the course or make an API call
-
-    // Send a DELETE request to delete the course
     axios
       .delete(
         `https://8080-aceabfccabfeebedecececdedcceaefeeadb.premiumproject.examly.io/admin/deleteCourse/${courseId}`
       )
       .then((response) => {
         if (response.status === 204) {
-          // Successfully deleted the course
-          // You can update the course list or perform any necessary actions here
           const updatedCourseList = courseList.filter(
             (course) => course.courseId !== courseId
           );
           setCourseList(updatedCourseList);
         } else {
-          // Handle other status codes (e.g., 404 for not found)
-          // You can display an error message or take other actions as needed
+          console.log("Error deleting course:");
         }
       })
       .catch((error) => {
-        console.error("Error deleting course:", error);
-        // Handle the error and display an error message
-        // You can also take other actions as needed
+        console.log("Error deleting course:", error);
       });
   };
 
-  // Filter courses based on the search query
   const filteredCourses = Array.isArray(courseList)
     ? courseList.filter((course) => {
         if (searchQuery.trim() === "") {
-          return true; // Show all courses if the search query is empty
+          return true;
         }
 
         const query = searchQuery.toLowerCase();
@@ -207,11 +181,11 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
         </Grid>
       </Grid>
 
-      {/* Always render the "Add Course" button */}
       <Button
         variant="contained"
         color="primary"
         onClick={handleAddClick}
+        style={{ margin: "10px 0" }}
       >
         Add Course
       </Button>
@@ -227,7 +201,7 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
 
       <Grid container spacing={2}>
         {filteredCourses.map((course) => (
-          <Grid key={course.courseId} item xs={12}>
+          <Grid key={course.course.courseId} item xs={12}>
             <Card>
               <CardContent
                 style={{
@@ -237,32 +211,33 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
                 }}
               >
                 <Typography variant="h6" component="div">
-                  Course Name: {course.courseName}
+                  Course Name: {course.course.courseName}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Duration: {course.courseDuration} years
+                  Duration: {course.course.courseDuration} years
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Description: {course.courseDescription}
+                  Description: {course.course.courseDescription}
                 </Typography>
                 <div
                   style={{
                     marginTop: "auto",
                     display: "flex",
                     justifyContent: "space-between",
+                    padding: "10px 0",
                   }}
                 >
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => handleEditClick(course)}
+                    onClick={() => handleEditClick(course.course)}
                   >
                     Edit
                   </Button>
                   <Button
                     variant="contained"
                     color="secondary"
-                    onClick={() => handleDeleteClick(course.courseId)}
+                    onClick={() => handleDeleteClick(course.course.courseId)}
                   >
                     Delete
                   </Button>
@@ -357,4 +332,3 @@ const AdminCourses = ({ collegeId, title, onClose }) => {
 };
 
 export default AdminCourses;
-
