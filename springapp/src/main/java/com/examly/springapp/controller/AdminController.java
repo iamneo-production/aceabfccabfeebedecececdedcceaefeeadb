@@ -57,11 +57,7 @@ public class AdminController {
 
 
 
-    @GetMapping("/getNewUserId")
-    public ResponseEntity<Long> getNewUserId() {
-        Long newUserId = userService.getNewUserId();
-        return ResponseEntity.ok(newUserId);
-    }
+
 
 
     // Student operations
