@@ -5,6 +5,8 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 
 import AdminAppBar from '../AdminAppBar';
 import { useParams } from 'react-router-dom';
@@ -169,6 +171,7 @@ const AdminStudents = () => {
         >
           Add Student
         </Button> */}
+        <Tooltip title="Add Student" arrow>
         <Fab
           color="primary"
           aria-label="Add Student"
@@ -191,6 +194,7 @@ const AdminStudents = () => {
         >
           <AddIcon />
         </Fab>
+        </Tooltip>
      
       
       </div>
@@ -218,18 +222,23 @@ const AdminStudents = () => {
             flex: 1,
             renderCell: (params) => (
               <>
-                <Button
-                  variant="outlined"
+                <IconButton
                   color="primary"
                   onClick={() => handleEditClick(params.row.studentId)}
+                  aria-label="Edit"
                 >
-                  Edit
-                </Button>
-                <Button variant="outlined" color="secondary" onClick={() => handleDeleteClick(params.row.studentId)}>
-                  Delete
-                </Button>
+                  <EditIcon />
+                </IconButton>
+                <IconButton
+                  color="secondary"
+                  onClick={() => handleDeleteClick(params.row.studentId)}
+                  aria-label="Delete"
+                >
+                  <DeleteIcon />
+                </IconButton>
               </>
             ),
+            
           },
         ]}
         autoHeight
