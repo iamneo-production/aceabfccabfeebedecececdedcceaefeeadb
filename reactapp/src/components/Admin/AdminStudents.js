@@ -154,7 +154,6 @@ const AdminStudents = () => {
           
        
        
-       
        <Fab
   color="primary"
   aria-label="Add Student"
@@ -175,12 +174,13 @@ const AdminStudents = () => {
   }}
   style={{
     position: 'fixed',
-    bottom: '20px',
-    right: '20px',
-    width: isHovered ? '120px' : '56px',
-    height: '56px', // Set a fixed height to make it a rectangle when hovered
+    bottom: '2%',
+    right: '2%',
+    width: isHovered ? 'auto' : '10%', // Adjust percentage as needed
+    height: '10%', // Adjust percentage as needed
     borderRadius: isHovered ? '10px' : '50%', // Change border radius on hover
-    transition: 'width 0.5s ease, height 0.5s ease, border-radius 0.5s ease', // Transition specific properties
+    transition: 'width 0.3s ease, border-radius 0.3s ease', // Transition specific properties
+    overflow: 'hidden', // Hide the overflow
   }}
   onMouseEnter={() => setIsHovered(true)}
   onMouseLeave={() => setIsHovered(false)}
