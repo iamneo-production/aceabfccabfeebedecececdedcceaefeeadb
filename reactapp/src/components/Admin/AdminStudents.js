@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Footer from '../Footer';
-import { Button, Dialog, DialogContent, DialogTitle, Grid, TextField, Typography ,Fab} from '@mui/material';
-import   {AddIcon} from '@mui/icons-material'
+import { Button, Dialog, DialogContent, DialogTitle, Grid, TextField, Typography} from '@mui/material';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+
 import AdminAppBar from '../AdminAppBar';
 import { useParams } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
@@ -144,7 +147,7 @@ const AdminStudents = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
           style={{ width: '50%', margin: '0 auto', marginBottom: '20px' }}
         />
-        <Button
+        {/* <Button
           variant="contained"
           color="primary"
           onClick={() => {
@@ -164,7 +167,30 @@ const AdminStudents = () => {
           }}
         >
           Add Student
-        </Button>
+        </Button> */}
+        <Fab
+          color="primary"
+          aria-label="Add Student"
+          onClick={() => {
+            setFormData({
+              studentId: '',
+              studentName: '',
+              studentDOB: '',
+              address: '',
+              mobile: '',
+              eligibility: '',
+              userId: params.userId,
+              sslc: '',
+              hsc: '',
+              diploma: '',
+            });
+            setDialogOpen(true);
+          }}
+          style={{ position: 'fixed', bottom: '20px', right: '20px' }}
+        >
+          <AddIcon />
+        </Fab>
+     
       
       </div>
 
