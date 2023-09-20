@@ -129,7 +129,7 @@ const AdminStudents = () => {
   return (
     <div>
       <AdminAppBar id={params.userId} />
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom style={{ marginTop: '3%' }}>
         Students
       </Typography>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
