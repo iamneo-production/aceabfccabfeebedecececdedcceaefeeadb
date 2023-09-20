@@ -7,6 +7,7 @@ import {
   CardContent,
   Typography,
   Button,
+  Box,
   Grid,
   Dialog,
   DialogContent,
@@ -160,46 +161,49 @@ const RegisteredCourses = () => {
       <UserAppBar id={params.userId} />
       <div style={contentStyle}>
       <Grid container spacing={3}>
-    
-      {registeredCourses
-  .filter((course) => course.course && course.course.courseName && course.course.institute)
-  .map((course) => (
-    <Grid key={course.admissionId} item xs={12} sm={6} md={4} lg={3}>
-      <Card>
-        <CardContent>
-          <Typography variant="h6" gutterBottom>
-            {course.course.courseName}
-          </Typography>
-          <Typography variant="body2" color="textSecondary">
-            Institute: {course.course.institute.instituteName || 'N/A'}
-          </Typography>
-          <Typography variant="body2" color="textSecondary">
-            Duration: {course.course.courseDuration} years
-          </Typography>
-         
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => handleEditClick(course.admissionId)}
-            style={{ marginRight: '8px' }}
-          >
-            Edit
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => handleDeleteClick(course.admissionId)}
-          >
-            Delete
-          </Button>
-        </CardContent>
-      </Card>
-    </Grid>
-  ))}
-
-
-
+  {registeredCourses.length === 0 ? (
+        <Box textAlign="center">
+        <Typography variant="h4" color="textSecondary">Please add courses!</Typography>
+      </Box>
+  ) : (
+    registeredCourses
+      .filter((course) => course.course && course.course.courseName && course.course.institute)
+      .map((course) => (
+        <Grid key={course.admissionId} item xs={12} sm={6} md={4} lg={3}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>
+                {course.course.courseName}
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                Institute: {course.course.institute.instituteName || 'N/A'}
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                Duration: {course.course.courseDuration} years
+              </Typography>
+             
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => handleEditClick(course.admissionId)}
+                style={{ marginRight: '8px' }}
+              >
+                Edit
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => handleDeleteClick(course.admissionId)}
+              >
+                Delete
+              </Button>
+            </CardContent>
+          </Card>
+        </Grid>
+      ))
+  )}
 </Grid>
+
 
     
       </div>
