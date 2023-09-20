@@ -160,7 +160,10 @@ const RegisteredCourses = () => {
       <UserAppBar id={params.userId} />
       <div style={contentStyle}>
       <Grid container spacing={3}>
-  {registeredCourses.map((course) => (
+    
+      {registeredCourses
+  .filter((course) => course.course && course.course.courseName && course.course.institute)
+  .map((course) => (
     <Grid key={course.admissionId} item xs={12} sm={6} md={4} lg={3}>
       <Card>
         <CardContent>
@@ -168,10 +171,10 @@ const RegisteredCourses = () => {
             {course.course.courseName}
           </Typography>
           <Typography variant="body2" color="textSecondary">
-            Institute: {course.course.institute ? course.course.institute.instituteName : 'N/A'}
+            Institute: {course.course.institute.instituteName || 'N/A'}
           </Typography>
           <Typography variant="body2" color="textSecondary">
-            Duration: {course.course.courseDuration } years
+            Duration: {course.course.courseDuration} years
           </Typography>
           <Button
             variant="contained"
@@ -200,6 +203,9 @@ const RegisteredCourses = () => {
       </Card>
     </Grid>
   ))}
+
+
+
 </Grid>
 
     
