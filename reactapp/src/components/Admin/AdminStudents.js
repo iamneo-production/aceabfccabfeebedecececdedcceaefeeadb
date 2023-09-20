@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Footer from '../Footer';
 import { Button, Dialog, DialogContent, DialogTitle, Grid, TextField, Typography ,Fab} from '@mui/material';
-import   AddIcon from '@mui/icons-material'
+import   {AddIcon} from '@mui/icons-material'
 import AdminAppBar from '../AdminAppBar';
 import { useParams } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
@@ -165,7 +165,8 @@ const AdminStudents = () => {
         >
           Add Student
         </Button> */}
-         <Fab
+        <Fab>
+         <AddIcon
           color="primary"
           aria-label="Add Student"
           onClick={() => {
@@ -185,7 +186,7 @@ const AdminStudents = () => {
           }}
           style={{ position: 'fixed', bottom: '20px', right: '20px' }}
         >
-          <AddIcon />
+          </AddIcon >
         </Fab>
       </div>
 
