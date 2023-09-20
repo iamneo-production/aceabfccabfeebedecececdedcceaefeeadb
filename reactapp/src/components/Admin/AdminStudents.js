@@ -171,7 +171,7 @@ const AdminStudents = () => {
         >
           Add Student
         </Button> */}
-        <Tooltip title="Add Student" arrow>
+       
         <Fab
           color="primary"
           aria-label="Add Student"
@@ -194,7 +194,7 @@ const AdminStudents = () => {
         >
           <AddIcon />
         </Fab>
-        </Tooltip>
+       
      
       
       </div>
