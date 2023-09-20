@@ -9,6 +9,7 @@ import RegisteredCourses from './User/HomePage/RegisteredCourses'; // Import Reg
 import AdminUniversityList from './Admin/AdminUniversityList';
 import AdminCourses from './Admin/AdminCourses';
 import AdminStudents from './Admin/AdminStudents';
+import AdminAllCourses from './Admin/AdminAllCourses';
 
 const RoutePaths = () => {
   return (
@@ -21,6 +22,7 @@ const RoutePaths = () => {
       <Route path="/AdminHomePage/UniversityList/:userId" element={<AdminUniversityList />} />
       <Route path="/AdminHomePage/Courses/:userId" element={<AdminCourses />} />
       <Route path="/AdminHomePage/Students/:userId" element={<AdminStudents />} />
+      <Route path = "/AdminHomePage/AllCourses/:userId" element={<AdminAllCourses/>}/>
     </Routes>
   );
 };

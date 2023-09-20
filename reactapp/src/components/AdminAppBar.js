@@ -21,13 +21,14 @@ const AdminAppBar = (props) => {
           <div style={{ display: 'flex', alignItems: 'center', marginLeft: 'auto', marginRight: 'auto' }}>
             <Button id= "adminInstitute" color="inherit" onClick={() => navigate(`/AdminHomePage/UniversityList/${props.id}`)}>
               Institute
-            </Button>
-            {/* <Button id= "adminCourse" color="inherit" onClick={() => navigate(`/AdminHomePage/Courses/${props.id}`)}>
-              Course
-            </Button> */}
+             </Button>
+            <Button id= "adminAllCourses" color="inherit" onClick={() => navigate(`/AdminHomePage/AllCourses/${props.id}`)}>
+              All Courses
+            </Button> 
             <Button id="adminStudents" color="inherit" onClick={() => navigate(`/AdminHomePage/Students/${props.id}`)}>
               Students
             </Button>
+
             
           </div>
 
