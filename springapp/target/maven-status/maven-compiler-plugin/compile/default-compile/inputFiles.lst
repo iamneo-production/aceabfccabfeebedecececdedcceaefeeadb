@@ -7,8 +7,8 @@
 /home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/model/AdmissionModel.java
 /home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/service/CourseService.java
 /home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/repository/UserRepository.java
-/home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/service/InstituteService.java
 /home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/service/UserServiceImpl.java
+/home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/service/InstituteService.java
 /home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/service/AdmissionServiceImpl.java
 /home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/service/InstituteServiceImpl.java
 /home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/model/InstituteModel.java
