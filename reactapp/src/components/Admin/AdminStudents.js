@@ -191,8 +191,11 @@ const AdminStudents = () => {
      
       
       </div>
+      
+      
+      <div style={{ margin: '2%', padding: '2%' }}>
 
-      <DataGrid
+      <DataGrid 
         rows={students.filter((student) => {
           const rowValues = Object.values(student).join('').toLowerCase();
           return rowValues.includes(searchQuery.toLowerCase());
@@ -236,26 +239,10 @@ const AdminStudents = () => {
         ]}
         autoHeight
         pageSize={10}
-        sx={{
-          '& .MuiDataGrid-colCell': {
-            fontSize: '1rem', // Adjust column header font size
-          },
-          '& .MuiDataGrid-cell': {
-            fontSize: '0.9rem', // Adjust cell font size
-          },
-          '@media (max-width: 600px)': {
-            '& .MuiDataGrid-root': {
-              fontSize: '0.8rem', // Adjust overall font size for smaller screens
-            },
-            '& .MuiDataGrid-colCell': {
-              padding: '8px', // Adjust column header padding
-            },
-            '& .MuiDataGrid-cell': {
-              padding: '8px', // Adjust cell padding
-            },
-          },
-        }}
+        
       />
+      </div>
+     
 
 
       {/* Add Student Dialog */}
