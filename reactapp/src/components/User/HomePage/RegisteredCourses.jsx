@@ -171,7 +171,7 @@ const RegisteredCourses = () => {
             Institute: {course.course.institute ? course.course.institute.instituteName : 'N/A'}
           </Typography>
           <Typography variant="body2" color="textSecondary">
-            Duration: {course.course.courseDuration} years
+            Duration: {course.course.courseDuration } years
           </Typography>
           <Button
             variant="contained"
