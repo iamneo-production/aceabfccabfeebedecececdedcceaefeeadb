@@ -176,14 +176,7 @@ const RegisteredCourses = () => {
           <Typography variant="body2" color="textSecondary">
             Duration: {course.course.courseDuration} years
           </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleViewActivityClick}
-            style={{ marginRight: '8px' }}
-          >
-            View Activity
-          </Button>
+         
           <Button
             variant="contained"
             color="primary"
