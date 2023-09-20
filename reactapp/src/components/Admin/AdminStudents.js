@@ -4,6 +4,7 @@ import { Button, Dialog, DialogContent, DialogTitle, Grid, TextField, Typography
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import AdminAppBar from '../AdminAppBar';
 import { useParams } from 'react-router-dom';
