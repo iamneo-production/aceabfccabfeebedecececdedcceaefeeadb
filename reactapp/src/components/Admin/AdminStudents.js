@@ -150,27 +150,8 @@ const AdminStudents = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
           style={{ width: '50%', margin: '0 auto', marginBottom: '20px' }}
         />
-        {/* <Button
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            setFormData({
-              studentId: '',
-              studentName: '',
-              studentDOB: '',
-              address: '',
-              mobile: '',
-              eligibility: '',
-              userId: params.userId,
-              sslc: '',
-              hsc: '',
-              diploma: '',
-            });
-            setDialogOpen(true);
-          }}
-        >
-          Add Student
-        </Button> */}
+       
+          
        
         <Fab
           color="primary"
