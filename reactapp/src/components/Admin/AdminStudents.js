@@ -144,7 +144,7 @@ const AdminStudents = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
           style={{ width: '50%', margin: '0 auto', marginBottom: '20px' }}
         />
-        {/* <Button
+        <Button
           variant="contained"
           color="primary"
           onClick={() => {
@@ -164,30 +164,8 @@ const AdminStudents = () => {
           }}
         >
           Add Student
-        </Button> */}
-        <Fab>
-         <AddIcon
-          color="primary"
-          aria-label="Add Student"
-          onClick={() => {
-            setFormData({
-              studentId: '',
-              studentName: '',
-              studentDOB: '',
-              address: '',
-              mobile: '',
-              eligibility: '',
-              userId: params.userId,
-              sslc: '',
-              hsc: '',
-              diploma: '',
-            });
-            setDialogOpen(true);
-          }}
-          style={{ position: 'fixed', bottom: '20px', right: '20px' }}
-        >
-          </AddIcon >
-        </Fab>
+        </Button>
+      
       </div>
 
       <DataGrid
