@@ -162,9 +162,11 @@ const RegisteredCourses = () => {
       <div style={contentStyle}>
       <Grid container spacing={3}>
   {registeredCourses.length === 0 ? (
-        <Box textAlign="center">
-        <Typography variant="h4" color="textSecondary">Please add courses!</Typography>
+        <Box textAlign="center" sx={{ ml: 'auto', mr: 'auto' }}>
+        <Typography variant="h4" color="textSecondary">Please add courses by clicking on any institute card you like!!</Typography>
       </Box>
+       
+       
   ) : (
     registeredCourses
       .filter((course) => course.course && course.course.courseName && course.course.institute)
