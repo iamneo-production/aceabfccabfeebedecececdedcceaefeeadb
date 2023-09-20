@@ -154,8 +154,8 @@ const AdminStudents = () => {
           
        
        
-       <Tooltip title="Add Student">
-          <Fab
+       
+       <Fab
             color="primary"
             aria-label="Add Student"
             onClick={() => {
@@ -180,14 +180,13 @@ const AdminStudents = () => {
               width: isHovered ? '120px' : '56px',
               height: '56px', // Set a fixed height to make it a rectangle when hovered
               borderRadius: isHovered ? '0px' : '50%', // Change border radius on hover
-              transition: 'all 0.3s ease', // Transition all properties
+              transition: 'width 0.3s ease, height 0.3s ease, border-radius 0.3s ease', // Transition specific properties
             }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
             {isHovered ? 'Add Student' : <AddIcon />}
           </Fab>
-        </Tooltip>
       
      
       
