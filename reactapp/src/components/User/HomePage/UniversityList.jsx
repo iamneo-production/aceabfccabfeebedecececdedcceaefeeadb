@@ -18,6 +18,7 @@ import StarIcon from '@mui/icons-material/Star';
 import Footer from '../../Footer';
 import axios from 'axios';
 import CountUp from 'react-countup';
+import { CardActionArea } from '@mui/material';
 
 const defaultTheme = createTheme();
 
@@ -210,6 +211,7 @@ const UniversityList = () => {
                       }}
                       onClick={() => handleCardClick(card)}
                     >
+                      <CardActionArea>
                       <CardMedia
                         component="div"
                         sx={{
@@ -237,6 +239,7 @@ const UniversityList = () => {
                           />
                         </Typography>
                       </CardContent>
+                      </CardActionArea>
                     </Card>
                   </Grid>
                 ))}
