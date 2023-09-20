@@ -95,6 +95,8 @@ const UniversityList = () => {
           imageURL: institute.imageURL,
           place: institute.instituteAddress,
           starRating: parseFloat(institute.starRating),
+          mobile: institute.mobile,
+          email: institute.email
         }));
 
         setCardDetails(formattedCardDetails);
@@ -237,6 +239,12 @@ const UniversityList = () => {
                             emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
                             readOnly
                           />
+                        </Typography>
+                        <Typography variant="subtitle1" color="text.secondary">
+                          Mobile: {card.mobile}
+                        </Typography>
+                        <Typography variant="subtitle1" color="text.secondary">
+                          Email: {card.email}
                         </Typography>
                       </CardContent>
                       </CardActionArea>
