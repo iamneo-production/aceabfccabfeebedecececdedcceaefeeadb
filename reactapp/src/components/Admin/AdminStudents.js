@@ -156,38 +156,38 @@ const AdminStudents = () => {
        
        
        <Fab
-            color="primary"
-            aria-label="Add Student"
-            onClick={() => {
-              setFormData({
-                studentId: '',
-                studentName: '',
-                studentDOB: '',
-                address: '',
-                mobile: '',
-                eligibility: '',
-                userId: params.userId,
-                sslc: '',
-                hsc: '',
-                diploma: '',
-              });
-              setDialogOpen(true);
-            }}
-            style={{
-              position: 'fixed',
-              bottom: '20px',
-              right: '20px',
-              width: isHovered ? '120px' : '56px',
-              height: '56px', // Set a fixed height to make it a rectangle when hovered
-              borderRadius: isHovered ? '0px' : '50%', // Change border radius on hover
-              transition: 'width 0.3s ease, height 0.3s ease, border-radius 0.3s ease', // Transition specific properties
-            }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            {isHovered ? 'Add Student' : <AddIcon />}
-          </Fab>
-      
+  color="primary"
+  aria-label="Add Student"
+  onClick={() => {
+    setFormData({
+      studentId: '',
+      studentName: '',
+      studentDOB: '',
+      address: '',
+      mobile: '',
+      eligibility: '',
+      userId: params.userId,
+      sslc: '',
+      hsc: '',
+      diploma: '',
+    });
+    setDialogOpen(true);
+  }}
+  style={{
+    position: 'fixed',
+    bottom: '20px',
+    right: '20px',
+    width: isHovered ? '120px' : '56px',
+    height: '56px', // Set a fixed height to make it a rectangle when hovered
+    borderRadius: isHovered ? '10px' : '50%', // Change border radius on hover
+    transition: 'width 0.5s ease, height 0.5s ease, border-radius 0.5s ease', // Transition specific properties
+  }}
+  onMouseEnter={() => setIsHovered(true)}
+  onMouseLeave={() => setIsHovered(false)}
+>
+  {isHovered ? 'Add Student' : <AddIcon />}
+</Fab>
+
      
       
       </div>
