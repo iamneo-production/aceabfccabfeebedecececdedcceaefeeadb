@@ -291,6 +291,7 @@ const AdminUniversityList = () => {
         <Box sx={{ bgcolor: "background.paper", pb: 6 }}></Box>
         <Container sx={{ py: 8 }} maxWidth="md">
           <h3>Welcome Back Admin</h3>
+          <h4>Feel free to click on any card to add, edit and delete all courses by institute</h4>
           <Box
             sx={{
               bgcolor: "background.paper",
