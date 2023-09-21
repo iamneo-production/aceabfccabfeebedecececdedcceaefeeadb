@@ -13,6 +13,7 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Footer from '../Footer'
 
 const AdminAllCourses = () => {
   const [courses, setCourses] = useState([]);
@@ -177,7 +178,7 @@ const AdminAllCourses = () => {
         );
         setCourses(updatedCourses);
         setOpenEditDialog(false);
-        alert('Course updated successfully.');
+       
       })
       .catch((error) => {
         console.error('Error updating course:', error);
