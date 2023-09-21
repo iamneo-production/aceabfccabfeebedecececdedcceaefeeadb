@@ -226,91 +226,95 @@ const AdminAllCourses = () => {
         />
       </div>
 
-      {/* Edit Course Dialog */}
-      {selectedCourse && (
-        <Dialog open={openEditDialog} onClose={handleCloseEditDialog}>
-          <DialogTitle>Edit Course</DialogTitle>
-          <DialogContent>
+ {/* Edit Course Dialog */}
+ {selectedCourse && (
+          <Dialog open={openEditDialog} onClose={handleCloseEditDialog}>
+            <DialogTitle>Edit Course</DialogTitle>
+            <DialogContent style={{ padding: '16px' }}>
+              <form>
+                <TextField
+                  label="Course Name"
+                  fullWidth
+                  value={editedCourse.courseName}
+                  onChange={(e) =>
+                    setEditedCourse({ ...editedCourse, courseName: e.target.value })
+                  }
+                  style={{ marginBottom: '16px' }}
+                />
+                <TextField
+                  label="Description"
+                  fullWidth
+                  value={editedCourse.courseDescription}
+                  onChange={(e) =>
+                    setEditedCourse({ ...editedCourse, courseDescription: e.target.value })
+                  }
+                  style={{ marginBottom: '16px' }}
+                />
+                <TextField
+                  label="Duration (years)"
+                  fullWidth
+                  type="number"
+                  value={editedCourse.courseDuration}
+                  onChange={(e) =>
+                    setEditedCourse({ ...editedCourse, courseDuration: e.target.value })
+                  }
+                />
+              </form>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseEditDialog} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={handleSaveEdit} color="primary">
+                Save
+              </Button>
+            </DialogActions>
+          </Dialog>
+        )}
+
+        {/* Add Course Dialog */}
+        <Dialog open={openAddDialog} onClose={handleCloseAddDialog}>
+          <DialogTitle>Add Course</DialogTitle>
+          <DialogContent style={{ padding: '16px' }}>
             <form>
               <TextField
                 label="Course Name"
                 fullWidth
-                value={editedCourse.courseName}
+                value={newCourse.courseName}
                 onChange={(e) =>
-                  setEditedCourse({ ...editedCourse, courseName: e.target.value })
+                  setNewCourse({ ...newCourse, courseName: e.target.value })
                 }
+                style={{ marginBottom: '16px' }}
               />
               <TextField
                 label="Description"
                 fullWidth
-                value={editedCourse.courseDescription}
+                value={newCourse.courseDescription}
                 onChange={(e) =>
-                  setEditedCourse({ ...editedCourse, courseDescription: e.target.value })
+                  setNewCourse({ ...newCourse, courseDescription: e.target.value })
                 }
+                style={{ marginBottom: '16px' }}
               />
               <TextField
                 label="Duration (years)"
                 fullWidth
                 type="number"
-                value={editedCourse.courseDuration}
+                value={newCourse.courseDuration}
                 onChange={(e) =>
-                  setEditedCourse({ ...editedCourse, courseDuration: e.target.value })
+                  setNewCourse({ ...newCourse, courseDuration: e.target.value })
                 }
               />
             </form>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseEditDialog} color="primary">
+            <Button onClick={handleCloseAddDialog} color="primary">
               Cancel
             </Button>
-            <Button onClick={handleSaveEdit} color="primary">
+            <Button onClick={handleSaveAdd} color="primary">
               Save
             </Button>
           </DialogActions>
         </Dialog>
-      )}
-
-      {/* Add Course Dialog */}
-      <Dialog open={openAddDialog} onClose={handleCloseAddDialog}>
-        <DialogTitle>Add Course</DialogTitle>
-        <DialogContent>
-          <form>
-            <TextField
-              label="Course Name"
-              fullWidth
-              value={newCourse.courseName}
-              onChange={(e) =>
-                setNewCourse({ ...newCourse, courseName: e.target.value })
-              }
-            />
-            <TextField
-              label="Description"
-              fullWidth
-              value={newCourse.courseDescription}
-              onChange={(e) =>
-                setNewCourse({ ...newCourse, courseDescription: e.target.value })
-              }
-            />
-            <TextField
-              label="Duration (years)"
-              fullWidth
-              type="number"
-              value={newCourse.courseDuration}
-              onChange={(e) =>
-                setNewCourse({ ...newCourse, courseDuration: e.target.value })
-              }
-            />
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseAddDialog} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleSaveAdd} color="primary">
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
       <Footer/>
     </>
   );
