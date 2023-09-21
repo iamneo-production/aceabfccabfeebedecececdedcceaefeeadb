@@ -310,6 +310,7 @@ const AdminAllCourses = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      <Footer/>
     </>
   );
 };
