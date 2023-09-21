@@ -177,7 +177,7 @@ const AdminStudents = () => {
     bottom: '2%',
     right: '2%',
     width: isHovered ? 'auto' : '56px', // Standard width for the icon
-    height: '10%', // Adjust percentage as needed
+   
     borderRadius: isHovered ? '10px' : '50%', // Change border radius on hover
     transition: 'width 0.3s ease, border-radius 0.3s ease', // Transition specific properties
     overflow: 'hidden', // Hide the overflow
