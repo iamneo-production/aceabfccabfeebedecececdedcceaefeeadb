@@ -216,14 +216,16 @@ const AdminAllCourses = () => {
           {isHovered ? 'Add Course' : <AddIcon />}
       
         </Fab>
+        <div style={{ margin: '2%', padding: '2%' }}>
         <DataGrid
           getRowId={(row) => row.courseId}
           rows={courses}
           columns={columns}
           pageSize={10}
           rowsPerPageOptions={[10, 25, 50]}
-          checkboxSelection
+         
         />
+        </div>
       </div>
 
  {/* Edit Course Dialog */}
