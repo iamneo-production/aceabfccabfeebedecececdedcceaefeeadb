@@ -191,7 +191,7 @@ const AdminAllCourses = () => {
   return (
     <>
       <AdminAppBar id={params.userId} />
-      <div style={{ width: '90%' }}>
+    
 
         <Fab
           variant="contained"
@@ -224,7 +224,7 @@ const AdminAllCourses = () => {
          
         />
         </div>
-      </div>
+     
 
  {/* Edit Course Dialog */}
  {selectedCourse && (
