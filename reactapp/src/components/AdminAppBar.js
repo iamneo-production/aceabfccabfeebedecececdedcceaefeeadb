@@ -29,6 +29,11 @@ const AdminAppBar = (props) => {
               id="adminInstitute"
               color={isButtonSelected(`/AdminHomePage/UniversityList/${props.id}`) ? 'secondary' : 'inherit'}
               onClick={() => navigate(`/AdminHomePage/UniversityList/${props.id}`)}
+              sx={{
+                ...(isButtonSelected(`/AdminHomePage/UniversityList/${props.id}`)
+                  ? { backgroundColor: 'secondary.main', color: 'white', boxShadow: 4 }
+                  : {}),
+              }}
             >
               Institute
             </Button>
@@ -36,6 +41,11 @@ const AdminAppBar = (props) => {
               id="adminAllCourses"
               color={isButtonSelected(`/AdminHomePage/AllCourses/${props.id}`) ? 'secondary' : 'inherit'}
               onClick={() => navigate(`/AdminHomePage/AllCourses/${props.id}`)}
+              sx={{
+                ...(isButtonSelected(`/AdminHomePage/AllCourses/${props.id}`)
+                  ? { backgroundColor: 'secondary.main', color: 'white', boxShadow: 4 }
+                  : {}),
+              }}
             >
               All Courses
             </Button>
@@ -43,6 +53,11 @@ const AdminAppBar = (props) => {
               id="adminStudents"
               color={isButtonSelected(`/AdminHomePage/Students/${props.id}`) ? 'secondary' : 'inherit'}
               onClick={() => navigate(`/AdminHomePage/Students/${props.id}`)}
+              sx={{
+                ...(isButtonSelected(`/AdminHomePage/Students/${props.id}`)
+                  ? { backgroundColor: 'secondary.main', color: 'white', boxShadow: 4 }
+                  : {}),
+              }}
             >
               Students
             </Button>
