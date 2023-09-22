@@ -48,9 +48,9 @@ const RegisteredCourses = () => {
   const [hsc, sethsc] = useState("");
   const [diploma, setdiploma] = useState("");
 
-  const handleViewActivityClick = () => {
-    console.log('View Activity button clicked');
-  };
+  // const handleViewActivityClick = () => {
+  //   console.log('View Activity button clicked');
+  // };
 
   const handleEditClick = (admissionId) => {
     // Fetch student data by admissionId and populate the form

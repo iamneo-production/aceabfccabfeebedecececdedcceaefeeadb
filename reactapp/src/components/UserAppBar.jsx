@@ -3,11 +3,11 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { useNavigate,  useLocation } from 'react-router-dom';
 
 const UserAppBar = (props) => {
   const navigate = useNavigate();
-  const { id } = useParams();
+  // const { id } = useParams();
   const location = useLocation();
 
   // Function to check if a button is selected based on the current route
